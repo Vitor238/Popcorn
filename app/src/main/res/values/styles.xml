@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@color/button_background</item>
+        <item name="android:layout_width">@dimen/button_width</item>
+    </style>
+
+    <style name="ButtonWhiteStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@color/button_background_white</item>
+        <item name="android:layout_width">@dimen/button_width</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TitleSignupStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">@dimen/title_signup</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
+
+</resources>
