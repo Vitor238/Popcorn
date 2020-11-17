@@ -3,6 +3,7 @@ package com.vitor238.popcorn.view
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.viewmodel.LoggedInViewModel
 import com.vitor238.popcorn.viewmodel.LoggedInViewModelFactory
@@ -26,7 +27,8 @@ class SettingsActivity : BaseActivity() {
 
         loggedInViewModel.userMutableLiveData.observe(this) {
             if (it != null) {
-                text_email.text = it.email
+                text_email.text = it.displayName
+                Glide.with(this).load(it.photoUrl).circleCrop().into(image_profile)
             }
         }
     }
