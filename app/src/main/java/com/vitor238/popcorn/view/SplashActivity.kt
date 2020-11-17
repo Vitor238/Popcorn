@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.firebase.auth.FirebaseAuth
 import com.vitor238.popcorn.R
 
 class SplashActivity : AppCompatActivity() {
@@ -13,11 +14,16 @@ class SplashActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
-            val intent = Intent(this@SplashActivity, WelcomeActivity::class.java)
+            val intent = if (FirebaseAuth.getInstance().currentUser != null) {
+                Intent(this, HomeActivity::class.java)
+            } else {
+                Intent(this, WelcomeActivity::class.java)
+            }
             startActivity(intent)
             finish()
-        }, 5000)
+        }, 3000)
     }
 }

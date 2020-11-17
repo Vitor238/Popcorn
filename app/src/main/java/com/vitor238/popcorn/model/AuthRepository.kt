@@ -13,7 +13,15 @@ import com.vitor238.popcorn.R
 
 class AuthRepository(private val application: Application) {
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-    val userMutableLiveData: MutableLiveData<FirebaseUser?> = MutableLiveData()
+    val userMutableLiveData: MutableLiveData<FirebaseUser> = MutableLiveData()
+    val loggedOutMutableLiveData: MutableLiveData<Boolean> = MutableLiveData()
+
+    init {
+        if (firebaseAuth.currentUser != null) {
+            userMutableLiveData.postValue(firebaseAuth.currentUser)
+            loggedOutMutableLiveData.postValue(false)
+        }
+    }
 
     fun register(email: String, password: String) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
@@ -54,6 +62,11 @@ class AuthRepository(private val application: Application) {
                         Log.e(TAG, task.exception?.message ?: defaultMessage)
                     }
                 })
+    }
+
+    fun logout() {
+        firebaseAuth.signOut()
+        loggedOutMutableLiveData.postValue(true)
     }
 
     companion object {

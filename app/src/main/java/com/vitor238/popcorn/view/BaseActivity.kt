@@ -1,9 +1,5 @@
 package com.vitor238.popcorn.view
 
-import android.content.Context
-import android.view.MotionEvent
-import android.view.inputmethod.InputMethodManager
-import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar

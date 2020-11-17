@@ -19,4 +19,10 @@
     <string name="sign_up">Sign up</string>
     <string name="failed_to_register">Failed to register</string>
     <string name="failed_to_login">Failed to login</string>
+    <string name="night_mode">Night mode</string>
+    <string name="about">About</string>
+    <string name="logout">Logout</string>
+    <string name="search">Search</string>
+    <string name="profile">Profile</string>
+    <string name="profile_picture">Profile picture</string>
 </resources>

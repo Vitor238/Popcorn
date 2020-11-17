@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:defaultValue="true"
+        android:icon="@drawable/ic_baseline_brightness_3_24"
+        android:key="nightTheme"
+        android:title="@string/night_mode" />
+    <Preference
+        android:icon="@drawable/ic_baseline_info_24"
+        android:key="about"
+        android:title="@string/about" />
+    <Preference
+        android:icon="@drawable/ic_baseline_exit_to_app_24"
+        android:key="logout"
+        android:title="@string/logout" />
+
+</androidx.preference.PreferenceScreen>
