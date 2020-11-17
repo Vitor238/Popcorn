@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -62,6 +63,28 @@ class AuthRepository(private val application: Application) {
                         Log.e(TAG, task.exception?.message ?: defaultMessage)
                     }
                 })
+    }
+
+    fun signInWithGoogle(googleAuthCredential: AuthCredential) {
+        firebaseAuth.signInWithCredential(googleAuthCredential)
+            .addOnCompleteListener(
+                ContextCompat.getMainExecutor(application.applicationContext),
+                { task: Task<AuthResult?> ->
+                    if (task.isSuccessful) {
+                        userMutableLiveData.postValue(firebaseAuth.currentUser)
+                    } else {
+                        val defaultMessage = application.applicationContext
+                            .getString(R.string.failed_to_register)
+
+                        Toast.makeText(
+                            application.applicationContext, task.exception?.message
+                                ?: defaultMessage, Toast.LENGTH_SHORT
+                        ).show()
+
+                        Log.e(TAG, task.exception?.message ?: defaultMessage)
+                    }
+                }
+            )
     }
 
     fun logout() {
