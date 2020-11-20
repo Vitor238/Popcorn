@@ -8,14 +8,14 @@ import com.vitor238.popcorn.model.AuthRepository
 
 class LoggedInViewModel(application: Application) : AndroidViewModel(application) {
     private val authRepository: AuthRepository = AuthRepository(application)
-    val userMutableLiveData: MutableLiveData<FirebaseUser>
+    val firebaseUserMutableLiveData: MutableLiveData<FirebaseUser>
     val loggedOutMutableLiveData: MutableLiveData<Boolean>
     fun logOut() {
         authRepository.logout()
     }
 
     init {
-        userMutableLiveData = authRepository.userMutableLiveData
+        firebaseUserMutableLiveData = authRepository.firebaseUserMutableLiveData
         loggedOutMutableLiveData = authRepository.loggedOutMutableLiveData
     }
 }

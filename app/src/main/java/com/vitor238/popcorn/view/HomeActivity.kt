@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.google.firebase.auth.FirebaseAuth
 import com.vitor238.popcorn.R
+import com.vitor238.popcorn.viewmodel.ProfileViewModel
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : BaseActivity() {
@@ -27,11 +29,18 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        if (currentUser != null) {
+
+        val profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        profileViewModel.getFirestoreUser()
+
+        profileViewModel.firestoreUserLiveData.observe(this) { user ->
+
             val settingsItem = menu?.findItem(R.id.menu_settings)
-            Glide.with(this).asDrawable().load(currentUser.photoUrl)
+            Glide.with(this)
+                .asDrawable()
+                .load(user?.photoUrl)
                 .circleCrop()
+                .apply(RequestOptions.placeholderOf(R.drawable.ic_baseline_account_circle_24))
                 .into(object : CustomTarget<Drawable>() {
                     override fun onResourceReady(
                         resource: Drawable,

@@ -4,12 +4,12 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.FirebaseUser
 import com.vitor238.popcorn.model.AuthRepository
+import com.vitor238.popcorn.model.User
 
 class LoginRegisterViewModel(application: Application) : AndroidViewModel(application) {
     private val authRepository: AuthRepository = AuthRepository(application)
-    val userMutableLiveData: MutableLiveData<FirebaseUser>
+    val userMutableLiveData: MutableLiveData<User>
 
     fun register(email: String, password: String) {
         authRepository.register(email, password)

@@ -12,9 +12,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.vitor238.popcorn.R
+import com.vitor238.popcorn.model.User
 import com.vitor238.popcorn.utils.toast
 import com.vitor238.popcorn.viewmodel.LoginRegisterViewModel
 import com.vitor238.popcorn.viewmodel.LoginViewModelFactory
+import com.vitor238.popcorn.viewmodel.ProfileViewModel
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.activity_signup.toolbar
 
@@ -22,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_signup.toolbar
 class SignupActivity : BaseActivity() {
 
     private lateinit var googleSignInClient: GoogleSignInClient
-    private lateinit var loginViewModel: LoginRegisterViewModel
+    private lateinit var loginRegisterViewModel: LoginRegisterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,15 +35,13 @@ class SignupActivity : BaseActivity() {
         initGoogleSignInClient()
 
         val loginViewModelFactory = LoginViewModelFactory(application)
-        loginViewModel = ViewModelProvider(this, loginViewModelFactory)
+
+        loginRegisterViewModel = ViewModelProvider(this, loginViewModelFactory)
             .get(LoginRegisterViewModel::class.java)
 
-        loginViewModel.userMutableLiveData.observe(this) {
+        loginRegisterViewModel.userMutableLiveData.observe(this) {
             if (it != null) {
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-            } else {
-                Log.i(TAG, "firebase user is null")
+                saveUserOnFirestore(it)
             }
         }
 
@@ -51,7 +51,7 @@ class SignupActivity : BaseActivity() {
 
             if (email.isNotBlank()) {
                 if (password.isNotBlank()) {
-                    loginViewModel.register(email, password)
+                    loginRegisterViewModel.register(email, password)
                 } else {
                     toast(getString(R.string.type_your_password))
                 }
@@ -98,7 +98,20 @@ class SignupActivity : BaseActivity() {
     private fun getGoogleAuthCredential(googleSignInAccount: GoogleSignInAccount) {
         val googleTokenId = googleSignInAccount.idToken
         val googleAuthCredential = GoogleAuthProvider.getCredential(googleTokenId, null)
-        loginViewModel.signInWithGoogle(googleAuthCredential)
+        loginRegisterViewModel.signInWithGoogle(googleAuthCredential)
+    }
+
+    private fun saveUserOnFirestore(user: User) {
+        val viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        viewModel.saveUserOnFirestore(user)
+        viewModel.firestoreUserCreatedLiveData.observe(this) { userCreated ->
+            if (userCreated) {
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+            } else {
+                toast(R.string.failed_to_register)
+            }
+        }
     }
 
     companion object {

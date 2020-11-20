@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.vitor238.popcorn.R
-import com.vitor238.popcorn.viewmodel.LoggedInViewModel
-import com.vitor238.popcorn.viewmodel.LoggedInViewModelFactory
+import com.vitor238.popcorn.viewmodel.ProfileViewModel
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : BaseActivity() {
@@ -21,15 +21,21 @@ class SettingsActivity : BaseActivity() {
             .replace(R.id.conteiner_settings, MainPreferences())
             .commit()
 
-        val loggedInViewModelFactory = LoggedInViewModelFactory(application)
-        val loggedInViewModel = ViewModelProvider(this, loggedInViewModelFactory)
-            .get(LoggedInViewModel::class.java)
 
-        loggedInViewModel.userMutableLiveData.observe(this) {
-            if (it != null) {
-                text_email.text = it.displayName
-                Glide.with(this).load(it.photoUrl).circleCrop().into(image_profile)
+        val profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        profileViewModel.getFirestoreUser()
+        profileViewModel.firestoreUserLiveData.observe(this) { user ->
+            if (user != null) {
+                text_email.text = user.name
+            } else {
+                text_email.text = ""
             }
+
+            Glide.with(this)
+                .load(user?.photoUrl)
+                .circleCrop()
+                .apply(RequestOptions.placeholderOf(R.drawable.ic_baseline_account_circle_24))
+                .into(image_profile)
         }
     }
 

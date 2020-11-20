@@ -6,6 +6,10 @@
         android:key="nightTheme"
         android:title="@string/night_mode" />
     <Preference
+        android:icon="@drawable/ic_baseline_edit_24"
+        android:key="editProfile"
+        android:title="@string/edit_profile" />
+    <Preference
         android:icon="@drawable/ic_baseline_info_24"
         android:key="about"
         android:title="@string/about" />

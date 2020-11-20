@@ -14,12 +14,13 @@ import com.vitor238.popcorn.R
 
 class AuthRepository(private val application: Application) {
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-    val userMutableLiveData: MutableLiveData<FirebaseUser> = MutableLiveData()
+    val userMutableLiveData: MutableLiveData<User> = MutableLiveData()
+    val firebaseUserMutableLiveData: MutableLiveData<FirebaseUser> = MutableLiveData()
     val loggedOutMutableLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         if (firebaseAuth.currentUser != null) {
-            userMutableLiveData.postValue(firebaseAuth.currentUser)
+            firebaseUserMutableLiveData.postValue(firebaseAuth.currentUser)
             loggedOutMutableLiveData.postValue(false)
         }
     }
@@ -30,7 +31,27 @@ class AuthRepository(private val application: Application) {
                 ContextCompat.getMainExecutor(application.applicationContext),
                 { task: Task<AuthResult?> ->
                     if (task.isSuccessful) {
-                        userMutableLiveData.postValue(firebaseAuth.currentUser)
+
+                        val newUser = task.result?.additionalUserInfo?.isNewUser
+                        val currentUser = firebaseAuth.currentUser
+
+                        val photoUrl = if (currentUser?.photoUrl != null) {
+                            currentUser.photoUrl.toString()
+                        } else {
+                            null
+                        }
+
+                        val user = User(
+                            id = currentUser?.uid,
+                            name = currentUser?.displayName,
+                            email = currentUser?.email,
+                            photoUrl = photoUrl,
+                            isNew = newUser
+                        )
+
+                        userMutableLiveData.postValue(user)
+
+
                     } else {
                         val defaultMessage = application.applicationContext
                             .getString(R.string.failed_to_register)
@@ -51,7 +72,24 @@ class AuthRepository(private val application: Application) {
                 ContextCompat.getMainExecutor(application.applicationContext),
                 { task: Task<AuthResult?> ->
                     if (task.isSuccessful) {
-                        userMutableLiveData.postValue(firebaseAuth.currentUser)
+
+                        val currentUser = firebaseAuth.currentUser
+                        val photoUrl = if (currentUser?.photoUrl != null) {
+                            currentUser.photoUrl.toString()
+                        } else {
+                            null
+                        }
+
+                        val user = User(
+                            id = currentUser?.uid,
+                            name = currentUser?.displayName,
+                            email = currentUser?.email,
+                            photoUrl = photoUrl,
+                            isNew = false
+                        )
+
+                        userMutableLiveData.postValue(user)
+
                     } else {
                         val defaultMessage = application.applicationContext
                             .getString(R.string.failed_to_login)
@@ -71,11 +109,28 @@ class AuthRepository(private val application: Application) {
                 ContextCompat.getMainExecutor(application.applicationContext),
                 { task: Task<AuthResult?> ->
                     if (task.isSuccessful) {
-                        userMutableLiveData.postValue(firebaseAuth.currentUser)
+
+                        val newUser = task.result?.additionalUserInfo?.isNewUser
+                        val currentUser = firebaseAuth.currentUser
+                        val photoUrl = if (currentUser?.photoUrl != null) {
+                            currentUser.photoUrl.toString()
+                        } else {
+                            null
+                        }
+
+                        val user = User(
+                            id = currentUser?.uid,
+                            name = currentUser?.displayName,
+                            email = currentUser?.email,
+                            photoUrl = photoUrl,
+                            isNew = newUser
+                        )
+
+                        userMutableLiveData.postValue(user)
+
                     } else {
                         val defaultMessage = application.applicationContext
                             .getString(R.string.failed_to_register)
-
                         Toast.makeText(
                             application.applicationContext, task.exception?.message
                                 ?: defaultMessage, Toast.LENGTH_SHORT

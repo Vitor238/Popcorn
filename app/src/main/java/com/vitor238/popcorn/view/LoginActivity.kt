@@ -12,9 +12,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.vitor238.popcorn.R
+import com.vitor238.popcorn.model.User
 import com.vitor238.popcorn.utils.toast
 import com.vitor238.popcorn.viewmodel.LoginRegisterViewModel
 import com.vitor238.popcorn.viewmodel.LoginViewModelFactory
+import com.vitor238.popcorn.viewmodel.ProfileViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.toolbar
 
@@ -36,8 +38,12 @@ class LoginActivity : BaseActivity() {
             .get(LoginRegisterViewModel::class.java)
         loginViewModel.userMutableLiveData.observe(this) {
             if (it != null) {
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
+                if (it.isNew == true) {
+                    saveUserOnFirestore(it)
+                } else {
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                }
             } else {
                 Log.i(TAG, "firebase user is null")
             }
@@ -97,6 +103,21 @@ class LoginActivity : BaseActivity() {
         val googleAuthCredential = GoogleAuthProvider.getCredential(googleTokenId, null)
         loginViewModel.signInWithGoogle(googleAuthCredential)
     }
+
+    private fun saveUserOnFirestore(user: User) {
+        val viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        viewModel.saveUserOnFirestore(user)
+        viewModel.firestoreUserCreatedLiveData.observe(this) { userCreated ->
+            if (userCreated) {
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+            } else {
+                toast(R.string.failed_to_register)
+            }
+
+        }
+    }
+
 
     companion object {
         val TAG = LoginActivity::class.simpleName

@@ -25,4 +25,6 @@
     <string name="search">Search</string>
     <string name="profile">Profile</string>
     <string name="profile_picture">Profile picture</string>
+    <string name="this_user_is_not_registered">This user is not registered</string>
+    <string name="edit_profile">Edit profile</string>
 </resources>
