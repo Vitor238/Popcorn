@@ -2,15 +2,18 @@
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    app:popupTheme="@style/Theme.Popcorn.PopupOverlay"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
-    android:background="@color/black"
     app:title="">
+
     <LinearLayout
         android:layout_gravity="center"
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <ImageView
             android:src="@drawable/ic_pop_corn"
             android:layout_width="26dp"

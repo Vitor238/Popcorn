@@ -28,6 +28,7 @@ class MainPreferences : PreferenceFragmentCompat() {
         setPreferencesFromResource(R.xml.preferences, rootKey)
         val prefLogout = findPreference<Preference>("logout")
         val prefEditProfile = findPreference<Preference>("editProfile")
+        val prefAbout = findPreference<Preference>("about")
 
         val loggedInViewModelFactory = LoggedInViewModelFactory(activity?.application!!)
         val loggedInViewModel = ViewModelProvider(this, loggedInViewModelFactory)
@@ -51,5 +52,12 @@ class MainPreferences : PreferenceFragmentCompat() {
             startActivity(intent)
             true
         }
+
+        prefAbout?.setOnPreferenceClickListener {
+            val intent = Intent(activity, AboutActivity::class.java)
+            startActivity(intent)
+            true
+        }
+
     }
 }
