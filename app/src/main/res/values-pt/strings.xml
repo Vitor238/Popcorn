@@ -27,4 +27,10 @@
     <string name="profile_picture">Profile picture</string>
     <string name="this_user_is_not_registered">This user is not registered</string>
     <string name="edit_profile">Edit profile</string>
+    <string name="name">Name</string>
+    <string name="save">Save</string>
+    <string name="settings" />
+    <string name="enter_your_new_username">Enter your new username</string>
+    <string name="tap_to_change_username">Tap to change username</string>
+    <string name="change_profile_picture">Change profile picture</string>
 </resources>

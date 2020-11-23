@@ -3,7 +3,7 @@ package com.vitor238.popcorn.utils
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 
-object FirestoreRefs {
+object FirestoreReferences {
 
     private val rootRef = FirebaseFirestore.getInstance()
 

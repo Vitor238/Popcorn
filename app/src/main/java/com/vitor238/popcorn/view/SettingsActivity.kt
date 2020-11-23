@@ -15,20 +15,23 @@ class SettingsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        setupToolbar(toolbar = toolbar as Toolbar, showBackButton = true)
+        setupToolbar(
+            toolbar = toolbar as Toolbar,
+            showBackButton = true,
+            titleIdRes = R.string.settings
+        )
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.conteiner_settings, MainPreferences())
             .commit()
 
-
         val profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         profileViewModel.getFirestoreUser()
         profileViewModel.firestoreUserLiveData.observe(this) { user ->
             if (user != null) {
-                text_email.text = user.name
+                supportActionBar?.title = user.name
             } else {
-                text_email.text = ""
+                supportActionBar?.title = getString(R.string.settings)
             }
 
             Glide.with(this)
