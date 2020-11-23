@@ -1,8 +1,6 @@
 package com.vitor238.popcorn.viewmodel
 
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.vitor238.popcorn.model.ProfileRepository
 import com.vitor238.popcorn.model.User
 import java.io.InputStream
@@ -39,6 +37,11 @@ class ProfileViewModel : ViewModel(), LifecycleObserver {
 
     fun updateFirestorePhoto(newPhoto: String) {
         profileRepository.updateFirestorePhoto(newPhoto)
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    fun removeFirestoreUserListener() {
+        profileRepository.detachCurrentUserListener()
     }
 
     init {

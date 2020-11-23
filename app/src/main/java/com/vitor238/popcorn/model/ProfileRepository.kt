@@ -19,7 +19,6 @@ class ProfileRepository {
     private var currentUserListener: ListenerRegistration? = null
 
     fun getCurrentFirestoreUser() {
-        //TODO: detach
         if (currentUser != null) {
             val currentUserRef = FirestoreReferences.usersRef.document(currentUser.uid)
             currentUserListener = currentUserRef.addSnapshotListener { snapshot, e ->
@@ -37,6 +36,12 @@ class ProfileRepository {
 
         } else {
             firestoreUserMutableLiveData.value = null
+        }
+    }
+
+    fun detachCurrentUserListener() {
+        currentUserListener?.let {
+            it.remove()
         }
     }
 
