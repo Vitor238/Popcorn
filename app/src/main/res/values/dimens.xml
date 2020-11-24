@@ -3,4 +3,6 @@
     <dimen name="title_signup">18sp</dimen>
     <dimen name="margin_signup">8dp</dimen>
     <dimen name="button_width">270dp</dimen>
+    <dimen name="title_lists">16sp</dimen>
+    <dimen name="padding_home">16dp</dimen>
 </resources>

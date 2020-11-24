@@ -106,7 +106,7 @@ class SignupActivity : BaseActivity() {
         viewModel.saveUserOnFirestore(user)
         viewModel.firestoreUserCreatedLiveData.observe(this) { userCreated ->
             if (userCreated) {
-                val intent = Intent(this, HomeActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             } else {
                 toast(R.string.failed_to_register)

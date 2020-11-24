@@ -18,7 +18,7 @@ class SplashActivity : AppCompatActivity() {
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             val intent = if (FirebaseAuth.getInstance().currentUser != null) {
-                Intent(this, HomeActivity::class.java)
+                Intent(this, MainActivity::class.java)
             } else {
                 Intent(this, WelcomeActivity::class.java)
             }

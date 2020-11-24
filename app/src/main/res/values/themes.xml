@@ -14,6 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/gray</item>
         <item name="android:textColor">@color/white</item>
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
     </style>
 
     <style name="Theme.Popcorn.NoActionBar">
@@ -24,4 +25,14 @@
     <style name="Theme.Popcorn.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Popcorn.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/light_gray</item>
+    </style>
 </resources>

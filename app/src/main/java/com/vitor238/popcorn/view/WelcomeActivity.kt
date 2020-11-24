@@ -19,7 +19,7 @@ class WelcomeActivity : BaseActivity() {
             startActivity(intent)
         }
         text_not_now.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }

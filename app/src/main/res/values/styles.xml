@@ -18,5 +18,11 @@
         <item name="backgroundTint">@color/white</item>
     </style>
 
+    <style name="TitleLists" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">@dimen/title_lists</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
 
 </resources>

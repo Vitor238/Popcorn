@@ -6,4 +6,4 @@ WIP
 
 ## :memo:  License
 
-This project is licensed under the [Apache 2 License](https://www.apache.org/licenses/LICENSE-2.0https://www.apache.org/licenses/LICENSE-2.0) - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the [Apache 2 License](https://www.apache.org/licenses/LICENSE-2.0) - see the [LICENSE](LICENSE) file for details.

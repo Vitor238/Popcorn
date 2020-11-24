@@ -13,12 +13,12 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.viewmodel.ProfileViewModel
-import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_main.*
 
-class HomeActivity : BaseActivity() {
+class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.activity_main)
 
         setupToolbar(toolbar = toolbar as Toolbar, showBackButton = false)
     }

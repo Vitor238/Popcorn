@@ -38,4 +38,13 @@
     <string name="the_movie_db_info">This product uses the TMDb API but is not endorsed or certified by TMDb.</string>
     <string name="version">version %s</string>
     <string name="the_movie_database">The Movie Database</string>
+    <string name="home">Home</string>
+    <string name="categories">Categories</string>
+    <string name="favorites">Favorites</string>
+    <string name="treding_this_week">Treding this week</string>
+    <string name="series">Series</string>
+    <string name="movies">Movies</string>
+    <string name="my_favorites">My favorites</string>
+    <string name="category_thumbnail">Category thumbnail</string>
+    <string name="thumbnail">Thumbnail</string>
 </resources>

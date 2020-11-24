@@ -41,7 +41,7 @@ class LoginActivity : BaseActivity() {
                 if (it.isNew == true) {
                     saveUserOnFirestore(it)
                 } else {
-                    val intent = Intent(this, HomeActivity::class.java)
+                    val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 }
             } else {
@@ -109,7 +109,7 @@ class LoginActivity : BaseActivity() {
         viewModel.saveUserOnFirestore(user)
         viewModel.firestoreUserCreatedLiveData.observe(this) { userCreated ->
             if (userCreated) {
-                val intent = Intent(this, HomeActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             } else {
                 toast(R.string.failed_to_register)
