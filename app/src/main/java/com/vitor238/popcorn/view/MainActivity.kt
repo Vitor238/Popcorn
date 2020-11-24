@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.viewmodel.ProfileViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -21,6 +23,43 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         setupToolbar(toolbar = toolbar as Toolbar, showBackButton = false)
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.conteiner, HomeFragment.newInstance())
+            .commit()
+
+        navigation.setOnNavigationItemSelectedListener(getNavigationListener())
+    }
+
+    private fun getNavigationListener(): BottomNavigationView.OnNavigationItemSelectedListener {
+        return BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_home -> {
+                    val homeFragment = HomeFragment.newInstance()
+                    openFragment(homeFragment)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.action_categories -> {
+                    val categoriesFragment = CategoriesFragment.newInstance()
+                    openFragment(categoriesFragment)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.action_favorites -> {
+                    val favoritesFragment = FavoritesFragment.newInstance()
+                    openFragment(favoritesFragment)
+                    return@OnNavigationItemSelectedListener true
+                }
+                else -> {
+                    return@OnNavigationItemSelectedListener false
+                }
+            }
+        }
+    }
+
+    private fun openFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.conteiner, fragment)
+            .commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

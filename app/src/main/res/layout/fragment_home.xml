@@ -18,12 +18,25 @@
             android:layout_height="wrap_content"
             android:text="@string/treding_this_week" />
 
-        <androidx.recyclerview.widget.RecyclerView
+
+        <ViewFlipper
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_movie" />
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_movie" />
+
+            <include
+                layout="@layout/error"
+                android:layout_width="match_parent"
+                android:layout_height="150dp" />
+
+        </ViewFlipper>
+
 
         <TextView
             style="@style/TitleLists"
@@ -32,12 +45,23 @@
             android:paddingTop="16dp"
             android:text="@string/series" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <ViewFlipper
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_movie" />
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_movie" />
+
+            <include
+                layout="@layout/error"
+                android:layout_width="match_parent"
+                android:layout_height="150dp" />
+
+        </ViewFlipper>
 
         <TextView
             style="@style/TitleLists"
@@ -46,13 +70,22 @@
             android:paddingTop="16dp"
             android:text="@string/movies" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <ViewFlipper
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_movie" />
+            android:layout_height="wrap_content">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_movie" />
 
+            <include
+                layout="@layout/error"
+                android:layout_width="match_parent"
+                android:layout_height="150dp" />
+
+        </ViewFlipper>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
