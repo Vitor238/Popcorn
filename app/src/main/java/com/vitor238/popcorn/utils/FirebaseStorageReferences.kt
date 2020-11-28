@@ -13,5 +13,4 @@ object FirebaseStorageReferences {
                 .child(FirebaseAuth.getInstance().currentUser?.uid!!)
                 .child("profile")
         }
-
 }

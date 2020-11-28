@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:padding="@dimen/padding_home">
+    tools:context=".ui.home.home.HomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
@@ -18,14 +17,20 @@
             android:layout_height="wrap_content"
             android:text="@string/treding_this_week" />
 
-
         <ViewFlipper
+            android:id="@+id/view_flipper_trends"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.recyclerview.widget.RecyclerView
+            <include
+                layout="@layout/loading"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="180dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_trends"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_movie" />
@@ -33,7 +38,7 @@
             <include
                 layout="@layout/error"
                 android:layout_width="match_parent"
-                android:layout_height="150dp" />
+                android:layout_height="180dp" />
 
         </ViewFlipper>
 
@@ -42,7 +47,6 @@
             style="@style/TitleLists"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
             android:text="@string/series" />
 
         <ViewFlipper
@@ -51,7 +55,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_movie" />
@@ -67,16 +71,16 @@
             style="@style/TitleLists"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
             android:text="@string/movies" />
 
         <ViewFlipper
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_movie" />
@@ -89,3 +93,4 @@
         </ViewFlipper>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
+

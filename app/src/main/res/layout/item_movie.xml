@@ -7,7 +7,7 @@
     android:padding="4dp">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/image_movie_poster"
         android:layout_width="100dp"
         android:layout_height="150dp"
         android:contentDescription="@string/thumbnail"
@@ -15,10 +15,12 @@
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/text_movie_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="12sp"
+        android:ellipsize="end"
+        android:maxLines="1"
         tools:text="Vikings" />
 </LinearLayout>

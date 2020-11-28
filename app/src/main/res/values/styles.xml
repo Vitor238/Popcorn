@@ -23,6 +23,8 @@
         <item name="backgroundTint">@color/white</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_marginTop">8dp</item>
     </style>
 
 </resources>

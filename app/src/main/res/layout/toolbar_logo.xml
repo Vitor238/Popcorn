@@ -6,6 +6,7 @@
     app:popupTheme="@style/Theme.Popcorn.PopupOverlay"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
+    android:id="@+id/toolbar_logo"
     app:title="">
 
     <LinearLayout
