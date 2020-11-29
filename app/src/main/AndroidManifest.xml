@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Popcorn">
-        <activity android:name="com.vitor238.popcorn.ui.preferences.about.AboutActivity" />
+        <activity android:name=".ui.preferences.about.AboutActivity" />
         <activity android:name=".ui.preferences.profile.EditProfileActivity" />
         <activity android:name=".ui.preferences.main.SettingsActivity" />
         <activity android:name=".ui.signup.SignupActivity" />

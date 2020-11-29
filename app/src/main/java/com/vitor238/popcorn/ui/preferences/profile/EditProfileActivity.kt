@@ -6,25 +6,26 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.vitor238.popcorn.R
+import com.vitor238.popcorn.databinding.ActivityEditProfileBinding
 import com.vitor238.popcorn.ui.base.BaseActivity
 import com.vitor238.popcorn.ui.viewmodel.ProfileViewModel
-import kotlinx.android.synthetic.main.activity_edit_profile.*
 
 class EditProfileActivity : BaseActivity() {
 
     private lateinit var profileViewModel: ProfileViewModel
+    private lateinit var binding: ActivityEditProfileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_profile)
+        binding = ActivityEditProfileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setupToolbar(
-            toolbar = toolbar as Toolbar,
+            toolbar = binding.toolbar,
             showBackButton = true,
             titleIdRes = R.string.edit_profile
         )
@@ -41,7 +42,7 @@ class EditProfileActivity : BaseActivity() {
                 .load(user?.photoUrl)
                 .circleCrop()
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_baseline_account_circle_24))
-                .into(image_profile)
+                .into(binding.imageProfile)
         }
 
         profileViewModel.newPhotoUrlMutableLiveData.observe(this) { newPhotoUrl ->
@@ -51,7 +52,7 @@ class EditProfileActivity : BaseActivity() {
             }
         }
 
-        image_chage_photo.setOnClickListener {
+        binding.imageChagePhoto.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                     val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)

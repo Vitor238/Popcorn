@@ -3,7 +3,6 @@ package com.vitor238.popcorn.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -13,6 +12,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.User
+import com.vitor238.popcorn.databinding.ActivityLoginBinding
 import com.vitor238.popcorn.ui.base.BaseActivity
 import com.vitor238.popcorn.ui.home.MainActivity
 import com.vitor238.popcorn.ui.signup.SignupActivity
@@ -20,19 +20,19 @@ import com.vitor238.popcorn.ui.viewmodel.LoginRegisterViewModel
 import com.vitor238.popcorn.ui.viewmodel.LoginViewModelFactory
 import com.vitor238.popcorn.ui.viewmodel.ProfileViewModel
 import com.vitor238.popcorn.utils.toast
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_login.toolbar
 
 class LoginActivity : BaseActivity() {
 
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var loginViewModel: LoginRegisterViewModel
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setupToolbar(toolbar = toolbar as Toolbar, showBackButton = true)
+        setupToolbar(toolbar = binding.toolbar.toolbarLogo, showBackButton = true)
 
         initGoogleSignInClient()
 
@@ -52,9 +52,9 @@ class LoginActivity : BaseActivity() {
             }
         }
 
-        button_login.setOnClickListener {
-            val email = edit_text_email.text.toString()
-            val password = edit_text_password.text.toString()
+        binding.buttonLogin.setOnClickListener {
+            val email = binding.editTextEmail.text.toString()
+            val password = binding.editTextPassword.text.toString()
             if (email.isNotBlank()) {
                 if (password.isNotBlank()) {
                     loginViewModel.login(email, password)
@@ -66,7 +66,7 @@ class LoginActivity : BaseActivity() {
             }
         }
 
-        button_sign_in_with_google.setOnClickListener {
+        binding.buttonSignInWithGoogle.setOnClickListener {
             signIn()
         }
     }

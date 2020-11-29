@@ -1,23 +1,25 @@
 package com.vitor238.popcorn.ui.preferences.main
 
 import android.os.Bundle
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.vitor238.popcorn.R
+import com.vitor238.popcorn.databinding.ActivitySettingsBinding
 import com.vitor238.popcorn.ui.base.BaseActivity
 import com.vitor238.popcorn.ui.viewmodel.ProfileViewModel
-import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : BaseActivity() {
 
+    private lateinit var binding: ActivitySettingsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setupToolbar(
-            toolbar = toolbar as Toolbar,
+            toolbar = binding.toolbar,
             showBackButton = true,
             titleIdRes = R.string.settings
         )
@@ -39,7 +41,7 @@ class SettingsActivity : BaseActivity() {
                 .load(user?.photoUrl)
                 .circleCrop()
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_baseline_account_circle_24))
-                .into(image_profile)
+                .into(binding.imageProfile)
         }
     }
 
