@@ -7,10 +7,8 @@ import com.squareup.moshi.JsonClass
 data class Trend(
     @Json(name = "poster_path")
     val posterPath: String,
-    @Json(name = "original_name")
-    val originalName: String?,
-    @Json(name = "original_title")
-    val originalTitle: String?,
+    val name: String?,
+    val title: String?,
     val id: Int,
     @Json(name = "media_type")
     val mediaType: String

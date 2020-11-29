@@ -31,7 +31,7 @@ class TrendsAdapter :
         private val textTitle: TextView = item.text_movie_title
 
         fun bind(trend: Trend) {
-            textTitle.text = trend.originalName ?: trend.originalTitle
+            textTitle.text = trend.name ?: trend.title
             Glide.with(imagePoster.context)
                 .load(BASE_TMDB_IMG_URL + trend.posterPath)
                 .into(imagePoster)
