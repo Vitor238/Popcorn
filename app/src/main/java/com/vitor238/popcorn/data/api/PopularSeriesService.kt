@@ -10,6 +10,6 @@ interface PopularSeriesService {
     @GET("tv/popular/")
     suspend fun getPopularSeries(
         @Query("api_key") apiKey: String = ApiKeys.TMDB_API_KEY,
-        @Query("language") language: String = LocaleUtils.getLocale()
+        @Query("language") language: String = LocaleUtils.getLanguage()
     ): PopularSeriesResult
 }

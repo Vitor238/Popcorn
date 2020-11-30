@@ -81,6 +81,7 @@
             android:text="@string/popular_movies" />
 
         <ViewFlipper
+            android:id="@+id/view_flipper_movies"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp">

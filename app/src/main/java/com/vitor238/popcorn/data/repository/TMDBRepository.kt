@@ -1,7 +1,9 @@
 package com.vitor238.popcorn.data.repository
 
+import com.vitor238.popcorn.data.api.PopularMoviesService
 import com.vitor238.popcorn.data.api.PopularSeriesService
 import com.vitor238.popcorn.data.api.TrendsService
+import com.vitor238.popcorn.data.model.PopularMovie
 import com.vitor238.popcorn.data.model.PopularSerie
 import com.vitor238.popcorn.data.model.Trend
 import com.vitor238.popcorn.utils.RetrofitInitializer
@@ -21,6 +23,12 @@ class TMDBRepository {
         val tvSeriesResult = retrofit.create(PopularSeriesService::class.java)
             .getPopularSeries()
         return tvSeriesResult.results
+    }
+
+    suspend fun getPopularMovies(): List<PopularMovie> {
+        val popularMoviesResult = retrofit.create(PopularMoviesService::class.java)
+            .getPopularMovies()
+        return popularMoviesResult.results
     }
 
     companion object {

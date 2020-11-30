@@ -14,6 +14,6 @@ interface TrendsService {
         @Path("media_type") mediaType: String = "all",
         @Path("time_window") list: String = "week",
         @Query("api_key") apiKey: String = ApiKeys.TMDB_API_KEY,
-        @Query("language") language: String = LocaleUtils.getLocale()
+        @Query("language") language: String = LocaleUtils.getLanguage()
     ): TrendsResult
 }
