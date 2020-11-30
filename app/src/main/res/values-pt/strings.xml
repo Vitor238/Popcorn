@@ -41,9 +41,9 @@
     <string name="home">Home</string>
     <string name="categories">Categories</string>
     <string name="favorites">Favorites</string>
-    <string name="treding_this_week">Treding this week</string>
-    <string name="series">Series</string>
-    <string name="movies">Movies</string>
+    <string name="treding_this_week">Trending this week</string>
+    <string name="popular_series">Popular TV series</string>
+    <string name="popular_movies">Popular movies</string>
     <string name="my_favorites">My favorites</string>
     <string name="category_thumbnail">Category thumbnail</string>
     <string name="thumbnail">Thumbnail</string>

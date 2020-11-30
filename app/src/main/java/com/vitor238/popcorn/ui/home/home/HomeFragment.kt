@@ -1,22 +1,26 @@
 package com.vitor238.popcorn.ui.home.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.vitor238.popcorn.databinding.FragmentHomeBinding
-import com.vitor238.popcorn.ui.viewmodel.TMDBViewModel
+import com.vitor238.popcorn.ui.home.home.series.PopularSeriesAdapter
+import com.vitor238.popcorn.ui.home.home.series.PopularSeriesViewModel
+import com.vitor238.popcorn.ui.home.home.trends.TrendsAdapter
+import com.vitor238.popcorn.ui.home.home.trends.TrendsViewModel
 import com.vitor238.popcorn.utils.ApiStatus
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var trendsAdapter: TrendsAdapter
-    private lateinit var tmdbViewModel: TMDBViewModel
+    private var trendsAdapter = TrendsAdapter()
+    private lateinit var trendsViewModel: TrendsViewModel
+    private lateinit var popularSeriesViewModel: PopularSeriesViewModel
+    private var popularSeriesAdapter = PopularSeriesAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +32,9 @@ class HomeFragment : Fragment() {
         binding.recyclerTrends.setHasFixedSize(true)
         binding.recyclerTrends.adapter = trendsAdapter
 
-        Log.i(TAG, "onCreateView: ")
+        popularSeriesAdapter = PopularSeriesAdapter()
+        binding.recyclerTvSeries.setHasFixedSize(true)
+        binding.recyclerTvSeries.adapter = popularSeriesAdapter
 
         return binding.root
     }
@@ -36,11 +42,12 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        tmdbViewModel = ViewModelProvider(this).get(TMDBViewModel::class.java)
-        tmdbViewModel.trends.observe(viewLifecycleOwner) { trends ->
+        trendsViewModel = ViewModelProvider(this).get(TrendsViewModel::class.java)
+        trendsViewModel.trends.observe(viewLifecycleOwner) { trends ->
+
             trendsAdapter.submitList(trends)
         }
-        tmdbViewModel.status.observe(viewLifecycleOwner) { status ->
+        trendsViewModel.status.observe(viewLifecycleOwner) { status ->
             status?.let {
                 when (it) {
                     ApiStatus.LOADING -> binding.viewFlipperTrends.displayedChild = 0
@@ -48,7 +55,20 @@ class HomeFragment : Fragment() {
                     ApiStatus.ERROR -> binding.viewFlipperTrends.displayedChild = 2
                 }
             }
+        }
 
+        popularSeriesViewModel = ViewModelProvider(this).get(PopularSeriesViewModel::class.java)
+        popularSeriesViewModel.popularTVSeries.observe(viewLifecycleOwner) { popularSeries ->
+            popularSeriesAdapter.submitList(popularSeries)
+        }
+        popularSeriesViewModel.status.observe(viewLifecycleOwner) { status ->
+            status?.let {
+                when (it) {
+                    ApiStatus.LOADING -> binding.viewFlipperSeries.displayedChild = 0
+                    ApiStatus.DONE -> binding.viewFlipperSeries.displayedChild = 1
+                    ApiStatus.ERROR -> binding.viewFlipperSeries.displayedChild = 2
+                }
+            }
         }
     }
 

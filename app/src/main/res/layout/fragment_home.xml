@@ -47,13 +47,20 @@
             style="@style/TitleLists"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/series" />
+            android:text="@string/popular_series" />
 
         <ViewFlipper
+            android:id="@+id/view_flipper_series"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <include
+                layout="@layout/loading"
+                android:layout_width="match_parent"
+                android:layout_height="180dp" />
+
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_tv_series"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:orientation="horizontal"
@@ -71,14 +78,20 @@
             style="@style/TitleLists"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/movies" />
+            android:text="@string/popular_movies" />
 
         <ViewFlipper
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp">
 
+            <include
+                layout="@layout/loading"
+                android:layout_width="match_parent"
+                android:layout_height="180dp" />
+
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_movies"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:orientation="horizontal"
