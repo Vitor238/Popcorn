@@ -49,4 +49,20 @@
     <string name="thumbnail">Thumbnail</string>
     <string name="oops_an_error_has_ocurred">Oops, an error has occurred!</string>
     <string name="error">Error</string>
+    <string name="details">Details</string>
+    <string name="recommendations">Recommendations</string>
+    <string name="created_by">Criado por: %s</string>
+    <string name="first_air_date">Primeira vez no ar: %s</string>
+    <string name="genres">Gêneros: %s</string>
+    <string name="in_prodution">Em produção: %s</string>
+    <string name="last_air_date">Última vez no ar: %s</string>
+    <string name="networks">Emissoras: %s</string>
+    <string name="number_of_episodes">Número de episódios: %d</string>
+    <string name="number_of_seasons">Número de temporadas: %d</string>
+    <string name="origin_country">País de origem: %s</string>
+    <string name="overview">Sinopse: %s</string>
+    <string name="production_companies">Produzido por: %s</string>
+    <string name="original_name">Nome original: %s</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
 </resources>

@@ -12,7 +12,7 @@ import com.vitor238.popcorn.data.model.PopularSerie
 import com.vitor238.popcorn.databinding.ItemMovieBinding
 import com.vitor238.popcorn.utils.BaseUrls
 
-class PopularSeriesAdapter :
+class PopularSeriesAdapter(private val clickListener: (popularSerie: PopularSerie) -> Unit) :
     ListAdapter<PopularSerie, PopularSeriesAdapter.ViewHolder>(PopularSeriesDiffUtils()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,18 +20,22 @@ class PopularSeriesAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), clickListener)
     }
 
-    class ViewHolder(binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         private val imagePoster: ImageView = binding.imageMoviePoster
         private val textTitle: TextView = binding.textMovieTitle
 
-        fun bind(popularSerie: PopularSerie) {
+        fun bind(popularSerie: PopularSerie, clickListener: (popularSerie: PopularSerie) -> Unit) {
             textTitle.text = popularSerie.name
             Glide.with(imagePoster.context)
-                .load(BaseUrls.BASE_TMDB_IMG_URL + popularSerie.posterPath)
+                .load(BaseUrls.BASE_TMDB_IMG_URL_200 + popularSerie.posterPath)
                 .into(imagePoster)
+
+            binding.root.setOnClickListener {
+                clickListener.invoke(popularSerie)
+            }
         }
 
         companion object {
@@ -53,6 +57,5 @@ class PopularSeriesAdapter :
         override fun areContentsTheSame(oldItem: PopularSerie, newItem: PopularSerie): Boolean {
             return oldItem == newItem
         }
-
     }
 }

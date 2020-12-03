@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'com.google.gms.google-services'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -85,5 +86,8 @@ dependencies {
     //Moshi
     kapt("com.squareup.moshi:moshi-kotlin-codegen:$moshi_version")
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
+
+    //Glide Transformations
+    implementation 'jp.wasabeef:glide-transformations:4.3.0'
 
 }
