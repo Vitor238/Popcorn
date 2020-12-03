@@ -1,5 +1,6 @@
 package com.vitor238.popcorn.ui.home.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,18 +15,19 @@ import com.vitor238.popcorn.ui.home.home.series.PopularSeriesAdapter
 import com.vitor238.popcorn.ui.home.home.series.PopularSeriesViewModel
 import com.vitor238.popcorn.ui.home.home.trends.TrendsAdapter
 import com.vitor238.popcorn.ui.home.home.trends.TrendsViewModel
+import com.vitor238.popcorn.ui.serieInfo.SerieInfoActivity
 import com.vitor238.popcorn.utils.ApiStatus
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val trendsAdapter = TrendsAdapter()
+    private lateinit var trendsAdapter: TrendsAdapter
     private lateinit var trendsViewModel: TrendsViewModel
     private lateinit var popularSeriesViewModel: PopularSeriesViewModel
-    private val popularSeriesAdapter = PopularSeriesAdapter()
+    private lateinit var popularSeriesAdapter: PopularSeriesAdapter
     private lateinit var popularMovieViewModel: PopularMoviesViewModel
-    private val popularMoviesAdapter = PopularMoviesAdapter()
+    private lateinit var popularMoviesAdapter: PopularMoviesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,12 +35,25 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        trendsAdapter = TrendsAdapter { trend ->
+            if (trend.mediaType == "tv") {
+                openSeriesInfo(trend.id)
+            } else if (trend.mediaType == "movie") {
+
+            }
+        }
         binding.recyclerTrends.setHasFixedSize(true)
         binding.recyclerTrends.adapter = trendsAdapter
 
+        popularSeriesAdapter = PopularSeriesAdapter {
+            openSeriesInfo(it.id)
+        }
         binding.recyclerTvSeries.setHasFixedSize(true)
         binding.recyclerTvSeries.adapter = popularSeriesAdapter
 
+        popularMoviesAdapter = PopularMoviesAdapter {
+
+        }
         binding.recyclerMovies.setHasFixedSize(true)
         binding.recyclerMovies.adapter = popularMoviesAdapter
 
@@ -91,6 +106,12 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun openSeriesInfo(id: Int) {
+        val intent = Intent(requireActivity(), SerieInfoActivity::class.java)
+        intent.putExtra("serieId", id)
+        startActivity(intent)
     }
 
     override fun onDestroy() {

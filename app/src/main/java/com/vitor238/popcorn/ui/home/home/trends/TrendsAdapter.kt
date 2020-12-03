@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.vitor238.popcorn.data.model.Trend
 import com.vitor238.popcorn.databinding.ItemMovieBinding
-import com.vitor238.popcorn.utils.BaseUrls.BASE_TMDB_IMG_URL
+import com.vitor238.popcorn.utils.BaseUrls.BASE_TMDB_IMG_URL_200
 
-class TrendsAdapter :
+class TrendsAdapter(private val clickListener: (trend: Trend) -> Unit) :
     ListAdapter<Trend, TrendsAdapter.ViewHolder>(TrendsDiffUtils()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,19 +20,24 @@ class TrendsAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), clickListener)
     }
 
-    class ViewHolder(binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: ItemMovieBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         private val imagePoster: ImageView = binding.imageMoviePoster
         private val textTitle: TextView = binding.textMovieTitle
 
-        fun bind(trend: Trend) {
+        fun bind(trend: Trend, clickListener: (trend: Trend) -> Unit) {
             textTitle.text = trend.name ?: trend.title
             Glide.with(imagePoster.context)
-                .load(BASE_TMDB_IMG_URL + trend.posterPath)
+                .load(BASE_TMDB_IMG_URL_200 + trend.posterPath)
                 .into(imagePoster)
+
+            binding.root.setOnClickListener {
+                clickListener.invoke(trend)
+            }
         }
 
         companion object {

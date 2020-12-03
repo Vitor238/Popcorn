@@ -49,4 +49,20 @@
     <string name="thumbnail">Thumbnail</string>
     <string name="oops_an_error_has_ocurred">Oops, an error has occurred!</string>
     <string name="error">Error</string>
+    <string name="details">Details</string>
+    <string name="recommendations">Recommendations</string>
+    <string name="created_by">Created by: %s</string>
+    <string name="first_air_date">First air date: %s</string>
+    <string name="genres">Genres: %s</string>
+    <string name="in_prodution">In prodution: %s</string>
+    <string name="last_air_date">Last air date :%s</string>
+    <string name="networks">Networks: %s</string>
+    <string name="number_of_episodes">Number of episodes: %d</string>
+    <string name="number_of_seasons">Number of seasons: %d</string>
+    <string name="origin_country">Origin country: %s</string>
+    <string name="overview">Overview: %s</string>
+    <string name="production_companies">Production companies: %s</string>
+    <string name="original_name">Original name: %s</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

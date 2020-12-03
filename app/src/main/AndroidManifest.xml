@@ -12,19 +12,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Popcorn">
-        <activity android:name=".ui.preferences.about.AboutActivity" />
-        <activity android:name=".ui.preferences.profile.EditProfileActivity" />
-        <activity android:name=".ui.preferences.main.SettingsActivity" />
-        <activity android:name=".ui.signup.SignupActivity" />
-        <activity android:name=".ui.login.LoginActivity" />
-        <activity android:name=".ui.welcome.WelcomeActivity" />
-        <activity android:name=".ui.splash.SplashActivity">
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:theme="@style/ThemeTranslucentStatus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.serieInfo.SerieInfoActivity"
+            android:theme="@style/ThemeTranslucentStatus" />
+        <activity android:name=".ui.preferences.about.AboutActivity" />
+        <activity android:name=".ui.preferences.profile.EditProfileActivity" />
+        <activity android:name=".ui.preferences.main.SettingsActivity" />
+        <activity android:name=".ui.signup.SignupActivity" />
+        <activity android:name=".ui.login.LoginActivity" />
+        <activity android:name=".ui.welcome.WelcomeActivity" />
         <activity android:name=".ui.home.MainActivity" />
     </application>
 

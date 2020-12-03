@@ -17,6 +17,10 @@
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
     </style>
 
+    <style name="ThemeTranslucentStatus" parent="Theme.Popcorn">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
     <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
     </style>
