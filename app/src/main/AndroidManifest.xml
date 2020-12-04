@@ -22,6 +22,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.movieInfo.MovieInfoActivity"
+            android:theme="@style/ThemeTranslucentStatus" />
+        <activity
             android:name=".ui.serieInfo.SerieInfoActivity"
             android:theme="@style/ThemeTranslucentStatus" />
         <activity android:name=".ui.preferences.about.AboutActivity" />

@@ -15,6 +15,7 @@ import com.vitor238.popcorn.ui.home.home.series.PopularSeriesAdapter
 import com.vitor238.popcorn.ui.home.home.series.PopularSeriesViewModel
 import com.vitor238.popcorn.ui.home.home.trends.TrendsAdapter
 import com.vitor238.popcorn.ui.home.home.trends.TrendsViewModel
+import com.vitor238.popcorn.ui.movieInfo.MovieInfoActivity
 import com.vitor238.popcorn.ui.serieInfo.SerieInfoActivity
 import com.vitor238.popcorn.utils.ApiStatus
 
@@ -39,7 +40,7 @@ class HomeFragment : Fragment() {
             if (trend.mediaType == "tv") {
                 openSeriesInfo(trend.id)
             } else if (trend.mediaType == "movie") {
-
+                openMovieInfo(trend.id)
             }
         }
         binding.recyclerTrends.setHasFixedSize(true)
@@ -52,7 +53,7 @@ class HomeFragment : Fragment() {
         binding.recyclerTvSeries.adapter = popularSeriesAdapter
 
         popularMoviesAdapter = PopularMoviesAdapter {
-
+            openMovieInfo(it.id)
         }
         binding.recyclerMovies.setHasFixedSize(true)
         binding.recyclerMovies.adapter = popularMoviesAdapter
@@ -111,6 +112,12 @@ class HomeFragment : Fragment() {
     private fun openSeriesInfo(id: Int) {
         val intent = Intent(requireActivity(), SerieInfoActivity::class.java)
         intent.putExtra("serieId", id)
+        startActivity(intent)
+    }
+
+    private fun openMovieInfo(id: Int) {
+        val intent = Intent(requireActivity(), MovieInfoActivity::class.java)
+        intent.putExtra("movieId", id)
         startActivity(intent)
     }
 

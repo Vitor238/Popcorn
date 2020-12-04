@@ -3,6 +3,7 @@ package com.vitor238.popcorn.data.model.serie
 import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import com.vitor238.popcorn.data.model.Genres
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

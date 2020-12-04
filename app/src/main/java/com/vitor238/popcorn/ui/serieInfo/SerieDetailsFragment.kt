@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.vitor238.popcorn.R
-import com.vitor238.popcorn.data.model.serie.Networks
 import com.vitor238.popcorn.data.model.serie.Serie
 import com.vitor238.popcorn.databinding.FragmentSerieDetailsBinding
 import com.vitor238.popcorn.utils.setFormatedText
@@ -45,7 +44,7 @@ class SerieDetailsFragment : Fragment() {
         binding.textInProdution.setFormatedText(getInProduction())
         binding.textFirstAirDate.setFormatedText(getFirstAirDate())
         binding.textLastAirDate.setFormatedText(getLastAirDate())
-        binding.textNetworks.setFormatedText(getNetworks(serie?.networks))
+        binding.textNetworks.setFormatedText(getNetworks())
         binding.textNumberOfEpisodes.setFormatedText(
             getString(
                 R.string.number_of_episodes,
@@ -106,9 +105,9 @@ class SerieDetailsFragment : Fragment() {
         )
     }
 
-    private fun getNetworks(networksList: List<Networks>?): String {
+    private fun getNetworks(): String {
         val list = mutableListOf<String>()
-        networksList?.forEach {
+        serie?.networks?.forEach {
             list.add(it.name)
         }
         return getString(R.string.networks, list.joinToString())
