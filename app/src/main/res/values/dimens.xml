@@ -4,5 +4,5 @@
     <dimen name="margin_signup">8dp</dimen>
     <dimen name="button_width">270dp</dimen>
     <dimen name="title_lists">16sp</dimen>
-    <dimen name="details_padding">16dp</dimen>
+    <dimen name="details_padding">8dp</dimen>
 </resources>

@@ -46,8 +46,8 @@ class SerieInfoActivity : BaseActivity() {
                 getString(R.string.details)
             )
             adapter.addFragment(
-                SerieRecommendationsFragment.newInstance(),
-                getString(R.string.recommendations)
+                SerieRecommendationsFragment.newInstance(serie.id),
+                getString(R.string.more_like_this)
             )
             binding.viewPager.adapter = adapter
             binding.tabs.setupWithViewPager(binding.viewPager)

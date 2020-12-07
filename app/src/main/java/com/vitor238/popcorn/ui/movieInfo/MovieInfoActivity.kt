@@ -7,7 +7,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.databinding.ActivityMovieInfoBinding
-import com.vitor238.popcorn.ui.serieInfo.SerieRecommendationsFragment
 import com.vitor238.popcorn.ui.serieInfo.TabsAdapter
 import com.vitor238.popcorn.utils.ApiStatus
 import com.vitor238.popcorn.utils.BaseUrls
@@ -48,8 +47,8 @@ class MovieInfoActivity : AppCompatActivity() {
                 getString(R.string.details)
             )
             adapter.addFragment(
-                SerieRecommendationsFragment.newInstance(),
-                getString(R.string.recommendations)
+                MovieRecommendationsFragment.newInstance(movie.id),
+                getString(R.string.more_like_this)
             )
             binding.content.viewPager.adapter = adapter
             binding.content.tabs.setupWithViewPager(binding.content.viewPager)

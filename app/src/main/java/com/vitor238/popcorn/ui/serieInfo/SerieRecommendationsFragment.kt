@@ -1,59 +1,85 @@
 package com.vitor238.popcorn.ui.serieInfo
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.vitor238.popcorn.R
+import androidx.lifecycle.ViewModelProvider
+import com.vitor238.popcorn.databinding.FragmentSerieRecommendationsBinding
+import com.vitor238.popcorn.utils.ApiStatus
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val SERIE_ID = "serieId"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SerieRecommendationsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SerieRecommendationsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var serieId: Int? = null
+    private var _binding: FragmentSerieRecommendationsBinding? = null
+    private val binding: FragmentSerieRecommendationsBinding
+        get() = _binding!!
+    private lateinit var serieRecommendationAdapter: SerieRecommendationAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            serieId = it.getInt(SERIE_ID)
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_serie_recommendations, container, false)
+    ): View {
+        _binding = FragmentSerieRecommendationsBinding.inflate(layoutInflater, container, false)
+
+        serieRecommendationAdapter = SerieRecommendationAdapter {
+            val intent = Intent(requireActivity(), SerieInfoActivity::class.java)
+            intent.putExtra("serieId", it.id)
+            startActivity(intent)
+        }
+
+        binding.recyclerRecommendations.setHasFixedSize(true)
+        binding.recyclerRecommendations.adapter = serieRecommendationAdapter
+
+        return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        val serieRecommendationViewModel = ViewModelProvider(this)
+            .get(SerieRecommendationsViewModel::class.java)
+
+        serieId?.let { id ->
+            serieRecommendationViewModel.getRecommendadtions(id)
+
+            serieRecommendationViewModel.serieRecommendation.observe(viewLifecycleOwner) { recommendations ->
+                serieRecommendationAdapter.submitList(recommendations)
+            }
+
+            serieRecommendationViewModel.status.observe(viewLifecycleOwner) { status ->
+                status?.let {
+                    when (it) {
+                        ApiStatus.LOADING -> binding.viewFlipper.displayedChild = 0
+                        ApiStatus.DONE -> binding.viewFlipper.displayedChild = 1
+                        ApiStatus.ERROR -> binding.viewFlipper.displayedChild = 2
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SerieRecommendationsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance() =
+        fun newInstance(serieId: Int) =
             SerieRecommendationsFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putInt(SERIE_ID, serieId)
                 }
             }
     }
