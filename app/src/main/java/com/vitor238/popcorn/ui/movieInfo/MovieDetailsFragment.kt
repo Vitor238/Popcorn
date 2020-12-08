@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.movie.Movie
 import com.vitor238.popcorn.databinding.FragmentMovieDetailsBinding
-import com.vitor238.popcorn.utils.setFormatedText
+import com.vitor238.popcorn.utils.setDetails
 
 private const val MOVIE = "movie"
 
@@ -34,24 +34,20 @@ class MovieDetailsFragment : Fragment() {
         // Inflate the layout for this fragment
         _bindiding = FragmentMovieDetailsBinding.inflate(layoutInflater, container, false)
 
-        if (movie?.tagline.isNullOrEmpty()) {
-            binding.textTagline.visibility = View.GONE
-        } else {
-            binding.textTagline.setFormatedText(getString(R.string.tagline, movie?.tagline))
-        }
-
-        binding.textOrginalTitle.setFormatedText(
-            getString(
-                R.string.original_title,
-                movie?.originalTitle
-            )
+        binding.textTagline.setDetails(R.string.tagline, movie?.tagline)
+        binding.textOriginalTitle.setDetails(R.string.original_title, movie?.originalTitle)
+        binding.textOverview.setDetails(R.string.overview, movie?.overview)
+        binding.textGenres.setDetails(R.string.genres, getGenresList())
+        binding.textHomepage.setDetails(R.string.homepage, movie?.homepage)
+        binding.textProductionCompanies.setDetails(
+            R.string.production_companies,
+            getProductionCompanies()
         )
-        binding.textOverview.setFormatedText(getString(R.string.overview, movie?.overview))
-        binding.textGenres.setFormatedText(getGenresList())
-        binding.textHomepage.setFormatedText(getString(R.string.homepage, movie?.homepage))
-        binding.textProductionCompanies.setFormatedText(getProductionCompanies())
-        binding.textProductionCountries.setFormatedText(getProductionCountries())
-        binding.textReleaseDate.setFormatedText(getReleaseDate())
+        binding.textProductionCountries.setDetails(
+            R.string.production_countries,
+            getProductionCountries()
+        )
+        binding.textReleaseDate.setDetails(R.string.release_date, movie?.releaseDate)
 
         binding.textHomepage.setOnClickListener {
             val browserIntent = Intent(
@@ -65,32 +61,42 @@ class MovieDetailsFragment : Fragment() {
     }
 
 
-    private fun getGenresList(): String {
-        val list = mutableListOf<String>()
-        movie?.genres?.forEach {
-            list.add(it.name)
+    private fun getGenresList(): String? {
+        return if (movie?.genres != null) {
+            val list = mutableListOf<String>()
+            movie?.genres?.forEach {
+                list.add(it.name)
+            }
+            getString(R.string.genres, list.joinToString())
+        } else {
+            null
         }
-        return getString(R.string.genres, list.joinToString())
+
     }
 
-    private fun getProductionCompanies(): String {
-        val list = mutableListOf<String>()
-        movie?.productionCompanies?.forEach {
-            list.add(it.name)
+    private fun getProductionCompanies(): String? {
+        return if (movie?.productionCompanies != null) {
+            val list = mutableListOf<String>()
+            movie?.productionCompanies?.forEach {
+                list.add(it.name)
+            }
+            list.joinToString()
+        } else {
+            null
         }
-        return getString(R.string.production_companies, list.joinToString())
     }
 
-    private fun getProductionCountries(): String {
-        val list = mutableListOf<String>()
-        movie?.productionCountries?.forEach {
-            list.add(it.name)
+    private fun getProductionCountries(): String? {
+        return if (movie?.productionCountries != null) {
+            val list = mutableListOf<String>()
+            movie?.productionCountries?.forEach {
+                list.add(it.name)
+            }
+            list.joinToString()
+        } else {
+            null
         }
-        return getString(R.string.production_countries, list.joinToString())
-    }
 
-    private fun getReleaseDate(): String {
-        return getString(R.string.release_date, movie?.releaseDate)
     }
 
     companion object {

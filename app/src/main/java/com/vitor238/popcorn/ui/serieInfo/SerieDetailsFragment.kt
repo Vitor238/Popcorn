@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.serie.Serie
 import com.vitor238.popcorn.databinding.FragmentSerieDetailsBinding
-import com.vitor238.popcorn.utils.setFormatedText
+import com.vitor238.popcorn.utils.setDetails
 
 private const val SERIE = "serie"
 
@@ -32,97 +32,95 @@ class SerieDetailsFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentSerieDetailsBinding.inflate(layoutInflater)
-        binding.textOverview.setFormatedText(getString(R.string.overview, serie?.overview))
-        binding.textOriginalName.setFormatedText(
-            getString(
-                R.string.original_name,
-                serie?.originalName
-            )
+
+        binding.textOverview.setDetails(R.string.overview, serie?.overview)
+        binding.textOriginalName.setDetails(R.string.original_name, serie?.originalName)
+        binding.textGenres.setDetails(R.string.genres, getGenresList())
+        binding.textCreatedBy.setDetails(R.string.created_by, getAuthors())
+        binding.textInProdution.setDetails(R.string.in_prodution, getInProduction())
+        binding.textFirstAirDate.setDetails(R.string.first_air_date, serie?.firstAirDate)
+        binding.textLastAirDate.setDetails(R.string.last_air_date, serie?.lastAirDate)
+        binding.textNetworks.setDetails(R.string.networks, getNetworks())
+        binding.textNumberOfEpisodes.setDetails(
+            R.string.number_of_episodes,
+            serie?.numberOfEpisodes
         )
-        binding.textGenres.setFormatedText(getGenresList())
-        binding.textCreatedBy.setFormatedText(getAuthors())
-        binding.textInProdution.setFormatedText(getInProduction())
-        binding.textFirstAirDate.setFormatedText(getFirstAirDate())
-        binding.textLastAirDate.setFormatedText(getLastAirDate())
-        binding.textNetworks.setFormatedText(getNetworks())
-        binding.textNumberOfEpisodes.setFormatedText(
-            getString(
-                R.string.number_of_episodes,
-                serie?.numberOfEpisodes
-            )
+        binding.textNumberOfSeasons.setDetails(R.string.number_of_seasons, serie?.numberOfSeasons)
+        binding.textOriginCoutry.setDetails(R.string.origin_country, getOriginCountries())
+        binding.textProductionCompanies.setDetails(
+            R.string.production_companies,
+            getProductionCompanies()
         )
-        binding.textNumberOfSeasons.setFormatedText(
-            getString(R.string.number_of_seasons, serie?.numberOfSeasons)
-        )
-        binding.textOriginCoutry.setFormatedText(getOriginCountries())
-        binding.textProductionCompanies.setFormatedText(getProductionCompanies())
+
         return binding.root
     }
 
-    private fun getAuthors(): String {
-        val list = mutableListOf<String>()
-        serie?.createdBy?.forEach {
-            list.add(it.name)
-        }
-        return getString(R.string.created_by, list.joinToString())
-    }
+    private fun getAuthors(): String? {
+        return if (serie?.createdBy == null) {
+            val list = mutableListOf<String>()
 
-    private fun getGenresList(): String {
-        val list = mutableListOf<String>()
-        serie?.genres?.forEach {
-            list.add(it.name)
-        }
-        return getString(R.string.genres, list.joinToString())
-    }
-
-    private fun getInProduction(): String {
-        val inProduction = serie?.inProduction
-        val value = when {
-            inProduction == null -> {
-                getString(R.string.error)
+            serie?.createdBy?.forEach {
+                list.add(it.name)
             }
-            inProduction -> {
-                getString(R.string.yes)
+            return getString(R.string.created_by, list.joinToString())
+        } else {
+            null
+        }
+    }
+
+    private fun getGenresList(): String? {
+        return if (serie?.genres != null) {
+            val list = mutableListOf<String>()
+            serie?.genres?.forEach {
+                list.add(it.name)
             }
-            else -> {
-                getString(R.string.no)
+            list.joinToString()
+        } else {
+            null
+        }
+
+
+    }
+
+    private fun getInProduction(): String? {
+        return when (serie?.inProduction) {
+            null -> null
+            true -> getString(R.string.yes)
+            else -> getString(R.string.no)
+        }
+    }
+
+    private fun getNetworks(): String? {
+        return if (serie?.networks != null) {
+            val list = mutableListOf<String>()
+            serie?.networks?.forEach {
+                list.add(it.name)
             }
+            list.joinToString()
+        } else {
+            null
         }
-        return getString(R.string.in_prodution, value)
+
     }
 
-    private fun getLastAirDate(): String {
-        return getString(
-            R.string.last_air_date,
-            serie?.lastAirDate
-        )
-    }
-
-    private fun getFirstAirDate(): String {
-        return getString(
-            R.string.first_air_date,
-            serie?.firstAirDate
-        )
-    }
-
-    private fun getNetworks(): String {
-        val list = mutableListOf<String>()
-        serie?.networks?.forEach {
-            list.add(it.name)
+    private fun getOriginCountries(): String? {
+        return if (serie?.originCountry != null) {
+            serie?.originCountry?.joinToString()
+        } else {
+            null
         }
-        return getString(R.string.networks, list.joinToString())
     }
 
-    private fun getOriginCountries(): String {
-        return getString(R.string.origin_country, serie?.originCountry?.joinToString())
-    }
-
-    private fun getProductionCompanies(): String {
-        val list = mutableListOf<String>()
-        serie?.productionCompanies?.forEach {
-            list.add(it.name)
+    private fun getProductionCompanies(): String? {
+        return if (serie?.productionCompanies != null) {
+            val list = mutableListOf<String>()
+            serie?.productionCompanies?.forEach {
+                list.add(it.name)
+            }
+            list.joinToString()
+        } else {
+            null
         }
-        return getString(R.string.production_companies, list.joinToString())
     }
 
     override fun onDestroyView() {

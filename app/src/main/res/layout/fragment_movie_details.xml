@@ -19,7 +19,7 @@
             tools:text="@string/tagline" />
 
         <TextView
-            android:id="@+id/text_orginal_title"
+            android:id="@+id/text_original_title"
             style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
