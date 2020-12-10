@@ -10,32 +10,32 @@ import kotlinx.parcelize.Parcelize
 @JsonClass(generateAdapter = true)
 data class Serie(
     @Json(name = "original_name")
-    val originalName: String,
+    val originalName: String?,
     @Json(name = "backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
     @Json(name = "created_by")
-    val createdBy: List<CreatedBy>,
+    val createdBy: List<CreatedBy>?,
     @Json(name = "first_air_date")
-    val firstAirDate: String,
-    val genres: List<Genres>,
+    val firstAirDate: String?,
+    val genres: List<Genres>?,
     val id: Int,
     @Json(name = "in_production")
-    val inProduction: Boolean,
-    val languages: List<String>,
+    val inProduction: Boolean?,
+    val languages: List<String>?,
     @Json(name = "last_air_date")
-    val lastAirDate: String,
-    val name: String,
-    val networks: List<Networks>,
+    val lastAirDate: String?,
+    val name: String?,
+    val networks: List<Networks>?,
     @Json(name = "number_of_episodes")
-    val numberOfEpisodes: Int,
+    val numberOfEpisodes: Int?,
     @Json(name = "number_of_seasons")
-    val numberOfSeasons: Int,
+    val numberOfSeasons: Int?,
     @Json(name = "origin_country")
-    val originCountry: List<String>,
-    val overview: String,
-    val popularity: Double,
+    val originCountry: List<String>?,
+    val overview: String?,
+    val popularity: Double?,
     @Json(name = "poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @Json(name = "production_companies")
-    val productionCompanies: List<ProductionCompanies>,
+    val productionCompanies: List<ProductionCompanies>?,
 ) : Parcelable

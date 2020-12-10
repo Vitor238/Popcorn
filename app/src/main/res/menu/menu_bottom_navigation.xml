@@ -5,9 +5,9 @@
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/home" />
     <item
-        android:id="@+id/action_categories"
-        android:icon="@drawable/ic_baseline_border_all_24"
-        android:title="@string/categories" />
+        android:id="@+id/action_theaters"
+        android:icon="@drawable/ic_ticket"
+        android:title="@string/now_playing" />
     <item
         android:id="@+id/action_favorites"
         android:icon="@drawable/ic_baseline_star_24"

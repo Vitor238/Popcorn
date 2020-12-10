@@ -1,4 +1,4 @@
-package com.vitor238.popcorn.ui.movieInfo
+package com.vitor238.popcorn.ui.home.nowplaying
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.vitor238.popcorn.data.model.MovieRecommendation
+import com.vitor238.popcorn.R
+import com.vitor238.popcorn.data.model.NowPlaying
 import com.vitor238.popcorn.databinding.ItemMovieBinding
 import com.vitor238.popcorn.utils.BaseUrls
 
-class MovieRecommendationAdapter(private val clickListener: (movie: MovieRecommendation) -> Unit) :
-    ListAdapter<MovieRecommendation, MovieRecommendationAdapter.ViewHolder>(RecommendationDiffUtils()) {
+class NowPlayingAdapter(private val clickListener: (movie: NowPlaying) -> Unit) :
+    ListAdapter<NowPlaying, NowPlayingAdapter.ViewHolder>(NowPlayingDiffUtils()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -28,10 +29,11 @@ class MovieRecommendationAdapter(private val clickListener: (movie: MovieRecomme
         private val imagePoster: ImageView = binding.imageMoviePoster
         private val textTitle: TextView = binding.textMovieTitle
 
-        fun bind(movie: MovieRecommendation, clickListener: (movie: MovieRecommendation) -> Unit) {
+        fun bind(movie: NowPlaying, clickListener: (movie: NowPlaying) -> Unit) {
             textTitle.text = movie.title
             Glide.with(imagePoster.context)
                 .load(BaseUrls.BASE_TMDB_IMG_URL_200 + movie.posterPath)
+                .placeholder(R.drawable.ic_movie_placeholder)
                 .into(imagePoster)
 
             binding.root.setOnClickListener {
@@ -48,20 +50,19 @@ class MovieRecommendationAdapter(private val clickListener: (movie: MovieRecomme
                 return ViewHolder(binding)
             }
         }
-
     }
 
-    class RecommendationDiffUtils : DiffUtil.ItemCallback<MovieRecommendation>() {
+    class NowPlayingDiffUtils : DiffUtil.ItemCallback<NowPlaying>() {
         override fun areItemsTheSame(
-            oldItem: MovieRecommendation,
-            newItem: MovieRecommendation
+            oldItem: NowPlaying,
+            newItem: NowPlaying
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: MovieRecommendation,
-            newItem: MovieRecommendation
+            oldItem: NowPlaying,
+            newItem: NowPlaying
         ): Boolean {
             return oldItem == newItem
         }

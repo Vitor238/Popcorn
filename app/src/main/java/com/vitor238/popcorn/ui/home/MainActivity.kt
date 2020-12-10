@@ -15,9 +15,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.databinding.ActivityMainBinding
 import com.vitor238.popcorn.ui.base.BaseActivity
-import com.vitor238.popcorn.ui.home.categories.CategoriesFragment
 import com.vitor238.popcorn.ui.home.favorites.FavoritesFragment
 import com.vitor238.popcorn.ui.home.home.HomeFragment
+import com.vitor238.popcorn.ui.home.nowplaying.NowPlayingFragment
 import com.vitor238.popcorn.ui.preferences.main.SettingsActivity
 import com.vitor238.popcorn.ui.viewmodel.ProfileViewModel
 
@@ -44,8 +44,8 @@ class MainActivity : BaseActivity() {
                     openFragment(homeFragment)
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.action_categories -> {
-                    val categoriesFragment = CategoriesFragment.newInstance()
+                R.id.action_theaters -> {
+                    val categoriesFragment = NowPlayingFragment.newInstance()
                     openFragment(categoriesFragment)
                     return@OnNavigationItemSelectedListener true
                 }

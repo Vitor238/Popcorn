@@ -1,4 +1,4 @@
-package com.vitor238.popcorn.ui.serieInfo
+package com.vitor238.popcorn.ui.movieinfo
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.vitor238.popcorn.data.model.SerieRecommendation
+import com.vitor238.popcorn.data.model.MovieRecommendation
 import com.vitor238.popcorn.databinding.ItemMovieBinding
 import com.vitor238.popcorn.utils.BaseUrls
 
-class SerieRecommendationAdapter(private val clickListener: (serie: SerieRecommendation) -> Unit) :
-    ListAdapter<SerieRecommendation, SerieRecommendationAdapter.ViewHolder>(RecommendationDiffUtils()) {
+class MovieRecommendationAdapter(private val clickListener: (movie: MovieRecommendation) -> Unit) :
+    ListAdapter<MovieRecommendation, MovieRecommendationAdapter.ViewHolder>(RecommendationDiffUtils()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -28,14 +28,14 @@ class SerieRecommendationAdapter(private val clickListener: (serie: SerieRecomme
         private val imagePoster: ImageView = binding.imageMoviePoster
         private val textTitle: TextView = binding.textMovieTitle
 
-        fun bind(serie: SerieRecommendation, clickListener: (serie: SerieRecommendation) -> Unit) {
-            textTitle.text = serie.name
+        fun bind(movie: MovieRecommendation, clickListener: (movie: MovieRecommendation) -> Unit) {
+            textTitle.text = movie.title
             Glide.with(imagePoster.context)
-                .load(BaseUrls.BASE_TMDB_IMG_URL_200 + serie.posterPath)
+                .load(BaseUrls.BASE_TMDB_IMG_URL_200 + movie.posterPath)
                 .into(imagePoster)
 
             binding.root.setOnClickListener {
-                clickListener.invoke(serie)
+                clickListener.invoke(movie)
             }
         }
 
@@ -51,17 +51,17 @@ class SerieRecommendationAdapter(private val clickListener: (serie: SerieRecomme
 
     }
 
-    class RecommendationDiffUtils : DiffUtil.ItemCallback<SerieRecommendation>() {
+    class RecommendationDiffUtils : DiffUtil.ItemCallback<MovieRecommendation>() {
         override fun areItemsTheSame(
-            oldItem: SerieRecommendation,
-            newItem: SerieRecommendation
+            oldItem: MovieRecommendation,
+            newItem: MovieRecommendation
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: SerieRecommendation,
-            newItem: SerieRecommendation
+            oldItem: MovieRecommendation,
+            newItem: MovieRecommendation
         ): Boolean {
             return oldItem == newItem
         }

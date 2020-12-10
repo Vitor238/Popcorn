@@ -1,6 +1,5 @@
 package com.vitor238.popcorn.ui.home.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,8 +14,8 @@ import com.vitor238.popcorn.ui.home.home.series.PopularSeriesAdapter
 import com.vitor238.popcorn.ui.home.home.series.PopularSeriesViewModel
 import com.vitor238.popcorn.ui.home.home.trends.TrendsAdapter
 import com.vitor238.popcorn.ui.home.home.trends.TrendsViewModel
-import com.vitor238.popcorn.ui.movieInfo.MovieInfoActivity
-import com.vitor238.popcorn.ui.serieInfo.SerieInfoActivity
+import com.vitor238.popcorn.ui.movieinfo.MovieInfoActivity
+import com.vitor238.popcorn.ui.serieinfo.SerieInfoActivity
 import com.vitor238.popcorn.utils.ApiStatus
 
 class HomeFragment : Fragment() {
@@ -110,14 +109,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun openSeriesInfo(id: Int) {
-        val intent = Intent(requireActivity(), SerieInfoActivity::class.java)
-        intent.putExtra("serieId", id)
+        val intent = SerieInfoActivity.getStartIntent(requireActivity(), id)
         startActivity(intent)
     }
 
     private fun openMovieInfo(id: Int) {
-        val intent = Intent(requireActivity(), MovieInfoActivity::class.java)
-        intent.putExtra("movieId", id)
+        val intent = MovieInfoActivity.getStartIntent(requireActivity(), id)
         startActivity(intent)
     }
 

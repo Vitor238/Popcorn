@@ -71,4 +71,7 @@
     <string name="status">Status: %s</string>
     <string name="tagline">Tagline: %s</string>
     <string name="production_countries">Production countries: %s</string>
+    <string name="now_playing">Em cartaz</string>
+    <string name="playing_in_theaters">Playing in theaters</string>
+    <string name="always_follow_covid_19_prevention_recommendations">Always follow COVID-19 prevention recommendations</string>
 </resources>

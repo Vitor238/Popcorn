@@ -1,37 +1,34 @@
-package com.vitor238.popcorn.ui.serieInfo
+package com.vitor238.popcorn.ui.movieinfo
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vitor238.popcorn.data.model.serie.Serie
+import com.vitor238.popcorn.data.model.MovieRecommendation
 import com.vitor238.popcorn.data.repository.TMDBRepository
 import com.vitor238.popcorn.utils.ApiStatus
 import kotlinx.coroutines.launch
 
-class SerieViewModel : ViewModel() {
+class MovieRecommendationViewModel : ViewModel() {
     val tmdbRepository = TMDBRepository()
 
     private var _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus>
         get() = _status
 
-    private var _serieInfo = MutableLiveData<Serie>()
-    val serieInfo: LiveData<Serie>
-        get() = _serieInfo
+    private var _movieRecommendations = MutableLiveData<List<MovieRecommendation>>()
+    val movieRecommendation: LiveData<List<MovieRecommendation>>
+        get() = _movieRecommendations
 
-    fun getSerieInfo(serieId: Int) {
+    fun getRecommendadtions(movieId: Int) {
         viewModelScope.launch {
+            val result = kotlin.runCatching { tmdbRepository.getMovieRecommendations(movieId) }
             _status.value = ApiStatus.LOADING
-            val result = kotlin.runCatching { tmdbRepository.getSerieInfo(serieId) }
             result.onSuccess {
                 _status.value = ApiStatus.DONE
-                Log.i("SerieViewModel", "getSerieInfo: ${it} ")
-                _serieInfo.value = it
+                _movieRecommendations.value = it
             }.onFailure {
                 _status.value = ApiStatus.ERROR
-                Log.i("SerieViewModel", "getSerieInfo: ${it.message} ")
             }
         }
     }

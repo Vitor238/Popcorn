@@ -1,4 +1,4 @@
-package com.vitor238.popcorn.ui.movieInfo
+package com.vitor238.popcorn.ui.movieinfo
 
 import android.content.Intent
 import android.os.Bundle

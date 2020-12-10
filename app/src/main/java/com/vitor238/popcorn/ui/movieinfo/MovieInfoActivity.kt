@@ -1,5 +1,7 @@
-package com.vitor238.popcorn.ui.movieInfo
+package com.vitor238.popcorn.ui.movieinfo
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -7,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.databinding.ActivityMovieInfoBinding
-import com.vitor238.popcorn.ui.serieInfo.TabsAdapter
+import com.vitor238.popcorn.ui.serieinfo.TabsAdapter
 import com.vitor238.popcorn.utils.ApiStatus
 import com.vitor238.popcorn.utils.BaseUrls
 import jp.wasabeef.glide.transformations.BlurTransformation
@@ -22,7 +24,7 @@ class MovieInfoActivity : AppCompatActivity() {
         binding = ActivityMovieInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        movieId = intent.extras?.getInt("movieId")
+        movieId = intent.extras?.getInt(MOVIE_ID)
 
         val movieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
         movieViewModel.getMovieInfo(movieId!!)
@@ -55,10 +57,13 @@ class MovieInfoActivity : AppCompatActivity() {
 
             Glide.with(this).load(
                 BaseUrls.BASE_TMDB_IMG_URL_200 + movie.posterPath
-            ).into(binding.content.imageCover)
+            )
+                .placeholder(R.drawable.ic_movie_placeholder)
+                .into(binding.content.imageCover)
 
             Glide.with(this).load(BaseUrls.BASE_TMDB_IMG_URL_200 + movie.posterPath)
                 .apply(RequestOptions.bitmapTransform(BlurTransformation(20, 3)))
+                .placeholder(R.color.gray)
                 .into(binding.content.appBarImage)
         }
 
@@ -66,6 +71,15 @@ class MovieInfoActivity : AppCompatActivity() {
         binding.content.toolbar.setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material)
         binding.content.toolbar.setNavigationOnClickListener {
             onBackPressed()
+        }
+    }
+
+    companion object {
+        private const val MOVIE_ID = "movieId"
+        fun getStartIntent(context: Context, movieId: Int): Intent {
+            return Intent(context, MovieInfoActivity::class.java).apply {
+                putExtra(MOVIE_ID, movieId)
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.vitor238.popcorn.ui.serieInfo
+package com.vitor238.popcorn.ui.serieinfo
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

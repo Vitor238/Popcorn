@@ -1,4 +1,4 @@
-package com.vitor238.popcorn.ui.movieInfo
+package com.vitor238.popcorn.ui.movieinfo
 
 import android.content.Intent
 import android.net.Uri
@@ -67,7 +67,7 @@ class MovieDetailsFragment : Fragment() {
             movie?.genres?.forEach {
                 list.add(it.name)
             }
-            getString(R.string.genres, list.joinToString())
+            list.joinToString()
         } else {
             null
         }

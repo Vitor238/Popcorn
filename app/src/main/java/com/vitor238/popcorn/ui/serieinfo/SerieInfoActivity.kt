@@ -1,5 +1,7 @@
-package com.vitor238.popcorn.ui.serieInfo
+package com.vitor238.popcorn.ui.serieinfo
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -21,7 +23,7 @@ class SerieInfoActivity : BaseActivity() {
         binding = ActivitySerieInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        serieId = intent.extras?.getInt("serieId")
+        serieId = intent.extras?.getInt(SERIE_ID)
 
         val seriesViewModel = ViewModelProvider(this).get(SerieViewModel::class.java)
         seriesViewModel.getSerieInfo(serieId!!)
@@ -54,10 +56,13 @@ class SerieInfoActivity : BaseActivity() {
 
             Glide.with(this).load(
                 BaseUrls.BASE_TMDB_IMG_URL_200 + serie.posterPath
-            ).into(binding.imageCover)
+            )
+                .placeholder(R.drawable.ic_movie_placeholder)
+                .into(binding.imageCover)
 
             Glide.with(this).load(BaseUrls.BASE_TMDB_IMG_URL_200 + serie.posterPath)
                 .apply(RequestOptions.bitmapTransform(BlurTransformation(20, 3)))
+                .placeholder(R.color.gray)
                 .into(binding.appBarImage)
         }
 
@@ -65,6 +70,15 @@ class SerieInfoActivity : BaseActivity() {
         binding.toolbar.setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material)
         binding.toolbar.setNavigationOnClickListener {
             onBackPressed()
+        }
+    }
+
+    companion object {
+        private const val SERIE_ID = "serieId"
+        fun getStartIntent(context: Context, serieId: Int): Intent {
+            return Intent(context, SerieInfoActivity::class.java).apply {
+                putExtra(SERIE_ID, serieId)
+            }
         }
     }
 }

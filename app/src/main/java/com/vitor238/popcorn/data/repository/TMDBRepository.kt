@@ -49,6 +49,11 @@ class TMDBRepository {
             .getSerieRecommendations(serieId = serieId).results
     }
 
+    suspend fun getMoviesInTheaters(): List<NowPlaying> {
+        return retrofit.create(NowPlayingService::class.java)
+            .getMoviesOnTheathers().results
+    }
+
     companion object {
         private val TAG = TMDBRepository::class.simpleName
     }

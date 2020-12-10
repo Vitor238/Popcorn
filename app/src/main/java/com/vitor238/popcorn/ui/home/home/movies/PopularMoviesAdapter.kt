@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.PopularMovie
 import com.vitor238.popcorn.databinding.ItemMovieBinding
 import com.vitor238.popcorn.utils.BaseUrls
@@ -32,6 +33,7 @@ class PopularMoviesAdapter(private val clickListener: (popularMovie: PopularMovi
             textTitle.text = popularMovie.title
             Glide.with(imagePoster.context)
                 .load(BaseUrls.BASE_TMDB_IMG_URL_200 + popularMovie.posterPath)
+                .placeholder(R.drawable.ic_movie_placeholder)
                 .into(imagePoster)
             binding.root.setOnClickListener {
                 clickListener.invoke(popularMovie)
