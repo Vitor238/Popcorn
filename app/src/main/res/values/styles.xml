@@ -42,4 +42,10 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="CardViewStyle" parent="Theme.MaterialComponents.DayNight">
+        <item name="cornerRadius">@dimen/default_corner_radius</item>
+        <item name="cardElevation">@dimen/default_elevation</item>
+        <item name="cardPreventCornerOverlap">true</item>
+        <item name="cardBackgroundColor">@color/dark_gray</item>
+    </style>
 </resources>

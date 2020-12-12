@@ -54,6 +54,11 @@ class TMDBRepository {
             .getMoviesOnTheathers().results
     }
 
+    suspend fun searchMoviesOrSeries(query: String): List<MediaSearch> {
+        return retrofit.create(SearchService::class.java).search(query = query)
+            .results
+    }
+
     companion object {
         private val TAG = TMDBRepository::class.simpleName
     }

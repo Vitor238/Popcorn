@@ -6,13 +6,20 @@
     android:orientation="vertical"
     android:padding="4dp">
 
-    <ImageView
-        android:id="@+id/image_movie_poster"
+
+    <androidx.cardview.widget.CardView
         android:layout_width="@dimen/poster_width"
         android:layout_height="@dimen/poster_height"
-        android:contentDescription="@string/thumbnail"
-        android:scaleType="centerCrop"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        style="@style/CardViewStyle">
+
+        <ImageView
+            android:id="@+id/image_movie_poster"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/thumbnail"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/text_movie_title"

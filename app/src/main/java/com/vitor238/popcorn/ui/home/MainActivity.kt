@@ -18,6 +18,7 @@ import com.vitor238.popcorn.ui.base.BaseActivity
 import com.vitor238.popcorn.ui.home.favorites.FavoritesFragment
 import com.vitor238.popcorn.ui.home.home.HomeFragment
 import com.vitor238.popcorn.ui.home.nowplaying.NowPlayingFragment
+import com.vitor238.popcorn.ui.home.search.SearchFragment
 import com.vitor238.popcorn.ui.preferences.main.SettingsActivity
 import com.vitor238.popcorn.ui.viewmodel.ProfileViewModel
 
@@ -52,6 +53,11 @@ class MainActivity : BaseActivity() {
                 R.id.action_favorites -> {
                     val favoritesFragment = FavoritesFragment.newInstance()
                     openFragment(favoritesFragment)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.action_search -> {
+                    val searchFragment = SearchFragment.newInstance()
+                    openFragment(searchFragment)
                     return@OnNavigationItemSelectedListener true
                 }
                 else -> {
