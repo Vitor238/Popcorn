@@ -21,7 +21,7 @@ class ProfileRepository {
 
     fun getCurrentFirestoreUser() {
         if (currentUser != null) {
-            val currentUserRef = FirestoreReferences.usersRef.document(currentUser.uid)
+            val currentUserRef = FirestoreReferences.usersRef
             currentUserListener = currentUserRef.addSnapshotListener { snapshot, e ->
                 if (e != null) {
                     Log.w(TAG, "Listen failed.", e)
@@ -45,7 +45,7 @@ class ProfileRepository {
     }
 
     fun saveUserInFirestore(user: User) {
-        val newUserRef = FirestoreReferences.usersRef.document(user.id!!)
+        val newUserRef = FirestoreReferences.usersRef
         newUserRef.set(user).addOnSuccessListener {
             firestoreUserCreatedLiveData.value = true
         }.addOnFailureListener { e ->
@@ -70,7 +70,7 @@ class ProfileRepository {
     }
 
     fun updateFirestorePhoto(newPhoto: String) {
-        val newUserRef = FirestoreReferences.usersRef.document(currentUser?.uid!!)
+        val newUserRef = FirestoreReferences.usersRef
         newUserRef.update("photoUrl", newPhoto).addOnSuccessListener {
             Log.i(TAG, "Photo updated")
         }.addOnFailureListener { e ->
@@ -79,7 +79,7 @@ class ProfileRepository {
     }
 
     fun updateFirestoreName(newName: String) {
-        val newUserRef = FirestoreReferences.usersRef.document(currentUser?.uid!!)
+        val newUserRef = FirestoreReferences.usersRef
         newUserRef.update("name", newName).addOnSuccessListener {
             Log.i(TAG, "Name updated")
         }.addOnFailureListener { e ->

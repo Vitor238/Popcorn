@@ -17,6 +17,7 @@ import com.vitor238.popcorn.ui.home.home.trends.TrendsViewModel
 import com.vitor238.popcorn.ui.movieinfo.MovieInfoActivity
 import com.vitor238.popcorn.ui.serieinfo.SerieInfoActivity
 import com.vitor238.popcorn.utils.ApiStatus
+import com.vitor238.popcorn.utils.MediaTypes
 
 class HomeFragment : Fragment() {
 
@@ -36,9 +37,9 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         trendsAdapter = TrendsAdapter { trend ->
-            if (trend.mediaType == "tv") {
+            if (trend.mediaType == MediaTypes.TV) {
                 openSeriesInfo(trend.id)
-            } else if (trend.mediaType == "movie") {
+            } else if (trend.mediaType == MediaTypes.MOVIE) {
                 openMovieInfo(trend.id)
             }
         }

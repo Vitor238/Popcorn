@@ -11,6 +11,7 @@ import com.vitor238.popcorn.databinding.FragmentSearchBinding
 import com.vitor238.popcorn.ui.home.MainActivity
 import com.vitor238.popcorn.ui.movieinfo.MovieInfoActivity
 import com.vitor238.popcorn.ui.serieinfo.SerieInfoActivity
+import com.vitor238.popcorn.utils.MediaTypes
 import com.vitor238.popcorn.utils.SearchStatus
 
 class SearchFragment : Fragment() {
@@ -28,10 +29,10 @@ class SearchFragment : Fragment() {
         _binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
 
         searchAdapter = SearchAdapter {
-            if (it.mediaType == "tv") {
+            if (it.mediaType == MediaTypes.TV) {
                 val intent = SerieInfoActivity.getStartIntent(requireActivity(), it.id)
                 startActivity(intent)
-            } else if (it.mediaType == "movie") {
+            } else if (it.mediaType == MediaTypes.MOVIE) {
                 val intent = MovieInfoActivity.getStartIntent(requireActivity(), it.id)
                 startActivity(intent)
             }
