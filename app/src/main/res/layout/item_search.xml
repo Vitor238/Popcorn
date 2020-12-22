@@ -18,7 +18,7 @@
             android:layout_width="71dp"
             android:layout_height="109dp"
             android:layout_gravity="start"
-            android:contentDescription="@string/thumbnail"
+            android:contentDescription="@string/poster"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
