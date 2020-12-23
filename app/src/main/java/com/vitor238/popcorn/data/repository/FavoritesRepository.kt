@@ -9,9 +9,9 @@ import com.vitor238.popcorn.utils.ApiStatus
 import com.vitor238.popcorn.utils.FirestoreReferences
 
 
-class FavoritesRepository {
+class FavoritesRepository(currentUserId: String) {
 
-    private val favoritesRef = FirestoreReferences.favoritesRef
+    private val favoritesRef = FirestoreReferences.getFavoritesRef(currentUserId)
     private val _favorite = MutableLiveData<Favorite>()
     val favorite: LiveData<Favorite>
         get() = _favorite
@@ -58,7 +58,7 @@ class FavoritesRepository {
     }
 
     fun removeFavorite(favorite: Favorite) {
-        FirestoreReferences.favoritesRef.document(favorite.id!!)
+        favoritesRef.document(favorite.id!!)
             .delete()
             .addOnSuccessListener {
                 Log.d(TAG, "Favorite successfully deleted!")

@@ -1,5 +1,6 @@
 package com.vitor238.popcorn.ui.home.favorites
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.vitor238.popcorn.databinding.FragmentFavoritesBinding
 import com.vitor238.popcorn.ui.movieinfo.MovieInfoActivity
 import com.vitor238.popcorn.ui.serieinfo.SerieInfoActivity
+import com.vitor238.popcorn.ui.viewmodel.FavoritesViewModel
+import com.vitor238.popcorn.ui.viewmodel.FavoritesViewModelFactory
+import com.vitor238.popcorn.ui.viewmodel.LoggedInViewModel
+import com.vitor238.popcorn.ui.viewmodel.LoggedInViewModelFactory
+import com.vitor238.popcorn.ui.welcome.WelcomeActivity
 import com.vitor238.popcorn.utils.ApiStatus
 import com.vitor238.popcorn.utils.MediaTypes
 
@@ -37,22 +43,47 @@ class FavoritesFragment : Fragment() {
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = favoritesAdapter
 
+        binding.imageLogin.setOnClickListener {
+            val intent = Intent(requireActivity(), WelcomeActivity::class.java)
+            startActivity(intent)
+        }
+
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val favoritesViewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
+
+
+        val loggedInViewModelFactory = LoggedInViewModelFactory(requireActivity().application)
+        val loggedInViewModel = ViewModelProvider(this, loggedInViewModelFactory)
+            .get(LoggedInViewModel::class.java)
+
+        loggedInViewModel.firebaseUserMutableLiveData.observe(viewLifecycleOwner) { firebaseUser ->
+            if (firebaseUser == null) {
+                binding.viewFlipper.displayedChild = 0
+            } else {
+                initFavoritesViewModel(firebaseUser.uid)
+            }
+        }
+    }
+
+    private fun initFavoritesViewModel(userId: String) {
+        val favoriteViewModelFactory = FavoritesViewModelFactory(userId)
+        val favoritesViewModel = ViewModelProvider(this, favoriteViewModelFactory)
+            .get(FavoritesViewModel::class.java)
+
         favoritesViewModel.getAllFavorites()
-        favoritesViewModel.favorites.observe(viewLifecycleOwner) {
+
+        favoritesViewModel.favoritesList.observe(viewLifecycleOwner) {
             favoritesAdapter.submitList(it)
         }
         favoritesViewModel.status.observe(viewLifecycleOwner) { status ->
             status?.let {
                 when (it) {
-                    ApiStatus.LOADING -> binding.viewFlipper.displayedChild = 0
-                    ApiStatus.DONE -> binding.viewFlipper.displayedChild = 1
-                    ApiStatus.ERROR -> binding.viewFlipper.displayedChild = 2
+                    ApiStatus.LOADING -> binding.viewFlipper.displayedChild = 1
+                    ApiStatus.DONE -> binding.viewFlipper.displayedChild = 2
+                    ApiStatus.ERROR -> binding.viewFlipper.displayedChild = 3
                 }
             }
         }

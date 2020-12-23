@@ -3,7 +3,6 @@ package com.vitor238.popcorn.ui.movieinfo
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -12,6 +11,10 @@ import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.Favorite
 import com.vitor238.popcorn.databinding.ActivityMovieInfoBinding
 import com.vitor238.popcorn.ui.serieinfo.TabsAdapter
+import com.vitor238.popcorn.ui.viewmodel.FavoritesViewModel
+import com.vitor238.popcorn.ui.viewmodel.FavoritesViewModelFactory
+import com.vitor238.popcorn.ui.viewmodel.LoggedInViewModel
+import com.vitor238.popcorn.ui.viewmodel.LoggedInViewModelFactory
 import com.vitor238.popcorn.utils.ApiStatus
 import com.vitor238.popcorn.utils.BaseUrls
 import com.vitor238.popcorn.utils.MediaTypes
@@ -21,7 +24,6 @@ class MovieInfoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMovieInfoBinding
     private var movieId: Int? = null
-    private lateinit var movieViewModel: MovieViewModel
     private lateinit var favorite: Favorite
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,11 +32,9 @@ class MovieInfoActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         movieId = intent.extras?.getInt(MOVIE_ID)
-        movieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
 
-        observeViewModel()
+        getMovieInfo()
 
-        binding.content.toolbar.inflateMenu(R.menu.menu_favorite)
         binding.content.toolbar.setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material)
         binding.content.toolbar.setNavigationOnClickListener {
             onBackPressed()
@@ -42,7 +42,9 @@ class MovieInfoActivity : AppCompatActivity() {
 
     }
 
-    private fun observeViewModel() {
+    private fun getMovieInfo() {
+        val movieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
+
         movieViewModel.getMovieInfo(movieId!!)
 
         movieViewModel.status.observe(this) { status ->
@@ -88,26 +90,47 @@ class MovieInfoActivity : AppCompatActivity() {
                 posterPath = movie.posterPath
             )
 
-            movieViewModel.checkFavorite(favorite)
+            verifyLogin()
         }
 
-        movieViewModel.favorite.observe(this) { favoriteSaved ->
-            Log.i(TAG, "onCreate: $favoriteSaved")
+    }
+
+    private fun verifyLogin() {
+        val loggedInViewModelFactory = LoggedInViewModelFactory(application)
+        val loggedInViewModel = ViewModelProvider(this, loggedInViewModelFactory)
+            .get(LoggedInViewModel::class.java)
+
+        loggedInViewModel.firebaseUserMutableLiveData.observe(this) { firesbaseUser ->
+            firesbaseUser?.let {
+                getFavoriteState(it.uid)
+            }
+        }
+    }
+
+
+    private fun getFavoriteState(userId: String) {
+        binding.content.toolbar.inflateMenu(R.menu.menu_favorite)
+
+        val favoriteViewModelFactory = FavoritesViewModelFactory(userId)
+        val favoritesViewModel = ViewModelProvider(this, favoriteViewModelFactory)
+            .get(FavoritesViewModel::class.java)
+
+        favoritesViewModel.checkFavorite(favorite)
+
+        favoritesViewModel.favorite.observe(this) { favoriteSaved ->
 
             val item = binding.content.toolbar.menu.findItem(R.id.action_save_to_favorites)
 
             if (favoriteSaved != null) {
                 item.setIcon(R.drawable.ic_baseline_star_24)
                 binding.content.toolbar.setOnMenuItemClickListener {
-                    movieViewModel.removeFavorite(favoriteSaved)
-                    Log.i(TAG, "onCreate: REMOVE!")
+                    favoritesViewModel.removeFavorite(favoriteSaved)
                     true
                 }
             } else {
                 item.setIcon(R.drawable.ic_baseline_star_outline_24)
                 binding.content.toolbar.setOnMenuItemClickListener {
-                    movieViewModel.saveFavorite(favorite)
-                    Log.i(TAG, "onCreate: ADD!")
+                    favoritesViewModel.saveFavorite(favorite)
                     true
                 }
             }

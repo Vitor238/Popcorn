@@ -41,7 +41,7 @@
     <string name="popular_movies">Popular movies</string>
     <string name="my_favorites">My favorites</string>
     <string name="poster">Poster</string>
-    <string name="oops_an_error_has_ocurred">Oops, ocorreu um erro!</string>
+    <string name="oops_an_error_has_occurred">Oops an error has occurred!</string>
     <string name="error">Error</string>
     <string name="details">Details</string>
     <string name="more_like_this">More like this</string>
@@ -68,4 +68,5 @@
     <string name="now_playing">Now playing</string>
     <string name="playing_in_theaters">Playing in theaters</string>
     <string name="always_follow_covid_19_prevention_recommendations">Always follow COVID-19 prevention recommendations</string>
+    <string name="log_in_to_save_your_favorites">Log in to save your favorites</string>
 </resources>

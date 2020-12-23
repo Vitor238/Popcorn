@@ -41,7 +41,7 @@
     <string name="popular_movies">Filmes populaes</string>
     <string name="my_favorites">Meus favoritos</string>
     <string name="poster">Poster</string>
-    <string name="oops_an_error_has_ocurred">Ops, ocorreu um erro!</string>
+    <string name="oops_an_error_has_occurred">Ops, ocorreu um erro!</string>
     <string name="error">Erro</string>
     <string name="details">Detalhes</string>
     <string name="more_like_this">Veja também</string>
@@ -68,4 +68,5 @@
     <string name="now_playing">Em cartaz</string>
     <string name="playing_in_theaters">Em cartaz nos cinemas</string>
     <string name="always_follow_covid_19_prevention_recommendations">Sempre siga as recomendações de prevenção COVID-19</string>
+    <string name="log_in_to_save_your_favorites">Faça login para salvar seus favoritos</string>
 </resources>

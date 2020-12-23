@@ -11,6 +11,10 @@ import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.Favorite
 import com.vitor238.popcorn.databinding.ActivitySerieInfoBinding
 import com.vitor238.popcorn.ui.base.BaseActivity
+import com.vitor238.popcorn.ui.viewmodel.FavoritesViewModel
+import com.vitor238.popcorn.ui.viewmodel.FavoritesViewModelFactory
+import com.vitor238.popcorn.ui.viewmodel.LoggedInViewModel
+import com.vitor238.popcorn.ui.viewmodel.LoggedInViewModelFactory
 import com.vitor238.popcorn.utils.ApiStatus
 import com.vitor238.popcorn.utils.BaseUrls
 import com.vitor238.popcorn.utils.MediaTypes
@@ -20,7 +24,6 @@ class SerieInfoActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySerieInfoBinding
     private var serieId: Int? = null
-    private lateinit var seriesViewModel: SerieViewModel
     private lateinit var favorite: Favorite
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,18 +32,17 @@ class SerieInfoActivity : BaseActivity() {
         setContentView(binding.root)
 
         serieId = intent.extras?.getInt(SERIE_ID)
-        seriesViewModel = ViewModelProvider(this).get(SerieViewModel::class.java)
 
-        observeViewModel()
+        getSerieInfo()
 
-        binding.toolbar.inflateMenu(R.menu.menu_favorite)
         binding.toolbar.setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material)
         binding.toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
     }
 
-    private fun observeViewModel() {
+    private fun getSerieInfo() {
+        val seriesViewModel = ViewModelProvider(this).get(SerieViewModel::class.java)
         seriesViewModel.getSerieInfo(serieId!!)
         seriesViewModel.status.observe(this) { status ->
             status?.let {
@@ -85,12 +87,32 @@ class SerieInfoActivity : BaseActivity() {
                 title = serie.name ?: serie.originalName,
                 posterPath = serie.posterPath
             )
-            seriesViewModel.checkFavorite(favorite)
+            verifyLogin()
         }
+    }
 
+    private fun verifyLogin() {
+        val loggedInViewModelFactory = LoggedInViewModelFactory(application)
+        val loggedInViewModel = ViewModelProvider(this, loggedInViewModelFactory)
+            .get(LoggedInViewModel::class.java)
 
+        loggedInViewModel.firebaseUserMutableLiveData.observe(this) { firesbaseUser ->
+            firesbaseUser?.let {
+                getFavoriteState(it.uid)
+            }
+        }
+    }
 
-        seriesViewModel.favorite.observe(this) { favoriteSaved ->
+    private fun getFavoriteState(userId: String) {
+        binding.toolbar.inflateMenu(R.menu.menu_favorite)
+
+        val favoriteViewModelFactory = FavoritesViewModelFactory(userId)
+        val favoritesViewModel = ViewModelProvider(this, favoriteViewModelFactory)
+            .get(FavoritesViewModel::class.java)
+
+        favoritesViewModel.checkFavorite(favorite)
+
+        favoritesViewModel.favorite.observe(this) { favoriteSaved ->
             Log.i(TAG, "onCreate: $favoriteSaved")
 
             val item = binding.toolbar.menu.findItem(R.id.action_save_to_favorites)
@@ -98,20 +120,17 @@ class SerieInfoActivity : BaseActivity() {
             if (favoriteSaved != null) {
                 item.setIcon(R.drawable.ic_baseline_star_24)
                 binding.toolbar.setOnMenuItemClickListener {
-                    seriesViewModel.removeFavorite(favoriteSaved)
-                    Log.i(TAG, "onCreate: REMOVE!")
+                    favoritesViewModel.removeFavorite(favoriteSaved)
                     true
                 }
             } else {
                 item.setIcon(R.drawable.ic_baseline_star_outline_24)
                 binding.toolbar.setOnMenuItemClickListener {
-                    seriesViewModel.saveFavorite(favorite)
-                    Log.i(TAG, "onCreate: ADD!")
+                    favoritesViewModel.saveFavorite(favorite)
                     true
                 }
             }
         }
-
     }
 
     companion object {
