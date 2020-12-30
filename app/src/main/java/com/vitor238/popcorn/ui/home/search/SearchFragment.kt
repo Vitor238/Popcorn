@@ -1,3 +1,4 @@
+
 package com.vitor238.popcorn.ui.home.search
 
 import android.os.Bundle

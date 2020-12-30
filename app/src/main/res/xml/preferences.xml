@@ -3,19 +3,19 @@
     <SwitchPreference
         android:defaultValue="true"
         android:icon="@drawable/ic_baseline_brightness_3_24"
-        android:key="nightTheme"
+        android:key="pref_night_mode"
         android:title="@string/night_mode" />
     <Preference
         android:icon="@drawable/ic_baseline_edit_24"
-        android:key="editProfile"
+        android:key="pref_edit_profile"
         android:title="@string/edit_profile" />
     <Preference
         android:icon="@drawable/ic_baseline_info_24"
-        android:key="about"
+        android:key="pref_about"
         android:title="@string/about" />
     <Preference
         android:icon="@drawable/ic_baseline_exit_to_app_24"
-        android:key="logout"
+        android:key="pref_logout"
         android:title="@string/logout" />
 
 </androidx.preference.PreferenceScreen>

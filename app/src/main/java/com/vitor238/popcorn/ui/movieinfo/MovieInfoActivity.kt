@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.Favorite
@@ -35,7 +36,7 @@ class MovieInfoActivity : AppCompatActivity() {
 
         getMovieInfo()
 
-        binding.content.toolbar.setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material)
+        binding.content.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         binding.content.toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
@@ -75,7 +76,9 @@ class MovieInfoActivity : AppCompatActivity() {
 
             Glide.with(this).load(
                 BaseUrls.BASE_TMDB_IMG_URL_200 + movie.posterPath
-            ).placeholder(R.drawable.ic_movie_placeholder)
+            )
+                .placeholder(R.drawable.ic_movie_placeholder)
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(4)))
                 .into(binding.content.imageCover)
 
             Glide.with(this).load(BaseUrls.BASE_TMDB_IMG_URL_200 + movie.posterPath)
@@ -109,6 +112,8 @@ class MovieInfoActivity : AppCompatActivity() {
 
 
     private fun getFavoriteState(userId: String) {
+
+        binding.content.toolbar.menu.clear()
         binding.content.toolbar.inflateMenu(R.menu.menu_favorite)
 
         val favoriteViewModelFactory = FavoritesViewModelFactory(userId)

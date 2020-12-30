@@ -4,6 +4,7 @@
     <style name="ButtonStyle" parent="Widget.MaterialComponents.Button">
         <item name="android:backgroundTint">@color/button_background</item>
         <item name="android:layout_width">@dimen/button_width</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="ButtonWhiteStyle" parent="Widget.MaterialComponents.Button">
@@ -27,25 +28,15 @@
         <item name="android:layout_marginTop">8dp</item>
     </style>
 
-    <style name="InfoTitleExpanded" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">30sp</item>
-    </style>
-
-    <style name="InfoTitleCollapsed" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">18sp</item>
-    </style>
-
     <style name="TextInfo" parent="@android:style/TextAppearance">
         <item name="android:layout_marginBottom">8dp</item>
-        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="CardViewStyle" parent="Theme.MaterialComponents.DayNight">
         <item name="cornerRadius">@dimen/default_corner_radius</item>
-        <item name="cardElevation">@dimen/default_elevation</item>
+        <item name="cardElevation">@dimen/default_card_elevation</item>
         <item name="cardPreventCornerOverlap">true</item>
-        <item name="cardBackgroundColor">@color/dark_gray</item>
+        <item name="cardBackgroundColor">?attr/colorOnPrimary</item>
     </style>
+
 </resources>

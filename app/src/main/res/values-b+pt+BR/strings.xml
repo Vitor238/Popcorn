@@ -28,7 +28,7 @@
     <string name="save">Salvar</string>
     <string name="settings">Configurações</string>
     <string name="enter_your_new_username">Digite seu novo nome de usuário</string>
-    <string name="tap_to_change_username">Toque para alterar seu nove de usuário</string>
+    <string name="tap_to_change_username">Toque para alterar seu nome de usuário</string>
     <string name="change_profile_picture">Alterar foto de perfil</string>
     <string name="github">Github</string>
     <string name="the_movie_db_info">Este produto usa a API do TMDb, mas não é endossado ou certificado pelo TMDb.</string>

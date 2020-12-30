@@ -27,7 +27,7 @@
                 app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleGravity="center_horizontal|bottom"
                 app:expandedTitleTextAppearance="@style/InfoTitleExpanded"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap|enterAlways"
                 app:layout_scrollInterpolator="@android:anim/decelerate_interpolator"
                 app:toolbarId="@+id/toolbar">
 
@@ -48,30 +48,22 @@
                     android:src="@drawable/gradient"
                     app:layout_collapseMode="parallax" />
 
-
-                <androidx.cardview.widget.CardView
+                <ImageView
+                    android:id="@+id/image_cover"
                     android:layout_width="117dp"
                     android:layout_height="176dp"
                     android:layout_gravity="center"
-                    style="@style/CardViewStyle"
-                    app:layout_collapseMode="parallax">
-
-                    <ImageView
-                        android:id="@+id/image_cover"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:contentDescription="@string/poster"
-                        android:scaleType="centerCrop"
-                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
-                </androidx.cardview.widget.CardView>
-
+                    android:contentDescription="@string/poster"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:layout_marginTop="16dp"
-                    app:titleTextColor="@color/light_gray"
+                    style="@style/Theme.Popcorn.AppBarOverlay"
                     tools:title="The Mandalorian" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -79,11 +71,7 @@
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                app:tabGravity="fill"
-                app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/white"
-                app:tabTextColor="@color/light_gray" />
+                style="@style/TabLayoutTheme" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager.widget.ViewPager
