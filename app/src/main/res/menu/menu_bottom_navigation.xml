@@ -10,7 +10,7 @@
         android:title="@string/now_playing" />
     <item
         android:id="@+id/action_favorites"
-        android:icon="@drawable/ic_baseline_star_24"
+        android:icon="@drawable/ic_baseline_star_white_24"
         android:title="@string/favorites" />
     <item
         android:id="@+id/action_search"

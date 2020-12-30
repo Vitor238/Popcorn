@@ -14,7 +14,7 @@
         android:background="?attr/colorPrimary"
         android:gravity="center"
         app:popupTheme="@style/Theme.Popcorn.PopupOverlay"
-        style="@style/Theme.Popcorn.AppBarOverlay"
+        android:theme="@style/Theme.Popcorn.AppBarOverlay"
         app:title="">
 
         <androidx.appcompat.widget.SearchView
@@ -30,7 +30,7 @@
         android:id="@+id/view_flipper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp">
+        android:padding="4dp">
 
         <FrameLayout
             android:layout_width="match_parent"

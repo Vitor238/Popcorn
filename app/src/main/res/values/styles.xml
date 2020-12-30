@@ -32,11 +32,4 @@
         <item name="android:layout_marginBottom">8dp</item>
     </style>
 
-    <style name="CardViewStyle" parent="Theme.MaterialComponents.DayNight">
-        <item name="cornerRadius">@dimen/default_corner_radius</item>
-        <item name="cardElevation">@dimen/default_card_elevation</item>
-        <item name="cardPreventCornerOverlap">true</item>
-        <item name="cardBackgroundColor">?attr/colorOnPrimary</item>
-    </style>
-
 </resources>

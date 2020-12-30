@@ -60,10 +60,11 @@
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
+                    android:theme="@style/Theme.Popcorn.AppBarOverlay"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:layout_marginTop="16dp"
-                    style="@style/Theme.Popcorn.AppBarOverlay"
+                    app:layout_collapseMode="pin"
                     tools:title="The Mandalorian" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 

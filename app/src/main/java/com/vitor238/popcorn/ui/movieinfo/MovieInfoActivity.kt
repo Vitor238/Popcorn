@@ -3,14 +3,16 @@ package com.vitor238.popcorn.ui.movieinfo
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.appbar.AppBarLayout
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.Favorite
 import com.vitor238.popcorn.databinding.ActivityMovieInfoBinding
+import com.vitor238.popcorn.ui.base.BaseActivity
 import com.vitor238.popcorn.ui.serieinfo.TabsAdapter
 import com.vitor238.popcorn.ui.viewmodel.FavoritesViewModel
 import com.vitor238.popcorn.ui.viewmodel.FavoritesViewModelFactory
@@ -20,12 +22,14 @@ import com.vitor238.popcorn.utils.ApiStatus
 import com.vitor238.popcorn.utils.BaseUrls
 import com.vitor238.popcorn.utils.MediaTypes
 import jp.wasabeef.glide.transformations.BlurTransformation
+import kotlin.math.abs
 
-class MovieInfoActivity : AppCompatActivity() {
+class MovieInfoActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMovieInfoBinding
     private var movieId: Int? = null
-    private lateinit var favorite: Favorite
+    private lateinit var newFavorite: Favorite
+    private lateinit var favoritesViewModel: FavoritesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,11 +40,7 @@ class MovieInfoActivity : AppCompatActivity() {
 
         getMovieInfo()
 
-        binding.content.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
-        binding.content.toolbar.setNavigationOnClickListener {
-            onBackPressed()
-        }
-
+        setupAppbar(binding.content.toolbar, binding.content.appbar)
     }
 
     private fun getMovieInfo() {
@@ -76,8 +76,7 @@ class MovieInfoActivity : AppCompatActivity() {
 
             Glide.with(this).load(
                 BaseUrls.BASE_TMDB_IMG_URL_200 + movie.posterPath
-            )
-                .placeholder(R.drawable.ic_movie_placeholder)
+            ).placeholder(R.drawable.ic_movie_placeholder)
                 .apply(RequestOptions.bitmapTransform(RoundedCorners(4)))
                 .into(binding.content.imageCover)
 
@@ -86,7 +85,7 @@ class MovieInfoActivity : AppCompatActivity() {
                 .placeholder(R.color.gray)
                 .into(binding.content.appBarImage)
 
-            favorite = Favorite(
+            newFavorite = Favorite(
                 mediaType = MediaTypes.MOVIE,
                 mediaId = movie.id,
                 title = movie.title ?: movie.originalTitle,
@@ -117,34 +116,54 @@ class MovieInfoActivity : AppCompatActivity() {
         binding.content.toolbar.inflateMenu(R.menu.menu_favorite)
 
         val favoriteViewModelFactory = FavoritesViewModelFactory(userId)
-        val favoritesViewModel = ViewModelProvider(this, favoriteViewModelFactory)
+        favoritesViewModel = ViewModelProvider(this, favoriteViewModelFactory)
             .get(FavoritesViewModel::class.java)
 
-        favoritesViewModel.checkFavorite(favorite)
+        favoritesViewModel.checkFavorite(newFavorite)
 
         favoritesViewModel.favorite.observe(this) { favoriteSaved ->
 
+            setupFavoriteButtonClick(favoriteSaved)
+
             val item = binding.content.toolbar.menu.findItem(R.id.action_save_to_favorites)
 
+            binding.content.appbar
+                .addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+                    val isCollapsed = abs(verticalOffset) == appBarLayout.totalScrollRange
+                    updateFavoriteIcon(favoriteSaved, isCollapsed, item)
+                })
+        }
+    }
+
+    private fun setupFavoriteButtonClick(favoriteSaved: Favorite?) {
+        binding.content.toolbar.setOnMenuItemClickListener {
             if (favoriteSaved != null) {
-                item.setIcon(R.drawable.ic_baseline_star_24)
-                binding.content.toolbar.setOnMenuItemClickListener {
-                    favoritesViewModel.removeFavorite(favoriteSaved)
-                    true
-                }
+                favoritesViewModel.removeFavorite(favoriteSaved)
             } else {
-                item.setIcon(R.drawable.ic_baseline_star_outline_24)
-                binding.content.toolbar.setOnMenuItemClickListener {
-                    favoritesViewModel.saveFavorite(favorite)
-                    true
-                }
+                favoritesViewModel.saveFavorite(newFavorite)
             }
+            true
+        }
+    }
+
+    private fun updateFavoriteIcon(
+        favoriteSaved: Favorite?,
+        isCollapsed: Boolean,
+        menuItem: MenuItem
+    ) {
+        if (favoriteSaved != null && isCollapsed) {
+            menuItem.setIcon(R.drawable.ic_baseline_star_24)
+        } else if (favoriteSaved != null && !isCollapsed) {
+            menuItem.setIcon(R.drawable.ic_circle_star)
+        } else if (favoriteSaved == null && isCollapsed) {
+            menuItem.setIcon(R.drawable.ic_baseline_star_outline_24)
+        } else {
+            menuItem.setIcon(R.drawable.ic_circle_star_outline)
         }
     }
 
     companion object {
         private const val MOVIE_ID = "movieId"
-        private val TAG = MovieInfoActivity::class.simpleName
         fun getStartIntent(context: Context, movieId: Int): Intent {
             return Intent(context, MovieInfoActivity::class.java).apply {
                 putExtra(MOVIE_ID, movieId)
