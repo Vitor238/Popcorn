@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <SwitchPreference
         android:defaultValue="true"
         android:icon="@drawable/ic_baseline_brightness_3_24"
         android:key="pref_night_mode"
         android:title="@string/night_mode" />
     <Preference
+        app:isPreferenceVisible="false"
         android:icon="@drawable/ic_baseline_edit_24"
         android:key="pref_edit_profile"
         android:title="@string/edit_profile" />

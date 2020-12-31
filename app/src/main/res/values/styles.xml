@@ -32,4 +32,8 @@
         <item name="android:layout_marginBottom">8dp</item>
     </style>
 
+    <style name="TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">?attr/colorSecondary</item>
+    </style>
+
 </resources>

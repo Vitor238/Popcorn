@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
+import androidx.recyclerview.widget.RecyclerView
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.ui.preferences.about.AboutActivity
 import com.vitor238.popcorn.ui.preferences.profile.EditProfileActivity
@@ -19,6 +20,13 @@ import com.vitor238.popcorn.ui.welcome.WelcomeActivity
 import com.vitor238.popcorn.utils.PreferencesUtils
 
 class MainPreferences : PreferenceFragmentCompat() {
+
+    private val prefLogout by lazy { findPreference<Preference>("pref_logout") }
+    private val prefEditProfile by lazy { findPreference<Preference>("pref_edit_profile") }
+    private val prefAbout by lazy { findPreference<Preference>("pref_about") }
+    private val prefNightMode by lazy { findPreference<SwitchPreference>("pref_night_mode") }
+    private lateinit var loggedInViewModel: LoggedInViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,27 +34,12 @@ class MainPreferences : PreferenceFragmentCompat() {
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         PreferencesUtils.setupBackgroundColor(view)
+
         return view
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
-        val prefLogout = findPreference<Preference>("pref_logout")
-        val prefEditProfile = findPreference<Preference>("pref_edit_profile")
-        val prefAbout = findPreference<Preference>("pref_about")
-        val prefNightMode = findPreference<SwitchPreference>("pref_night_mode")
-
-        val loggedInViewModelFactory = LoggedInViewModelFactory(activity?.application!!)
-        val loggedInViewModel = ViewModelProvider(this, loggedInViewModelFactory)
-            .get(LoggedInViewModel::class.java)
-
-        loggedInViewModel.loggedOutMutableLiveData.observe(this) { loggedOut ->
-            if (loggedOut) {
-                val intent = Intent(activity, WelcomeActivity::class.java)
-                startActivity(intent)
-                activity?.finish()
-            }
-        }
 
         prefLogout?.setOnPreferenceClickListener {
             loggedInViewModel.logOut()
@@ -73,5 +66,38 @@ class MainPreferences : PreferenceFragmentCompat() {
             }
             true
         }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        val loggedInViewModelFactory = LoggedInViewModelFactory(activity?.application!!)
+        loggedInViewModel = ViewModelProvider(this, loggedInViewModelFactory)
+            .get(LoggedInViewModel::class.java)
+
+        loggedInViewModel.loggedOutMutableLiveData.observe(viewLifecycleOwner) { loggedOut ->
+            if (loggedOut) {
+                val intent = Intent(activity, WelcomeActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
+            }
+        }
+
+        loggedInViewModel.firebaseUserMutableLiveData.observe(viewLifecycleOwner) { firebaseUser ->
+            if (firebaseUser != null) {
+                prefEditProfile?.isVisible = true
+            }
+        }
+    }
+
+    override fun onCreateRecyclerView(
+        inflater: LayoutInflater?,
+        parent: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): RecyclerView {
+        val view = super.onCreateRecyclerView(inflater, parent, savedInstanceState)
+        view.itemAnimator = null
+        view.layoutAnimation = null
+        return view
     }
 }

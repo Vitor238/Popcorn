@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <EditTextPreference
-        android:dialogTitle="@string/enter_your_new_username"
+    <Preference
         android:icon="@drawable/ic_baseline_person_24"
         android:key="userName"
         android:summary="@string/tap_to_change_username"

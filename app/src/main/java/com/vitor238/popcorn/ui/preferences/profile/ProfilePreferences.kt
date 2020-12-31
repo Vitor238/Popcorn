@@ -29,14 +29,20 @@ class ProfilePreferences : PreferenceFragmentCompat() {
         val profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         profileViewModel.getFirestoreUser()
         profileViewModel.firestoreUserLiveData.observe(this) { user ->
-            prefUserName?.title = user?.name
-        }
 
-        prefUserName?.onPreferenceChangeListener =
-            Preference.OnPreferenceChangeListener { _, newValue ->
-                profileViewModel.updateFirestoreName(newValue.toString())
-                profileViewModel.updateAuthName(newValue.toString())
-                true
+            user?.name?.let { name ->
+                prefUserName?.title = name
+
+                prefUserName?.setOnPreferenceClickListener {
+                    val changeNameDialogFragment = ChangeNameDialogFragment.newInstance(name)
+                    changeNameDialogFragment.show(
+                        childFragmentManager,
+                        changeNameDialogFragment.tag
+                    )
+                    true
+                }
             }
+
+        }
     }
 }
