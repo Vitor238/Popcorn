@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.movie.Movie
 import com.vitor238.popcorn.databinding.FragmentMovieDetailsBinding
+import com.vitor238.popcorn.utils.LocaleUtils
 import com.vitor238.popcorn.utils.setDetails
 
 private const val MOVIE = "movie"
@@ -47,7 +48,10 @@ class MovieDetailsFragment : Fragment() {
             R.string.production_countries,
             getProductionCountries()
         )
-        binding.textReleaseDate.setDetails(R.string.release_date, movie?.releaseDate)
+        binding.textReleaseDate.setDetails(
+            R.string.release_date,
+            LocaleUtils.parseDate(movie?.releaseDate)
+        )
 
         binding.textHomepage.setOnClickListener {
             val browserIntent = Intent(

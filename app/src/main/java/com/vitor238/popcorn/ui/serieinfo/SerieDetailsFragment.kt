@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.serie.Serie
 import com.vitor238.popcorn.databinding.FragmentSerieDetailsBinding
+import com.vitor238.popcorn.utils.LocaleUtils
 import com.vitor238.popcorn.utils.setDetails
 
 private const val SERIE = "serie"
@@ -38,8 +39,14 @@ class SerieDetailsFragment : Fragment() {
         binding.textGenres.setDetails(R.string.genres, getGenresList())
         binding.textCreatedBy.setDetails(R.string.created_by, getAuthors())
         binding.textInProdution.setDetails(R.string.in_prodution, getInProduction())
-        binding.textFirstAirDate.setDetails(R.string.first_air_date, serie?.firstAirDate)
-        binding.textLastAirDate.setDetails(R.string.last_air_date, serie?.lastAirDate)
+        binding.textFirstAirDate.setDetails(
+            R.string.first_air_date,
+            LocaleUtils.parseDate(serie?.firstAirDate)
+        )
+        binding.textLastAirDate.setDetails(
+            R.string.last_air_date,
+            LocaleUtils.parseDate(serie?.lastAirDate)
+        )
         binding.textNetworks.setDetails(R.string.networks, getNetworks())
         binding.textNumberOfEpisodes.setDetails(
             R.string.number_of_episodes,
