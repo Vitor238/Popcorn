@@ -11,21 +11,21 @@
 
 <p align="center">
  <a href="./README.md">Readme in English </a> •
- <a href="#about">Sobre</a> •
- <a href="#download-app">Baixar o app</a> •
- <a href="#building-the-project">Configurando o projeto</a> •
- <a href="#technologies-and-resources">Tecnologias e recursos</a> •
- <a href="#license">Licença</a>
+ <a href="#information_source-sobre">Sobre</a> •
+ <a href="#iphone-baixar-o-aplicativo">Baixar o aplicativo</a> •
+ <a href="#hammer-configurando-o-projeto">Configurando o projeto</a> •
+ <a href="#rocket-tecnologias-e-recursos">Tecnologias e recursos</a> •
+ <a href="#memo--licença">Licença</a>
 </p>
 
 <p align="center">
-<img src="./screenshots/home_pt_br.png" alt="Home" 
+<img src="./screenshots/home_pt_br.png" alt="Home"
 width="180">
-<img src="./screenshots/info_pt_br.png" 
+<img src="./screenshots/info_pt_br.png"
 alt="Info" width="180" hspace="4">
-<img src="screenshots/now_playing_pt_br.png" alt="Em cartaz" 
+<img src="screenshots/now_playing_pt_br.png" alt="Em cartaz"
 width="180">
-<img src="./screenshots/favorites_pt_br.png" alt="Favoritos" 
+<img src="./screenshots/favorites_pt_br.png" alt="Favoritos"
 width="180">
 </p>
 

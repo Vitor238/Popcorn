@@ -10,13 +10,22 @@
 </p>
 
 <p align="center">
-<img src="./screenshots/home_en_us.png" alt="Home" 
+ <a href="./README-PT-BR.md">Readme em Português </a> •
+ <a href="#information_source-about">About</a> •
+ <a href="#iphone-download-app">Download app</a> •
+ <a href="#hammer-building-the-project">Building the project</a> •
+ <a href="#rocket-technogies-and-resources">Technogies and resources</a> •
+ <a href="#memo--license">License</a>
+</p>
+
+<p align="center">
+<img src="./screenshots/home_en_us.png" alt="Home"
 width="180">
-<img src="./screenshots/info_en_us.png" 
+<img src="./screenshots/info_en_us.png"
 alt="Info" width="180" hspace="4">
-<img src="screenshots/now_playing_en_us.png" alt="Now playing" 
+<img src="screenshots/now_playing_en_us.png" alt="Now playing"
 width="180">
-<img src="./screenshots/favorites_en_us.png" alt="Favorites" 
+<img src="./screenshots/favorites_en_us.png" alt="Favorites"
 width="180">
 </p>
 
