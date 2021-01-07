@@ -109,6 +109,7 @@ class SignupActivity : BaseActivity() {
         viewModel.firestoreUserCreatedLiveData.observe(this) { userCreated ->
             if (userCreated) {
                 val intent = Intent(this, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             } else {
                 toast(R.string.failed_to_register)
