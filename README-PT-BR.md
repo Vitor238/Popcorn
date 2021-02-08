@@ -19,13 +19,13 @@
 </p>
 
 <p align="center">
-<img src="./screenshots/home_pt_br.png" alt="Home"
+<img src="./screenshots/home_pt_br.png" alt="Home" 
 width="180">
-<img src="./screenshots/info_pt_br.png"
+<img src="./screenshots/info_pt_br.png" 
 alt="Info" width="180" hspace="4">
-<img src="screenshots/now_playing_pt_br.png" alt="Em cartaz"
+<img src="screenshots/now_playing_pt_br.png" alt="Em cartaz" 
 width="180">
-<img src="./screenshots/favorites_pt_br.png" alt="Favoritos"
+<img src="./screenshots/favorites_pt_br.png" alt="Favoritos" 
 width="180">
 </p>
 
@@ -40,7 +40,7 @@ O aplicativo também conta com um tema claro e escuro que pode ser alterado nas 
 
 ## :iphone: Baixar o aplicativo
 
-Você pode fazer baixar o aplicativo clicando neste [link](https://github.com/Vitor238/Popcorn/releases/download/v1.0.0/popcorn.apk).
+Você pode fazer baixar o aplicativo clicando neste [link](https://github.com/Vitor238/Popcorn/releases/download/v1.0.1/popcorn.apk).
 
 ## :hammer: Configurando o projeto
 
@@ -63,7 +63,7 @@ Você pode fazer baixar o aplicativo clicando neste [link](https://github.com/Vi
 ```kotlin
 object ApiKeys {
 
-    val TMDB_API_KEY: String = "SUA CHAVE DE API"
+   const val TMDB_API_KEY: String = "SUA CHAVE DE API"
 
 }
 ```
@@ -72,27 +72,19 @@ object ApiKeys {
 
 ## :rocket: Tecnologias e recursos
 
-- [Retrofit](https://github.com/square/retrofit)
-
-- [Moshi](https://github.com/square/moshi)
-
-- [Android Architecture Components](https://developer.android.com/topic/libraries/architecture?hl=pt-br)
-
-- [Firebase Email Auth](https://firebase.google.com/docs/auth/android/password-auth?hl=pt-br)
-
-- [Firebase Google Auth](https://firebase.google.com/docs/auth/android/google-signin?hl=pt)
-
+- [Componentes da arquitetura do Android](https://developer.android.com/topic/libraries/architecture?hl=pt-br)
+- [Corrotinas](https://developer.android.com/kotlin/coroutines?hl=pt-br)
 - [Firebase Cloud Firestore](https://firebase.google.com/docs/firestore/quickstart?hl=pt-br)
-
 - [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics/get-started?hl=pt-br&platform=android)
-
+- [Firebase Email Auth](https://firebase.google.com/docs/auth/android/password-auth?hl=pt-br)
+- [Firebase Google Auth](https://firebase.google.com/docs/auth/android/google-signin?hl=pt)
 - [Firebase Storage](https://firebase.google.com/docs/storage/android/start?hl=pt-br)
-
 - [Glide](https://github.com/bumptech/glide)
-
+- [Moshi](https://github.com/square/moshi)
+- [Preferências](https://developer.android.com/jetpack/androidx/releases/preference?hl=pt-br)
+- [Retrofit](https://github.com/square/retrofit)
 - [The Movie Database API](https://www.themoviedb.org/documentation/api)
 
-- [Preferences](https://developer.android.com/jetpack/androidx/releases/preference)
 
 ## :memo:  Licença
 

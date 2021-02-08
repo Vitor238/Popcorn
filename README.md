@@ -19,13 +19,13 @@
 </p>
 
 <p align="center">
-<img src="./screenshots/home_en_us.png" alt="Home"
+<img src="./screenshots/home_en_us.png" alt="Home" 
 width="180">
-<img src="./screenshots/info_en_us.png"
+<img src="./screenshots/info_en_us.png" 
 alt="Info" width="180" hspace="4">
-<img src="screenshots/now_playing_en_us.png" alt="Now playing"
+<img src="screenshots/now_playing_en_us.png" alt="Now playing" 
 width="180">
-<img src="./screenshots/favorites_en_us.png" alt="Favorites"
+<img src="./screenshots/favorites_en_us.png" alt="Favorites" 
 width="180">
 </p>
 
@@ -39,7 +39,7 @@ The application also has a light and dark theme that can be changed in the setti
 
 ## :iphone: Download app
 
-You can download it by clicking on this [link](https://github.com/Vitor238/Popcorn/releases/download/v1.0.0/popcorn.apk).
+You can download it by clicking on this [link](https://github.com/Vitor238/Popcorn/releases/download/v1.0.1/popcorn.apk).
 
 ## :hammer: Building the project
 
@@ -62,7 +62,7 @@ You can download it by clicking on this [link](https://github.com/Vitor238/Popco
 ```kotlin
 object ApiKeys {
 
-    val TMDB_API_KEY: String = "YOUR API KEY"
+    const val TMDB_API_KEY: String = "YOUR API KEY"
 }
 ```
 
@@ -70,27 +70,19 @@ object ApiKeys {
 
 ## :rocket: Technogies and resources
 
-- [Retrofit](https://github.com/square/retrofit)
-
-- [Moshi](https://github.com/square/moshi)
-
 - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture)
-
-- [Firebase Email Auth](https://firebase.google.com/docs/auth/android/password-auth)
-
-- [Firebase Google Auth](https://firebase.google.com/docs/auth/android/google-signin)
-
+- [Coroutines](https://developer.android.com/kotlin/coroutines)
 - [Firebase Cloud Firestore](https://firebase.google.com/docs/firestore/quickstart)
-
 - [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics/get-started?platform=android)
-
+- [Firebase Email Auth](https://firebase.google.com/docs/auth/android/password-auth)
+- [Firebase Google Auth](https://firebase.google.com/docs/auth/android/google-signin)
 - [Firebase Storage](https://firebase.google.com/docs/storage/android/start)
-
 - [Glide](https://github.com/bumptech/glide)
-
+- [Moshi](https://github.com/square/moshi)
+- [Preferences](https://developer.android.com/jetpack/androidx/releases/preference)
+- [Retrofit](https://github.com/square/retrofit)
 - [The Movie Database API](https://www.themoviedb.org/documentation/api)
 
-- [Preferences](https://developer.android.com/jetpack/androidx/releases/preference)
 
 ## :memo:  License
 
