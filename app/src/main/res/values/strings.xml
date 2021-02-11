@@ -69,4 +69,5 @@
     <string name="playing_in_theaters">Playing in theaters</string>
     <string name="always_follow_covid_19_prevention_recommendations">Always follow COVID-19 prevention recommendations</string>
     <string name="log_in_to_save_your_favorites">Log in to save your favorites</string>
+    <string name="no_results_found">No results found</string>
 </resources>

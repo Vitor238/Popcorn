@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/view_flipper"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.serieinfo.SerieRecommendationsFragment">
 
-    <include
-        layout="@layout/loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_recommendations"
+    <ViewFlipper
+        android:id="@+id/view_flipper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/details_padding"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="3"
-        tools:listitem="@layout/item_movie" />
+        tools:context=".ui.serieinfo.SerieRecommendationsFragment">
 
-    <include layout="@layout/error" />
+        <include
+            layout="@layout/loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-</ViewFlipper>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_recommendations"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/details_padding"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="@integer/span_count"
+            tools:listitem="@layout/item_movie" />
+
+        <include layout="@layout/error" />
+
+    </ViewFlipper>
+</androidx.core.widget.NestedScrollView>

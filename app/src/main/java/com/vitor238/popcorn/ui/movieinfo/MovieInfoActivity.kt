@@ -9,11 +9,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.Favorite
+import com.vitor238.popcorn.data.model.movie.Movie
 import com.vitor238.popcorn.databinding.ActivityMovieInfoBinding
 import com.vitor238.popcorn.ui.base.BaseActivity
-import com.vitor238.popcorn.ui.serieinfo.TabsAdapter
 import com.vitor238.popcorn.ui.viewmodel.FavoritesViewModel
 import com.vitor238.popcorn.ui.viewmodel.FavoritesViewModelFactory
 import com.vitor238.popcorn.ui.viewmodel.LoggedInViewModel
@@ -62,22 +63,12 @@ class MovieInfoActivity : BaseActivity() {
 
             binding.content.toolbar.title = movie.title
 
-            val adapter = TabsAdapter(supportFragmentManager)
-            adapter.addFragment(
-                MovieDetailsFragment.newInstance(movie),
-                getString(R.string.details)
-            )
-            adapter.addFragment(
-                MovieRecommendationsFragment.newInstance(movie.id),
-                getString(R.string.more_like_this)
-            )
-            binding.content.viewPager.adapter = adapter
-            binding.content.tabs.setupWithViewPager(binding.content.viewPager)
+            setupTabLayout(movie)
 
             Glide.with(this).load(
                 BaseUrls.BASE_TMDB_IMG_URL_200 + movie.posterPath
             ).placeholder(R.drawable.ic_movie_placeholder)
-                .apply(RequestOptions.bitmapTransform(RoundedCorners(4)))
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(8)))
                 .into(binding.content.imageCover)
 
             Glide.with(this).load(BaseUrls.BASE_TMDB_IMG_URL_200 + movie.posterPath)
@@ -95,6 +86,22 @@ class MovieInfoActivity : BaseActivity() {
             verifyLogin()
         }
 
+    }
+
+    private fun setupTabLayout(movie: Movie) {
+
+        binding.content.viewPager.adapter = MoviesPagerAdapter(this, movie)
+
+        TabLayoutMediator(
+            binding.content.tabLayout,
+            binding.content.viewPager
+        ) { tab, position ->
+            if (position == 0) {
+                tab.setText(R.string.details)
+            } else {
+                tab.setText(R.string.more_like_this)
+            }
+        }.attach()
     }
 
     private fun verifyLogin() {

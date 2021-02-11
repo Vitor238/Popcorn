@@ -31,7 +31,7 @@ class EditProfileActivity : BaseActivity() {
         )
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.conteiner, ProfilePreferences())
+            .replace(R.id.container, ProfilePreferences())
             .commit()
 
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)

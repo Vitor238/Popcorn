@@ -13,23 +13,23 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
+            android:layout_height="400dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            app:toolbarId="@+id/toolbar">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="320dp"
-                app:collapsedTitleTextAppearance="@style/InfoTitleCollapsed"
+                android:layout_height="355dp"
                 app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleGravity="center_horizontal|bottom"
                 app:expandedTitleTextAppearance="@style/InfoTitleExpanded"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap|enterAlways"
-                app:layout_scrollInterpolator="@android:anim/decelerate_interpolator"
-                app:toolbarId="@+id/toolbar">
+                app:collapsedTitleTextAppearance="@style/InfoTitleCollapsed"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
                 <ImageView
                     android:id="@+id/app_bar_image"
@@ -59,27 +59,30 @@
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
                 <androidx.appcompat.widget.Toolbar
+                    android:layout_height="?actionBarSize"
                     android:id="@+id/toolbar"
-                    android:theme="@style/Theme.Popcorn.AppBarOverlay"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
                     android:layout_marginTop="16dp"
                     app:layout_collapseMode="pin"
                     tools:title="The Mandalorian" />
+
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabs"
+                android:id="@+id/tab_layout"
+                style="@style/TabLayoutTheme"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TabLayoutTheme" />
+                android:layout_height="45dp"
+                app:tabGravity="fill"
+                app:tabMode="fixed" />
+
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.viewpager.widget.ViewPager
+        <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

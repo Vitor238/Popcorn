@@ -14,86 +14,98 @@
 
         <TextView
             android:id="@+id/text_overview"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/overview" />
 
         <TextView
             android:id="@+id/text_original_name"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/original_name" />
 
         <TextView
             android:id="@+id/textGenres"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/genres" />
 
         <TextView
             android:id="@+id/text_created_by"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/created_by" />
 
         <TextView
             android:id="@+id/text_number_of_episodes"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/number_of_episodes" />
 
         <TextView
             android:id="@+id/text_number_of_seasons"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/number_of_seasons" />
 
         <TextView
             android:id="@+id/text_first_air_date"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/first_air_date" />
 
         <TextView
             android:id="@+id/text_last_air_date"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/last_air_date" />
 
         <TextView
             android:id="@+id/text_in_prodution"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/in_prodution" />
 
         <TextView
             android:id="@+id/text_networks"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/networks" />
 
         <TextView
             android:id="@+id/text_origin_coutry"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/origin_country" />
 
         <TextView
             android:id="@+id/text_production_companies"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/production_companies" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

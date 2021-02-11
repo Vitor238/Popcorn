@@ -21,14 +21,14 @@ class SearchViewModel : ViewModel() {
 
 
     fun searchMovieOrSeries(query: String) {
+        _status.value = SearchStatus.EMPTY
         viewModelScope.launch {
             val result = kotlin.runCatching { tmdbRepository.searchMoviesOrSeries(query) }
             result.onSuccess { list ->
 
                 _searchList.value = list.filterNot { it.mediaType == "person" }
-
                 if (list.isEmpty()) {
-                    _status.value = SearchStatus.EMPTY
+                    _status.value = SearchStatus.NO_RESULTS
                 } else {
                     _status.value = SearchStatus.DONE
                 }

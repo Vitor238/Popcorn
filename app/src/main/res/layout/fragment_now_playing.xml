@@ -14,10 +14,10 @@
 
         <TextView
             android:id="@+id/textView5"
-            style="@style/TitleLists"
+            android:layout_margin="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TitleLists"
             android:text="@string/playing_in_theaters"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,8 +29,9 @@
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:gravity="center_vertical"
-            android:text="@string/always_follow_covid_19_prevention_recommendations"
             android:textSize="12sp"
+            android:text="@string/always_follow_covid_19_prevention_recommendations"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             app:drawableStartCompat="@drawable/ic_baseline_masks_24" />
 
         <ViewFlipper
@@ -52,13 +53,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/details_padding"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3"
-                app:spanCount="3"
+                app:spanCount="@integer/span_count"
                 tools:listitem="@layout/item_movie" />
 
             <include layout="@layout/error" />

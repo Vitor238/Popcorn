@@ -29,12 +29,14 @@
     <ViewFlipper
         android:id="@+id/view_flipper"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="4dp">
+        android:layout_height="match_parent">
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:ignore="UselessLeaf" />
+
+        <include layout="@layout/no_results" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_search"

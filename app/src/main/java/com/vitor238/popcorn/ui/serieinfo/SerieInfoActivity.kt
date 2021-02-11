@@ -9,8 +9,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.Favorite
+import com.vitor238.popcorn.data.model.serie.Serie
 import com.vitor238.popcorn.databinding.ActivitySerieInfoBinding
 import com.vitor238.popcorn.ui.base.BaseActivity
 import com.vitor238.popcorn.ui.viewmodel.FavoritesViewModel
@@ -57,25 +59,13 @@ class SerieInfoActivity : BaseActivity() {
 
         seriesViewModel.serieInfo.observe(this) { serie ->
 
+            setupTabLayout(serie)
+
             binding.toolbar.title = serie.name
-
-            val adapter = TabsAdapter(supportFragmentManager)
-            adapter.addFragment(
-                SerieDetailsFragment.newInstance(serie),
-                getString(R.string.details)
-            )
-
-            adapter.addFragment(
-                SerieRecommendationsFragment.newInstance(serie.id),
-                getString(R.string.more_like_this)
-            )
-
-            binding.viewPager.adapter = adapter
-            binding.tabs.setupWithViewPager(binding.viewPager)
 
             Glide.with(this).load(BaseUrls.BASE_TMDB_IMG_URL_200 + serie.posterPath)
                 .placeholder(R.drawable.ic_movie_placeholder)
-                .apply(RequestOptions.bitmapTransform(RoundedCorners(4)))
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(8)))
                 .into(binding.imageCover)
 
             Glide.with(this).load(BaseUrls.BASE_TMDB_IMG_URL_200 + serie.posterPath)
@@ -91,6 +81,22 @@ class SerieInfoActivity : BaseActivity() {
             )
             verifyLogin()
         }
+    }
+
+    private fun setupTabLayout(serie: Serie) {
+
+        binding.viewPager.adapter = SeriesPagerAdapter(this, serie)
+
+        TabLayoutMediator(
+            binding.tabLayout,
+            binding.viewPager
+        ) { tab, position ->
+            if (position == 0) {
+                tab.setText(R.string.details)
+            } else {
+                tab.setText(R.string.more_like_this)
+            }
+        }.attach()
     }
 
     private fun verifyLogin() {

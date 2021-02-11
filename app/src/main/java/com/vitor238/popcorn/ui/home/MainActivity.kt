@@ -5,20 +5,16 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.databinding.ActivityMainBinding
 import com.vitor238.popcorn.ui.base.BaseActivity
-import com.vitor238.popcorn.ui.home.favorites.FavoritesFragment
-import com.vitor238.popcorn.ui.home.home.HomeFragment
-import com.vitor238.popcorn.ui.home.nowplaying.NowPlayingFragment
-import com.vitor238.popcorn.ui.home.search.SearchFragment
 import com.vitor238.popcorn.ui.preferences.main.SettingsActivity
 import com.vitor238.popcorn.ui.viewmodel.ProfileViewModel
 
@@ -32,45 +28,8 @@ class MainActivity : BaseActivity() {
 
         setupToolbar(toolbar = binding.toolbar.toolbarLogo, showBackButton = false)
 
-        openFragment(HomeFragment.newInstance())
-
-        binding.navigation.setOnNavigationItemSelectedListener(getNavigationListener())
-    }
-
-    private fun getNavigationListener(): BottomNavigationView.OnNavigationItemSelectedListener {
-        return BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.action_home -> {
-                    val homeFragment = HomeFragment.newInstance()
-                    openFragment(homeFragment)
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.action_theaters -> {
-                    val categoriesFragment = NowPlayingFragment.newInstance()
-                    openFragment(categoriesFragment)
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.action_favorites -> {
-                    val favoritesFragment = FavoritesFragment.newInstance()
-                    openFragment(favoritesFragment)
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.action_search -> {
-                    val searchFragment = SearchFragment.newInstance()
-                    openFragment(searchFragment)
-                    return@OnNavigationItemSelectedListener true
-                }
-                else -> {
-                    return@OnNavigationItemSelectedListener false
-                }
-            }
-        }
-    }
-
-    private fun openFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.container, fragment)
-            .commit()
+        val navController = findNavController(R.id.nav_host_fragment)
+        binding.bottomNavigation.setupWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

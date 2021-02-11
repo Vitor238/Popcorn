@@ -12,7 +12,8 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/TitleLists"
+            android:layout_margin="8dp"
+            android:textAppearance="@style/TitleLists"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/treding_this_week" />
@@ -44,7 +45,8 @@
 
 
         <TextView
-            style="@style/TitleLists"
+            android:layout_margin="8dp"
+            android:textAppearance="@style/TitleLists"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/popular_series" />
@@ -75,7 +77,8 @@
         </ViewFlipper>
 
         <TextView
-            style="@style/TitleLists"
+            android:layout_margin="8dp"
+            android:textAppearance="@style/TitleLists"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/popular_movies" />

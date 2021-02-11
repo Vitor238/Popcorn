@@ -13,7 +13,8 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/TitleLists"
+            android:layout_margin="8dp"
+            android:textAppearance="@style/TitleLists"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/my_favorites" />
@@ -39,6 +40,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     android:text="@string/log_in_to_save_your_favorites" />
 
             </LinearLayout>
@@ -57,7 +59,7 @@
                 tools:listitem="@layout/item_movie"
                 tools:orientation="vertical"
                 tools:scrollbars="vertical"
-                app:spanCount="3" />
+                app:spanCount="@integer/span_count" />
 
             <include layout="@layout/error" />
 

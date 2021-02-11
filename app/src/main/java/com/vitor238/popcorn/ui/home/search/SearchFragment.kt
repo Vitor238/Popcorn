@@ -63,14 +63,16 @@ class SearchFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         searchViewModel.status.observe(viewLifecycleOwner) { status ->
-            status?.let {
-                when (it) {
-                    SearchStatus.EMPTY -> binding.viewFlipper.displayedChild = 0
-                    SearchStatus.DONE -> binding.viewFlipper.displayedChild = 1
-                    SearchStatus.ERROR -> binding.viewFlipper.displayedChild = 2
-                }
-            }
 
+            if (status == null || status == SearchStatus.EMPTY) {
+                binding.viewFlipper.displayedChild = 0
+            } else if (status == SearchStatus.NO_RESULTS) {
+                binding.viewFlipper.displayedChild = 1
+            } else if (status == SearchStatus.DONE) {
+                binding.viewFlipper.displayedChild = 2
+            } else if (status == SearchStatus.ERROR) {
+                binding.viewFlipper.displayedChild = 3
+            }
         }
 
         searchViewModel.searchList.observe(viewLifecycleOwner) {

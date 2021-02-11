@@ -69,4 +69,5 @@
     <string name="playing_in_theaters">Em cartaz nos cinemas</string>
     <string name="always_follow_covid_19_prevention_recommendations">Sempre siga as recomendações de prevenção COVID-19</string>
     <string name="log_in_to_save_your_favorites">Faça login para salvar seus favoritos</string>
+    <string name="no_results_found">Nenhum resultado encontrado</string>
 </resources>

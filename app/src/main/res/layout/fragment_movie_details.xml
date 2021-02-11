@@ -13,58 +13,66 @@
 
         <TextView
             android:id="@+id/text_tagline"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/tagline" />
 
         <TextView
             android:id="@+id/text_original_title"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/original_title" />
 
         <TextView
             android:id="@+id/text_overview"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/overview" />
 
         <TextView
             android:id="@+id/text_genres"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/genres" />
 
         <TextView
             android:id="@+id/text_homepage"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/homepage" />
 
         <TextView
             android:id="@+id/text_production_companies"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/production_companies" />
 
         <TextView
             android:id="@+id/text_production_countries"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/production_countries" />
 
         <TextView
             android:id="@+id/text_release_date"
-            style="@style/TextInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="@string/release_date" />
 
     </LinearLayout>
