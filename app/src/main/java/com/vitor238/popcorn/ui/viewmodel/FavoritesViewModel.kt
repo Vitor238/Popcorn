@@ -29,7 +29,7 @@ class FavoritesViewModel(private val currentUserId: String) : ViewModel() {
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    fun detachFavotiteSavedListener() {
+    fun detachFavoriteSavedListener() {
         favoritesRepository.detachFavoriteSavedListener()
     }
 

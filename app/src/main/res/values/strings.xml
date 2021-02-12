@@ -36,6 +36,7 @@
     <string name="the_movie_database">The Movie Database</string>
     <string name="home">Home</string>
     <string name="favorites">Favorites</string>
+    <string name="save_to_favorites">Save to favorites</string>
     <string name="treding_this_week">Trending this week</string>
     <string name="popular_series">Popular TV series</string>
     <string name="popular_movies">Popular movies</string>

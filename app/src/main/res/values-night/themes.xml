@@ -15,16 +15,18 @@
         <item name="android:windowBackground">@color/gray</item>
         <item name="android:textColor">@color/white</item>
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
-
     </style>
 
     <style name="ThemeTranslucentStatus" parent="Theme.Popcorn">
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryVariant">@color/black</item>
     </style>
 
     <style name="Theme.Popcorn.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:elevation">5dp</item>
         <item name="colorControlNormal">?attr/colorOnPrimary</item>
+        <item name="colorOnPrimary">@color/white</item>
     </style>
 
     <style name="Theme.Popcorn.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -36,15 +38,6 @@
     <style name="ThemeOverlay.App.BottomNavigationView" parent="">
         <item name="colorPrimary">@color/black</item>
         <item name="colorOnPrimary">@color/light_gray</item>
-    </style>
-
-    <style name="TabLayoutTheme" parent="Widget.MaterialComponents.TabLayout">
-        <item name="android:background">?attr/colorPrimary</item>
-        <item name="tabGravity">fill</item>
-        <item name="tabMode">fixed</item>
-        <item name="tabSelectedTextColor">@color/white</item>
-        <item name="tabTextColor">@color/light_gray</item>
-        <item name="layout_collapseMode">pin</item>
     </style>
 
     <style name="InfoTitleExpanded" parent="TextAppearance.MaterialComponents.Headline4">

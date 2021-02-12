@@ -33,4 +33,13 @@
         <item name="fontFamily">@font/baloo</item>
     </style>
 
+    <style name="TabLayoutStyle" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabTextColor">@color/light_gray</item>
+        <item name="layout_collapseMode">pin</item>
+    </style>
+
 </resources>

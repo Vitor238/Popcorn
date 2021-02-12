@@ -20,6 +20,9 @@
 
     <style name="ThemeTranslucentStatus" parent="Theme.Popcorn">
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>
     </style>
 
     <style name="Theme.Popcorn.NoActionBar">
@@ -43,22 +46,13 @@
         <item name="colorOnPrimary">@color/dark_gray</item>
     </style>
 
-    <style name="TabLayoutTheme" parent="Widget.MaterialComponents.TabLayout">
-        <item name="android:background">?attr/colorPrimary</item>
-        <item name="tabGravity">fill</item>
-        <item name="tabMode">fixed</item>
-        <item name="tabSelectedTextColor">@color/dark_gray</item>
-        <item name="tabTextColor">@color/light_gray</item>
-        <item name="layout_collapseMode">pin</item>
-    </style>
-
     <style name="InfoTitleExpanded" parent="TextAppearance.MaterialComponents.Headline4">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">30sp</item>
     </style>
 
     <style name="InfoTitleCollapsed" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="CardViewStyle" parent="Widget.MaterialComponents.CardView">

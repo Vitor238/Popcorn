@@ -3,12 +3,11 @@ package com.vitor238.popcorn.ui.serieinfo
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.Favorite
@@ -23,7 +22,6 @@ import com.vitor238.popcorn.utils.ApiStatus
 import com.vitor238.popcorn.utils.BaseUrls
 import com.vitor238.popcorn.utils.MediaTypes
 import jp.wasabeef.glide.transformations.BlurTransformation
-import kotlin.math.abs
 
 class SerieInfoActivity : BaseActivity() {
 
@@ -41,7 +39,10 @@ class SerieInfoActivity : BaseActivity() {
 
         getSerieInfo()
 
-        setupAppbar(binding.toolbar, binding.appbar)
+        binding.toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+        binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_white)
     }
 
     private fun getSerieInfo() {
@@ -123,16 +124,19 @@ class SerieInfoActivity : BaseActivity() {
         favoritesViewModel.checkFavorite(newFavorite)
 
         favoritesViewModel.favorite.observe(this) { favoriteSaved ->
+            Log.i(TAG, "Favorite: $favoriteSaved")
 
-            setupFavoriteButtonClick(favoriteSaved)
 
             val item = binding.toolbar.menu.findItem(R.id.action_save_to_favorites)
 
-            binding.appbar
-                .addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-                    val isCollapsed = abs(verticalOffset) == appBarLayout.totalScrollRange
-                    updateFavoriteIcon(favoriteSaved, isCollapsed, item)
-                })
+            if (favoriteSaved == null) {
+                item.setIcon(R.drawable.ic_baseline_star_white_outline_24)
+            } else {
+                item.setIcon(R.drawable.ic_baseline_star_white_24)
+            }
+
+            setupFavoriteButtonClick(favoriteSaved)
+
         }
     }
 
@@ -147,23 +151,8 @@ class SerieInfoActivity : BaseActivity() {
         }
     }
 
-    private fun updateFavoriteIcon(
-        favoriteSaved: Favorite?,
-        isCollapsed: Boolean,
-        menuItem: MenuItem
-    ) {
-        if (favoriteSaved != null && isCollapsed) {
-            menuItem.setIcon(R.drawable.ic_baseline_star_24)
-        } else if (favoriteSaved != null && !isCollapsed) {
-            menuItem.setIcon(R.drawable.ic_circle_star)
-        } else if (favoriteSaved == null && isCollapsed) {
-            menuItem.setIcon(R.drawable.ic_baseline_star_outline_24)
-        } else {
-            menuItem.setIcon(R.drawable.ic_circle_star_outline)
-        }
-    }
-
     companion object {
+        private val TAG = SerieInfoActivity::class.simpleName
         private const val SERIE_ID = "serieId"
         fun getStartIntent(context: Context, serieId: Int): Intent {
             return Intent(context, SerieInfoActivity::class.java).apply {
