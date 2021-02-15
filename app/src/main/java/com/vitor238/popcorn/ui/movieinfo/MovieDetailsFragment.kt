@@ -17,9 +17,9 @@ private const val MOVIE = "movie"
 
 class MovieDetailsFragment : Fragment() {
     private var movie: Movie? = null
-    private var _bindiding: FragmentMovieDetailsBinding? = null
+    private var _binding: FragmentMovieDetailsBinding? = null
     private val binding: FragmentMovieDetailsBinding
-        get() = _bindiding!!
+        get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +33,7 @@ class MovieDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _bindiding = FragmentMovieDetailsBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentMovieDetailsBinding.inflate(layoutInflater, container, false)
 
         binding.textTagline.setDetails(R.string.tagline, movie?.tagline)
         binding.textOriginalTitle.setDetails(R.string.original_title, movie?.originalTitle)
@@ -115,6 +115,6 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _bindiding = null
+        _binding = null
     }
 }

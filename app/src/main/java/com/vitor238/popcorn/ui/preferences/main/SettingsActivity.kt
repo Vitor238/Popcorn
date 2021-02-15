@@ -25,7 +25,7 @@ class SettingsActivity : BaseActivity() {
         )
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.conteiner_settings, MainPreferences())
+            .replace(R.id.container_settings, MainPreferences())
             .commit()
 
         val profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
@@ -43,9 +43,5 @@ class SettingsActivity : BaseActivity() {
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_baseline_account_circle_24))
                 .into(binding.imageProfile)
         }
-    }
-
-    companion object {
-        private val TAG = SettingsActivity::class.simpleName
     }
 }

@@ -43,7 +43,7 @@ class FavoritesFragment : Fragment() {
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = favoritesAdapter
 
-        binding.imageLogin.setOnClickListener {
+        binding.textLogInToSaveFavorites.setOnClickListener {
             val intent = Intent(requireActivity(), WelcomeActivity::class.java)
             startActivity(intent)
         }

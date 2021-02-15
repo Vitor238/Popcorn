@@ -15,7 +15,7 @@ import com.vitor238.popcorn.data.model.User
 import com.vitor238.popcorn.databinding.ActivityLoginBinding
 import com.vitor238.popcorn.ui.base.BaseActivity
 import com.vitor238.popcorn.ui.home.MainActivity
-import com.vitor238.popcorn.ui.signup.SignupActivity
+import com.vitor238.popcorn.ui.signup.SignUpActivity
 import com.vitor238.popcorn.ui.viewmodel.LoginRegisterViewModel
 import com.vitor238.popcorn.ui.viewmodel.LoginViewModelFactory
 import com.vitor238.popcorn.ui.viewmodel.ProfileViewModel
@@ -97,7 +97,7 @@ class LoginActivity : BaseActivity() {
                 googleSignInAccount?.let { getGoogleAuthCredential(it) }
             } catch (e: ApiException) {
                 toast(e.message ?: getString(R.string.failed_to_register))
-                Log.e(SignupActivity.TAG, e.message ?: getString(R.string.failed_to_register))
+                Log.e(SignUpActivity.TAG, e.message ?: getString(R.string.failed_to_register))
             }
         }
     }

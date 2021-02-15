@@ -56,7 +56,7 @@ class ChangeNameDialogFragment : BottomSheetDialogFragment() {
     companion object {
 
         @JvmStatic
-        fun newInstance(name: String) =
+        fun newInstance(name: String?) =
             ChangeNameDialogFragment().apply {
                 arguments = Bundle().apply {
                     putString(USER_NAME, name)

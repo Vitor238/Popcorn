@@ -109,8 +109,8 @@ class MovieInfoActivity : BaseActivity() {
         val loggedInViewModel = ViewModelProvider(this, loggedInViewModelFactory)
             .get(LoggedInViewModel::class.java)
 
-        loggedInViewModel.firebaseUserMutableLiveData.observe(this) { firesbaseUser ->
-            firesbaseUser?.let {
+        loggedInViewModel.firebaseUserMutableLiveData.observe(this) { firebaseUser ->
+            firebaseUser?.let {
                 getFavoriteState(it.uid)
             }
         }

@@ -77,12 +77,12 @@
             tools:text="@string/last_air_date" />
 
         <TextView
-            android:id="@+id/text_in_prodution"
+            android:id="@+id/text_in_production"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            tools:text="@string/in_prodution" />
+            tools:text="@string/in_production" />
 
         <TextView
             android:id="@+id/text_networks"
@@ -93,7 +93,7 @@
             tools:text="@string/networks" />
 
         <TextView
-            android:id="@+id/text_origin_coutry"
+            android:id="@+id/text_origin_country"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"

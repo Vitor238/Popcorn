@@ -38,7 +38,7 @@ class SerieDetailsFragment : Fragment() {
         binding.textOriginalName.setDetails(R.string.original_name, serie?.originalName)
         binding.textGenres.setDetails(R.string.genres, getGenresList())
         binding.textCreatedBy.setDetails(R.string.created_by, getAuthors())
-        binding.textInProdution.setDetails(R.string.in_prodution, getInProduction())
+        binding.textInProduction.setDetails(R.string.in_production, getInProduction())
         binding.textFirstAirDate.setDetails(
             R.string.first_air_date,
             LocaleUtils.parseDate(serie?.firstAirDate)
@@ -53,7 +53,7 @@ class SerieDetailsFragment : Fragment() {
             serie?.numberOfEpisodes
         )
         binding.textNumberOfSeasons.setDetails(R.string.number_of_seasons, serie?.numberOfSeasons)
-        binding.textOriginCoutry.setDetails(R.string.origin_country, getOriginCountries())
+        binding.textOriginCountry.setDetails(R.string.origin_country, getOriginCountries())
         binding.textProductionCompanies.setDetails(
             R.string.production_companies,
             getProductionCompanies()

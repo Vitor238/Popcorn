@@ -14,7 +14,7 @@
  <a href="#information_source-about">About</a> •
  <a href="#iphone-download-app">Download app</a> •
  <a href="#hammer-building-the-project">Building the project</a> •
- <a href="#rocket-technogies-and-resources">Technogies and resources</a> •
+ <a href="#rocket-technologies-and-resources">Technologies and resources</a> •
  <a href="#memo--license">License</a>
 </p>
 
@@ -39,7 +39,7 @@ The application also has a light and dark theme that can be changed in the setti
 
 ## :iphone: Download app
 
-You can download it by clicking on this [link](https://github.com/Vitor238/Popcorn/releases/download/v1.0.4/popcorn.apk).
+You can download it by clicking on this [link](https://github.com/Vitor238/Popcorn/releases/download/v1.0.5/popcorn.apk).
 
 ## :hammer: Building the project
 
@@ -68,7 +68,7 @@ object ApiKeys {
 
 7. Run the app
 
-## :rocket: Technogies and resources
+## :rocket: Technologies and resources
 
 - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture)
 - [Coroutines](https://developer.android.com/kotlin/coroutines)

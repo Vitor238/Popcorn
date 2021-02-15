@@ -10,7 +10,7 @@ import com.vitor238.popcorn.utils.ApiStatus
 import kotlinx.coroutines.launch
 
 class SerieRecommendationsViewModel : ViewModel() {
-    val tmdbRepository = TMDBRepository()
+    private val tmdbRepository = TMDBRepository()
 
     private var _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus>
@@ -20,7 +20,7 @@ class SerieRecommendationsViewModel : ViewModel() {
     val serieRecommendation: LiveData<List<SerieRecommendation>>
         get() = _serieRecommendations
 
-    fun getRecommendadtions(serieId: Int) {
+    fun getRecommendations(serieId: Int) {
         viewModelScope.launch {
             val result = kotlin.runCatching { tmdbRepository.getSerieRecommendations(serieId) }
             _status.value = ApiStatus.LOADING

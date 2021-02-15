@@ -52,7 +52,7 @@ class MovieRecommendationsFragment : Fragment() {
             .get(MovieRecommendationViewModel::class.java)
 
         movieId?.let { id ->
-            movieRecommendationViewModel.getRecommendadtions(id)
+            movieRecommendationViewModel.getRecommendations(id)
 
             movieRecommendationViewModel.movieRecommendation.observe(viewLifecycleOwner) { recommendations ->
                 movieRecommendationAdapter.submitList(recommendations)

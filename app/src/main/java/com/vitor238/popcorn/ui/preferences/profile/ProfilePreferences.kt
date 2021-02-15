@@ -30,19 +30,18 @@ class ProfilePreferences : PreferenceFragmentCompat() {
         profileViewModel.getFirestoreUser()
         profileViewModel.firestoreUserLiveData.observe(this) { user ->
 
-            user?.name?.let { name ->
-                prefUserName?.title = name
+            val name = user?.name
 
-                prefUserName?.setOnPreferenceClickListener {
-                    val changeNameDialogFragment = ChangeNameDialogFragment.newInstance(name)
-                    changeNameDialogFragment.show(
-                        childFragmentManager,
-                        changeNameDialogFragment.tag
-                    )
-                    true
-                }
+            prefUserName?.title = name
+
+            prefUserName?.setOnPreferenceClickListener {
+                val changeNameDialogFragment = ChangeNameDialogFragment.newInstance(name)
+                changeNameDialogFragment.show(
+                    childFragmentManager,
+                    changeNameDialogFragment.tag
+                )
+                true
             }
-
         }
     }
 }

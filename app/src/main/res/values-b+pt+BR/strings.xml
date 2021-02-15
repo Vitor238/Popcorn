@@ -24,7 +24,7 @@
     <string name="profile_picture">Foto de perfil</string>
     <string name="this_user_is_not_registered">Este usuário não está cadastrado</string>
     <string name="edit_profile">Editar perfil</string>
-    <string name="name">Nome</string>
+    <string name="username">Nome de usuário</string>
     <string name="save">Salvar</string>
     <string name="settings">Configurações</string>
     <string name="enter_your_new_username">Digite seu novo nome de usuário</string>
@@ -37,7 +37,7 @@
     <string name="home">Home</string>
     <string name="favorites">Favoritos</string>
     <string name="save_to_favorites">Salvar nos favoritos</string>
-    <string name="treding_this_week">Em alta nesta semana</string>
+    <string name="trending_this_week">Em alta nesta semana</string>
     <string name="popular_series">Séries populares</string>
     <string name="popular_movies">Filmes populaes</string>
     <string name="my_favorites">Meus favoritos</string>
@@ -49,7 +49,7 @@
     <string name="created_by">Criado por: %s</string>
     <string name="first_air_date">Primeira vez no ar: %s</string>
     <string name="genres">Gêneros: %s</string>
-    <string name="in_prodution">Em produção: %s</string>
+    <string name="in_production">Em produção: %s</string>
     <string name="last_air_date">Última vez no ar: %s</string>
     <string name="networks">Emissoras: %s</string>
     <string name="number_of_episodes">Número de episódios: %d</string>
@@ -63,7 +63,6 @@
     <string name="homepage">Site: %s</string>
     <string name="original_title">Título original: %s</string>
     <string name="release_date">Data de lançamento: %s</string>
-    <string name="status">Status: %s</string>
     <string name="tagline">Slogan: %s</string>
     <string name="production_countries">Países de produção: %s</string>
     <string name="now_playing">Em cartaz</string>

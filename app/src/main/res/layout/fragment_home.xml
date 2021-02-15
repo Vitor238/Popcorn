@@ -16,7 +16,7 @@
             android:textAppearance="@style/TitleLists"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/treding_this_week" />
+            android:text="@string/trending_this_week" />
 
         <ViewFlipper
             android:id="@+id/view_flipper_trends"

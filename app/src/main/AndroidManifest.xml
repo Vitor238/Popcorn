@@ -31,7 +31,7 @@
         <activity android:name=".ui.preferences.about.AboutActivity" />
         <activity android:name=".ui.preferences.profile.EditProfileActivity" />
         <activity android:name=".ui.preferences.main.SettingsActivity" />
-        <activity android:name=".ui.signup.SignupActivity" />
+        <activity android:name=".ui.signup.SignUpActivity" />
         <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".ui.welcome.WelcomeActivity" />
         <activity android:name=".ui.home.MainActivity" />

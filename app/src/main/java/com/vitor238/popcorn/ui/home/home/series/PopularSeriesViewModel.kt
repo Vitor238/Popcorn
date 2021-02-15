@@ -10,7 +10,7 @@ import com.vitor238.popcorn.utils.ApiStatus
 import kotlinx.coroutines.launch
 
 class PopularSeriesViewModel : ViewModel() {
-    val tmdbRepository = TMDBRepository()
+    private val tmdbRepository = TMDBRepository()
 
     private var _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus>

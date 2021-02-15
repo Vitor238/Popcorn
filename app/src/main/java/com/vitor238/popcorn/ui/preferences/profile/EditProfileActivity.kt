@@ -52,7 +52,7 @@ class EditProfileActivity : BaseActivity() {
             }
         }
 
-        binding.imageChagePhoto.setOnClickListener {
+        binding.imageChangePhoto.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                     val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)

@@ -6,7 +6,7 @@ import com.vitor238.popcorn.databinding.ActivityWelcomeBinding
 import com.vitor238.popcorn.ui.base.BaseActivity
 import com.vitor238.popcorn.ui.home.MainActivity
 import com.vitor238.popcorn.ui.login.LoginActivity
-import com.vitor238.popcorn.ui.signup.SignupActivity
+import com.vitor238.popcorn.ui.signup.SignUpActivity
 
 class WelcomeActivity : BaseActivity() {
     private lateinit var binding: ActivityWelcomeBinding
@@ -17,7 +17,7 @@ class WelcomeActivity : BaseActivity() {
         setContentView(binding.root)
 
         binding.buttonSignUp.setOnClickListener {
-            val intent = Intent(this, SignupActivity::class.java)
+            val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
         binding.buttonLogin.setOnClickListener {

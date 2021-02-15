@@ -51,15 +51,11 @@ class TMDBRepository {
 
     suspend fun getMoviesInTheaters(): List<NowPlaying> {
         return retrofit.create(NowPlayingService::class.java)
-            .getMoviesOnTheathers().results
+            .getMoviesOnTheaters().results
     }
 
     suspend fun searchMoviesOrSeries(query: String): List<MediaSearch> {
         return retrofit.create(SearchService::class.java).search(query = query)
             .results
-    }
-
-    companion object {
-        private val TAG = TMDBRepository::class.simpleName
     }
 }

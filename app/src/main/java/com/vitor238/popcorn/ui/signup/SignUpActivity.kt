@@ -12,7 +12,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.User
-import com.vitor238.popcorn.databinding.ActivitySignupBinding
+import com.vitor238.popcorn.databinding.ActivitySignUpBinding
 import com.vitor238.popcorn.ui.base.BaseActivity
 import com.vitor238.popcorn.ui.home.MainActivity
 import com.vitor238.popcorn.ui.viewmodel.LoginRegisterViewModel
@@ -21,15 +21,15 @@ import com.vitor238.popcorn.ui.viewmodel.ProfileViewModel
 import com.vitor238.popcorn.utils.toast
 
 
-class SignupActivity : BaseActivity() {
+class SignUpActivity : BaseActivity() {
 
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var loginRegisterViewModel: LoginRegisterViewModel
-    private lateinit var binding: ActivitySignupBinding
+    private lateinit var binding: ActivitySignUpBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySignupBinding.inflate(layoutInflater)
+        binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setupToolbar(binding.toolbar.toolbarLogo, showBackButton = true)
@@ -118,7 +118,7 @@ class SignupActivity : BaseActivity() {
     }
 
     companion object {
-        val TAG = SignupActivity::class.simpleName
+        val TAG = SignUpActivity::class.simpleName
         private const val RC_SIGN_IN = 1
     }
 }

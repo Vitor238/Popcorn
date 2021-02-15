@@ -51,7 +51,7 @@ class SerieRecommendationsFragment : Fragment() {
             .get(SerieRecommendationsViewModel::class.java)
 
         serieId?.let { id ->
-            serieRecommendationViewModel.getRecommendadtions(id)
+            serieRecommendationViewModel.getRecommendations(id)
 
             serieRecommendationViewModel.serieRecommendation.observe(viewLifecycleOwner) { recommendations ->
                 serieRecommendationAdapter.submitList(recommendations)

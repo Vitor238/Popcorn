@@ -14,7 +14,7 @@
     </style>
 
     <style name="TitleSignUpAppearance" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="android:textSize">@dimen/title_signup</item>
+        <item name="android:textSize">@dimen/title_sign_up</item>
     </style>
 
     <style name="TitleLists" parent="TextAppearance.MaterialComponents.Subtitle1">

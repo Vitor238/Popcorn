@@ -7,9 +7,12 @@ import java.io.InputStream
 
 class ProfileViewModel : ViewModel(), LifecycleObserver {
     private val profileRepository = ProfileRepository()
-    val firestoreUserCreatedLiveData: MutableLiveData<Boolean>
-    val firestoreUserLiveData: MutableLiveData<User?>
-    val newPhotoUrlMutableLiveData: MutableLiveData<String?>
+    val firestoreUserCreatedLiveData: MutableLiveData<Boolean> = profileRepository
+        .firestoreUserCreatedLiveData
+    val firestoreUserLiveData: MutableLiveData<User?> = profileRepository
+        .firestoreUserMutableLiveData
+    val newPhotoUrlMutableLiveData: MutableLiveData<String?> = profileRepository
+        .newPhotoUrlMutableLiveData
 
     fun saveUserOnFirestore(user: User) {
         profileRepository.saveUserInFirestore(user)
@@ -44,9 +47,4 @@ class ProfileViewModel : ViewModel(), LifecycleObserver {
         profileRepository.detachCurrentUserListener()
     }
 
-    init {
-        firestoreUserCreatedLiveData = profileRepository.firestoreUserCreatedLiveData
-        firestoreUserLiveData = profileRepository.firestoreUserMutableLiveData
-        newPhotoUrlMutableLiveData = profileRepository.newPhotoUrlMutableLiveData
-    }
 }

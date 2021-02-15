@@ -9,7 +9,7 @@ import com.vitor238.popcorn.data.repository.AuthRepository
 
 class LoginRegisterViewModel(application: Application) : AndroidViewModel(application) {
     private val authRepository: AuthRepository = AuthRepository(application)
-    val userMutableLiveData: MutableLiveData<User>
+    val userMutableLiveData: MutableLiveData<User> = authRepository.userMutableLiveData
 
     fun register(email: String, password: String) {
         authRepository.register(email, password)
@@ -23,7 +23,4 @@ class LoginRegisterViewModel(application: Application) : AndroidViewModel(applic
         authRepository.signInWithGoogle(googleAuthCredential)
     }
 
-    init {
-        userMutableLiveData = authRepository.userMutableLiveData
-    }
 }
