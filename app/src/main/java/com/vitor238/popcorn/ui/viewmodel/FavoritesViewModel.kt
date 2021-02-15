@@ -11,7 +11,7 @@ import com.vitor238.popcorn.utils.FirestoreReferences
 class FavoritesViewModel(private val currentUserId: String) : ViewModel() {
 
     private val favoritesRepository = FavoritesRepository(currentUserId)
-    val favorite: LiveData<Favorite> = favoritesRepository.favorite
+    val favorite: LiveData<Favorite?> = favoritesRepository.favorite
     val status = favoritesRepository.status
     val favoritesList = favoritesRepository.favoritesList
 

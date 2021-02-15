@@ -12,8 +12,8 @@ import com.vitor238.popcorn.utils.FirestoreReferences
 class FavoritesRepository(currentUserId: String) {
 
     private val favoritesRef = FirestoreReferences.getFavoritesRef(currentUserId)
-    private val _favorite = MutableLiveData<Favorite>()
-    val favorite: LiveData<Favorite>
+    private val _favorite = MutableLiveData<Favorite?>()
+    val favorite: LiveData<Favorite?>
         get() = _favorite
     private var _status = MutableLiveData<ApiStatus>()
 
