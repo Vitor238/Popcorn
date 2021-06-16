@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -18,6 +20,7 @@ class EditProfileActivity : BaseActivity() {
 
     private lateinit var profileViewModel: ProfileViewModel
     private lateinit var binding: ActivityEditProfileBinding
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +32,7 @@ class EditProfileActivity : BaseActivity() {
             showBackButton = true,
             titleIdRes = R.string.edit_profile
         )
+        setupGalleryResult()
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, ProfilePreferences())
@@ -64,6 +68,20 @@ class EditProfileActivity : BaseActivity() {
         }
     }
 
+    private fun setupGalleryResult() {
+        resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    result.data?.data?.let { imageUri ->
+                        val inputStream = contentResolver.openInputStream(imageUri)
+                        if (inputStream != null) {
+                            profileViewModel.uploadNewProfilePicture(inputStream)
+                        }
+                    }
+                }
+            }
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -78,27 +96,13 @@ class EditProfileActivity : BaseActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == GALLERY_CODE && resultCode == Activity.RESULT_OK) {
-
-            data?.data?.let { imageUri ->
-                val inputStream = contentResolver.openInputStream(imageUri)
-                if (inputStream != null) {
-                    profileViewModel.uploadNewProfilePicture(inputStream)
-                }
-            }
-        }
-    }
-
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent, GALLERY_CODE)
+        resultLauncher.launch(intent)
     }
 
     companion object {
         private const val PERMISSION_CODE = 10
-        private const val GALLERY_CODE = 20
     }
 }
