@@ -1,31 +1,32 @@
 package com.vitor238.popcorn.ui.login
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.GoogleAuthProvider
 import com.vitor238.popcorn.R
-import com.vitor238.popcorn.data.model.User
 import com.vitor238.popcorn.databinding.ActivityLoginBinding
 import com.vitor238.popcorn.ui.base.BaseActivity
 import com.vitor238.popcorn.ui.home.MainActivity
-import com.vitor238.popcorn.ui.signup.SignUpActivity
-import com.vitor238.popcorn.ui.viewmodel.LoginRegisterViewModel
-import com.vitor238.popcorn.ui.viewmodel.LoginViewModelFactory
+import com.vitor238.popcorn.ui.viewmodel.AuthViewModel
+import com.vitor238.popcorn.ui.viewmodel.AuthViewModelFactory
 import com.vitor238.popcorn.ui.viewmodel.ProfileViewModel
-import com.vitor238.popcorn.utils.toast
+import com.vitor238.popcorn.utils.ApiKeys
 
 class LoginActivity : BaseActivity() {
 
     private lateinit var googleSignInClient: GoogleSignInClient
-    private lateinit var loginViewModel: LoginRegisterViewModel
+    private lateinit var authViewModel: AuthViewModel
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var startForResult: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,16 +34,28 @@ class LoginActivity : BaseActivity() {
         setContentView(binding.root)
 
         setupToolbar(toolbar = binding.toolbar.toolbarLogo, showBackButton = true)
-
         initGoogleSignInClient()
+        setupGoogleSignInIntent()
+        setupViews()
 
-        val loginViewModelFactory = LoginViewModelFactory(application)
-        loginViewModel = ViewModelProvider(this, loginViewModelFactory)
-            .get(LoginRegisterViewModel::class.java)
-        loginViewModel.userMutableLiveData.observe(this) {
+        val profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        profileViewModel.firestoreUserCreatedLiveData.observe(this) { userCreated ->
+            if (userCreated) {
+                val intent = Intent(this, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+            } else {
+                showSnackBar(binding.root, R.string.failed_to_register)
+            }
+        }
+
+        val authViewModelFactory = AuthViewModelFactory(application)
+        authViewModel = ViewModelProvider(this, authViewModelFactory)
+            .get(AuthViewModel::class.java)
+        authViewModel.userMutableLiveData.observe(this) {
             if (it != null) {
                 if (it.isNew == true) {
-                    saveUserOnFirestore(it)
+                    profileViewModel.saveUserOnFirestore(it)
                 } else {
                     val intent = Intent(this, MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -50,82 +63,70 @@ class LoginActivity : BaseActivity() {
                 }
             } else {
                 Log.i(TAG, "firebase user is null")
+                showSnackBar(binding.root, R.string.failed_to_login)
             }
         }
 
+        authViewModel.errorMessage.observe(this) {
+            showSnackBar(binding.root, it)
+        }
+    }
+
+    private fun setupViews() {
         binding.buttonLogin.setOnClickListener {
             val email = binding.editTextEmail.text.toString()
             val password = binding.editTextPassword.text.toString()
             if (email.isNotBlank()) {
                 if (password.isNotBlank()) {
-                    loginViewModel.login(email, password)
+                    authViewModel.login(email, password)
                 } else {
-                    toast(getString(R.string.type_your_password))
+                    showSnackBar(binding.buttonLogin, R.string.type_your_password)
                 }
             } else {
-                toast(getString(R.string.type_your_email))
+                showSnackBar(binding.buttonLogin, R.string.type_your_email)
             }
         }
 
         binding.buttonSignInWithGoogle.setOnClickListener {
-            signIn()
+            startForResult.launch(googleSignInClient.signInIntent)
         }
+    }
+
+    private fun setupGoogleSignInIntent() {
+        startForResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+                when (result.resultCode) {
+                    Activity.RESULT_OK -> {
+                        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+
+                        try {
+                            // Google Sign In was successful, authenticate with Firebase
+                            val account = task.getResult(ApiException::class.java)!!
+                            Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
+                            authViewModel.firebaseAuthWithGoogle(account.idToken!!)
+                        } catch (e: ApiException) {
+                            // Google Sign In failed, update UI appropriately
+                            Log.w(TAG, "Google sign in failed", e)
+                            showSnackBar(binding.root, R.string.failed_to_login)
+                        }
+                    }
+                    Activity.RESULT_CANCELED -> {
+                        Log.e(TAG, "Result Canceled ")
+                        showSnackBar(binding.root, R.string.failed_to_login)
+                    }
+                }
+            }
     }
 
     private fun initGoogleSignInClient() {
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestIdToken(ApiKeys.REQUEST_ID_TOKEN)
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
     }
 
-
-    private fun signIn() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val googleSignInAccount = task.getResult(
-                    ApiException::class.java
-                )
-                googleSignInAccount?.let { getGoogleAuthCredential(it) }
-            } catch (e: ApiException) {
-                toast(e.message ?: getString(R.string.failed_to_register))
-                Log.e(SignUpActivity.TAG, e.message ?: getString(R.string.failed_to_register))
-            }
-        }
-    }
-
-    private fun getGoogleAuthCredential(googleSignInAccount: GoogleSignInAccount) {
-        val googleTokenId = googleSignInAccount.idToken
-        val googleAuthCredential = GoogleAuthProvider.getCredential(googleTokenId, null)
-        loginViewModel.signInWithGoogle(googleAuthCredential)
-    }
-
-    private fun saveUserOnFirestore(user: User) {
-        val viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-        viewModel.saveUserOnFirestore(user)
-        viewModel.firestoreUserCreatedLiveData.observe(this) { userCreated ->
-            if (userCreated) {
-                val intent = Intent(this, MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-            } else {
-                toast(R.string.failed_to_register)
-            }
-
-        }
-    }
-
-
     companion object {
         val TAG = LoginActivity::class.simpleName
-        private const val RC_SIGN_IN = 1
     }
 }

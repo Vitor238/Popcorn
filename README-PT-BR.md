@@ -40,7 +40,7 @@ O aplicativo também conta com um tema claro e escuro que pode ser alterado nas 
 
 ## :iphone: Baixar o aplicativo
 
-Você pode fazer baixar o aplicativo clicando neste [link](https://github.com/Vitor238/Popcorn/releases/download/v1.0.6/popcorn.apk).
+Você pode fazer baixar o aplicativo clicando neste [link](https://github.com/Vitor238/Popcorn/releases/download/v2.0.0/popcorn.apk).
 
 ## :hammer: Configurando o projeto
 
@@ -62,11 +62,12 @@ Você pode fazer baixar o aplicativo clicando neste [link](https://github.com/Vi
 
 ```kotlin
 object ApiKeys {
-
-   const val TMDB_API_KEY: String = "SUA CHAVE DE API"
-
+    const val TMDB_API_KEY: String = "Sua chave de API"
+    const val REQUEST_ID_TOKEN:String = "Seu ID do cliente do servidor"
 }
 ```
+
+Para mais informações sobre o id o cliente do servidor veja a [documentação do Firebase](https://firebase.google.com/docs/auth/android/google-signin?hl=pt-br)
 
 7. Execute o aplicativo
 

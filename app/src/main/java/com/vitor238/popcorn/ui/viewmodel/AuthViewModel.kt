@@ -2,14 +2,17 @@ package com.vitor238.popcorn.ui.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import com.google.firebase.auth.AuthCredential
+import androidx.lifecycle.LiveData
 import com.vitor238.popcorn.data.model.User
 import com.vitor238.popcorn.data.repository.AuthRepository
 
-class LoginRegisterViewModel(application: Application) : AndroidViewModel(application) {
+class AuthViewModel(application: Application) : AndroidViewModel(application) {
     private val authRepository: AuthRepository = AuthRepository(application)
-    val userMutableLiveData: MutableLiveData<User> = authRepository.userMutableLiveData
+    val userMutableLiveData: LiveData<User>
+        get() = authRepository.userMutableLiveData
+
+    val errorMessage: LiveData<String>
+        get() = authRepository.errorMessage
 
     fun register(email: String, password: String) {
         authRepository.register(email, password)
@@ -19,8 +22,8 @@ class LoginRegisterViewModel(application: Application) : AndroidViewModel(applic
         authRepository.login(email, password)
     }
 
-    fun signInWithGoogle(googleAuthCredential: AuthCredential) {
-        authRepository.signInWithGoogle(googleAuthCredential)
+    fun firebaseAuthWithGoogle(idToken: String) {
+        authRepository.firebaseAuthWithGoogle(idToken)
     }
 
 }
