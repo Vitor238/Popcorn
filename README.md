@@ -39,7 +39,7 @@ The application also has a light and dark theme that can be changed in the setti
 
 ## :iphone: Download app
 
-You can download it by clicking on this [link](https://github.com/Vitor238/Popcorn/releases/download/v2.0.1/popcorn.apk).
+You can download it by clicking on this [link](https://github.com/Vitor238/Popcorn/releases/download/v2.0.2/popcorn.apk).
 
 ## :hammer: Building the project
 

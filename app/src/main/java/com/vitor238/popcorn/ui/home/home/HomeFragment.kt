@@ -46,24 +46,27 @@ class HomeFragment : Fragment() {
         binding.recyclerTrends.setHasFixedSize(true)
         binding.recyclerTrends.adapter = trendsAdapter
 
-        popularSeriesAdapter = PopularSeriesAdapter {
-            openSeriesInfo(it.id)
+        popularSeriesAdapter = PopularSeriesAdapter { serie ->
+            serie.id?.let {
+                openSeriesInfo(it)
+            }
         }
         binding.recyclerTvSeries.setHasFixedSize(true)
         binding.recyclerTvSeries.adapter = popularSeriesAdapter
 
-        popularMoviesAdapter = PopularMoviesAdapter {
-            openMovieInfo(it.id)
+        popularMoviesAdapter = PopularMoviesAdapter { movie ->
+            movie.id?.let {
+                openMovieInfo(it)
+            }
+
         }
         binding.recyclerMovies.setHasFixedSize(true)
         binding.recyclerMovies.adapter = popularMoviesAdapter
-
+        setupViewModels()
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    private fun setupViewModels() {
         trendsViewModel = ViewModelProvider(this).get(TrendsViewModel::class.java)
         trendsViewModel.trends.observe(viewLifecycleOwner) { trends ->
             trendsAdapter.submitList(trends)

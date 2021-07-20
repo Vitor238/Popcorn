@@ -5,9 +5,9 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class PopularMovie(
-    val popularity: Double,
+    val popularity: Double?,
     @Json(name = "poster_path")
-    val posterPath: String,
-    val id: Int,
-    val title: String
+    val posterPath: String?,
+    val id: Int?,
+    val title: String?
 )

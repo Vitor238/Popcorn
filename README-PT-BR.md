@@ -40,7 +40,7 @@ O aplicativo também conta com um tema claro e escuro que pode ser alterado nas 
 
 ## :iphone: Baixar o aplicativo
 
-Você pode fazer baixar o aplicativo clicando neste [link](https://github.com/Vitor238/Popcorn/releases/download/v2.0.1/popcorn.apk).
+Você pode fazer baixar o aplicativo clicando neste [link](https://github.com/Vitor238/Popcorn/releases/download/v2.0.2/popcorn.apk).
 
 ## :hammer: Configurando o projeto
 
