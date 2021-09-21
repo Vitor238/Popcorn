@@ -1,4 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Splash Screen theme. -->
+    <style name="Theme.Popcorn.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/gray</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_pop_corn</item>
+        <item name="postSplashScreenTheme">@style/Theme.Popcorn.TranslucentStatus</item>
+    </style>
+
     <!-- Base application theme. -->
     <style name="Theme.Popcorn" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
@@ -17,7 +25,7 @@
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
     </style>
 
-    <style name="ThemeTranslucentStatus" parent="Theme.Popcorn">
+    <style name="Theme.Popcorn.TranslucentStatus" parent="Theme.Popcorn">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryVariant">@color/black</item>

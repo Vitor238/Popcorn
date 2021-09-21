@@ -1,4 +1,4 @@
-package com.vitor238.popcorn.ui.application
+package com.vitor238.popcorn
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate

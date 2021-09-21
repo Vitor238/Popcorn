@@ -15,7 +15,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 31
         versionCode 1
-        versionName "2.0.2"
+        versionName "2.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -98,4 +98,7 @@ dependencies {
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    //Splashscreen
+    implementation 'androidx.core:core-splashscreen:1.0.0-alpha01'
 }
