@@ -40,7 +40,7 @@ O aplicativo também conta com um tema claro e escuro que pode ser alterado nas 
 
 ## :iphone: Baixar o aplicativo
 
-Você pode fazer baixar o aplicativo clicando neste [link](https://github.com/Vitor238/Popcorn/releases/download/v2.0.2/popcorn.apk).
+Você pode fazer baixar o aplicativo clicando neste [link](https://github.com/Vitor238/Popcorn/releases/latest/download/popcorn.apk).
 
 ## :hammer: Configurando o projeto
 
@@ -63,7 +63,7 @@ Você pode fazer baixar o aplicativo clicando neste [link](https://github.com/Vi
 ```kotlin
 object ApiKeys {
     const val TMDB_API_KEY: String = "Sua chave de API"
-    const val REQUEST_ID_TOKEN:String = "Seu ID do cliente do servidor"
+    const val DEFAULT_WEB_CLIENT_ID:String = "Seu ID do cliente do servidor"
 }
 ```
 

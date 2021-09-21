@@ -119,7 +119,7 @@ class SignUpActivity : BaseActivity() {
 
     private fun initGoogleSignInClient() {
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(ApiKeys.REQUEST_ID_TOKEN)
+            .requestIdToken(ApiKeys.DEFAULT_WEB_CLIENT_ID)
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)

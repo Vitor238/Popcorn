@@ -119,11 +119,12 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun initGoogleSignInClient() {
-        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(ApiKeys.REQUEST_ID_TOKEN)
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(ApiKeys.DEFAULT_WEB_CLIENT_ID)
             .requestEmail()
             .build()
-        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
     }
 
     companion object {
