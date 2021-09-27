@@ -12,6 +12,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.vitor238.popcorn.BuildConfig
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.databinding.ActivitySignUpBinding
 import com.vitor238.popcorn.ui.base.BaseActivity
@@ -20,7 +21,6 @@ import com.vitor238.popcorn.ui.login.LoginActivity
 import com.vitor238.popcorn.ui.viewmodel.AuthViewModel
 import com.vitor238.popcorn.ui.viewmodel.AuthViewModelFactory
 import com.vitor238.popcorn.ui.viewmodel.ProfileViewModel
-import com.vitor238.popcorn.utils.ApiKeys
 
 
 class SignUpActivity : BaseActivity() {
@@ -119,7 +119,7 @@ class SignUpActivity : BaseActivity() {
 
     private fun initGoogleSignInClient() {
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(ApiKeys.DEFAULT_WEB_CLIENT_ID)
+            .requestIdToken(BuildConfig.DEFAULT_WEB_CLIENT_ID)
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)

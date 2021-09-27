@@ -57,16 +57,12 @@ You can download it by clicking on this [link](https://github.com/Vitor238/Popco
 
 5. Create a new account and generate an API key in [TMDB](https://developers.themoviedb.org/3/getting-started/introduction)
 
-6. Create a new file named "ApiKeys.kt" in the "utils" package with the following code:
+6. Add the TMDB API keys and [Firebase server client ID](https://firebase.google.com/docs/auth/android/google-signin#authenticate_with_firebase) to the "local.properties" file:
 
-```kotlin
-object ApiKeys {
-    const val TMDB_API_KEY: String = "Your API key"
-    const val DEFAULT_WEB_CLIENT_ID:String = "Your server's client ID"
-}
+```groovy
+TMDB_API_KEY=1234567890abcd
+DEFAULT_WEB_CLIENT_ID=123456example.apps.googleusercontent.com
 ```
-
-For more information about the server's client id see the [Firebase documentation](https://firebase.google.com/docs/auth/android/google-signin#authenticate_with_firebase)
 
 7. Run the app
 
@@ -83,6 +79,7 @@ For more information about the server's client id see the [Firebase documentatio
 - [Moshi](https://github.com/square/moshi)
 - [Preferences](https://developer.android.com/jetpack/androidx/releases/preference)
 - [Retrofit](https://github.com/square/retrofit)
+- [Secrets Gradle Plugin](https://github.com/google/secrets-gradle-plugin)
 - [The Movie Database API](https://www.themoviedb.org/documentation/api)
 
 

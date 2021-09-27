@@ -58,16 +58,12 @@ Você pode fazer baixar o aplicativo clicando neste [link](https://github.com/Vi
 
 5. Crie uma nova conta e gere uma chave de API no [TMDB](https://developers.themoviedb.org/3/getting-started/introduction)
 
-6. Crie um novo arquivo chamado "ApiKeys.kt" dentro do pacote "utils" com o seguinte código:
+6. Adicione as chaves de API do TMDB e a [ID do cliente do servidor  do Firebase](https://firebase.google.com/docs/auth/android/google-signin?hl=pt-Br#authenticate_with_firebase) ao arquivo "local.properties":
 
-```kotlin
-object ApiKeys {
-    const val TMDB_API_KEY: String = "Sua chave de API"
-    const val DEFAULT_WEB_CLIENT_ID:String = "Seu ID do cliente do servidor"
-}
+```groovy
+TMDB_API_KEY=1234567890abcd
+DEFAULT_WEB_CLIENT_ID=123456example.apps.googleusercontent.com
 ```
-
-Para mais informações sobre o id o cliente do servidor veja a [documentação do Firebase](https://firebase.google.com/docs/auth/android/google-signin?hl=pt-br)
 
 7. Execute o aplicativo
 
@@ -84,6 +80,7 @@ Para mais informações sobre o id o cliente do servidor veja a [documentação 
 - [Moshi](https://github.com/square/moshi)
 - [Preferências](https://developer.android.com/jetpack/androidx/releases/preference?hl=pt-br)
 - [Retrofit](https://github.com/square/retrofit)
+- [Secrets Gradle Plugin](https://github.com/google/secrets-gradle-plugin)
 - [The Movie Database API](https://www.themoviedb.org/documentation/api)
 
 
