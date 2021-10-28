@@ -21,6 +21,7 @@ import com.vitor238.popcorn.ui.login.LoginActivity
 import com.vitor238.popcorn.ui.viewmodel.AuthViewModel
 import com.vitor238.popcorn.ui.viewmodel.AuthViewModelFactory
 import com.vitor238.popcorn.ui.viewmodel.ProfileViewModel
+import com.vitor238.popcorn.utils.text
 
 
 class SignUpActivity : BaseActivity() {
@@ -35,7 +36,7 @@ class SignUpActivity : BaseActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupToolbar(binding.toolbar.toolbarLogo, showBackButton = true)
+        setupToolbar(binding.toolbar, R.string.sign_up, showBackButton = true)
         initGoogleSignInClient()
         setupGoogleSignInIntent()
         setupViews()
@@ -72,8 +73,8 @@ class SignUpActivity : BaseActivity() {
 
     private fun setupViews() {
         binding.buttonSignUp.setOnClickListener {
-            val email = binding.editTextEmail.text.toString()
-            val password = binding.editTextPassword.text.toString()
+            val email = binding.textInputEmail.text()
+            val password = binding.textInputPassword.text()
 
             if (email.isNotBlank()) {
                 if (password.isNotBlank()) {

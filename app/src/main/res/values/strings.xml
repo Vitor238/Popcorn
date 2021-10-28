@@ -12,7 +12,7 @@
     <string name="google">Google</string>
     <string name="or_login_with">Or login with</string>
     <string name="sign_up_and_find_your_favorite_movies_and_series">Sign up and find your favorite movies and series</string>
-    <string name="or_sign_up_with">Or sign up with</string>
+    <string name="or">Or</string>
     <string name="sign_up">Sign up</string>
     <string name="failed_to_register">Failed to register</string>
     <string name="failed_to_login">Failed to login</string>

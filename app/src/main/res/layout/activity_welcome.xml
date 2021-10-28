@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".ui.welcome.WelcomeActivity">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="125dp"
         android:layout_height="125dp"
-        android:layout_marginStart="@dimen/margin_sign_up"
-        android:layout_marginEnd="@dimen/margin_sign_up"
         android:contentDescription="@null"
         android:src="@drawable/ic_pop_corn"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
@@ -25,9 +24,7 @@
         android:id="@+id/textView2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_sign_up"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="@dimen/margin_sign_up"
         android:text="@string/log_in_and_find_your_favorite_movies_and_series"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
@@ -45,6 +42,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="@dimen/margin_sign_up"
         android:text="@string/i_already_have_my_account"
+        android:layout_width="match_parent"
         app:layout_constraintBottom_toTopOf="@+id/button_sign_up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -52,8 +50,9 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_sign_up"
         style="@style/ButtonStyle"
+        android:id="@+id/button_sign_up"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_sign_up"
         android:layout_marginTop="8dp"

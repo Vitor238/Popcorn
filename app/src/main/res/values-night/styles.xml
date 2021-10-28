@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ToolbarBackgroundTint">
+        <item name="android:backgroundTint">@color/material_gray</item>
+    </style>
+
+    <style name="GithubButtonStyle">
+        <item name="android:drawableLeft">@drawable/ic_github</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:backgroundTint">@color/white</item>
+    </style>
+</resources>

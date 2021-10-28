@@ -11,7 +11,7 @@ import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.movie.Movie
 import com.vitor238.popcorn.databinding.FragmentMovieDetailsBinding
 import com.vitor238.popcorn.utils.LocaleUtils
-import com.vitor238.popcorn.utils.setDetails
+import com.vitor238.popcorn.utils.setTextOrHide
 
 private const val MOVIE = "movie"
 
@@ -35,20 +35,20 @@ class MovieDetailsFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentMovieDetailsBinding.inflate(layoutInflater, container, false)
 
-        binding.textTagline.setDetails(R.string.tagline, movie?.tagline)
-        binding.textOriginalTitle.setDetails(R.string.original_title, movie?.originalTitle)
-        binding.textOverview.setDetails(R.string.overview, movie?.overview)
-        binding.textGenres.setDetails(R.string.genres, getGenresList())
-        binding.textHomepage.setDetails(R.string.homepage, movie?.homepage)
-        binding.textProductionCompanies.setDetails(
+        binding.textTagline.setTextOrHide(R.string.tagline, movie?.tagline)
+        binding.textOriginalTitle.setTextOrHide(R.string.original_title, movie?.originalTitle)
+        binding.textOverview.setTextOrHide(R.string.overview, movie?.overview)
+        binding.textGenres.setTextOrHide(R.string.genres, getGenresList())
+        binding.textHomepage.setTextOrHide(R.string.homepage, movie?.homepage)
+        binding.textProductionCompanies.setTextOrHide(
             R.string.production_companies,
             getProductionCompanies()
         )
-        binding.textProductionCountries.setDetails(
+        binding.textProductionCountries.setTextOrHide(
             R.string.production_countries,
             getProductionCountries()
         )
-        binding.textReleaseDate.setDetails(
+        binding.textReleaseDate.setTextOrHide(
             R.string.release_date,
             LocaleUtils.parseDate(movie?.releaseDate)
         )

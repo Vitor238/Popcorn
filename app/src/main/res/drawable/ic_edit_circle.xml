@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/dark_red" />
+            <solid android:color="?attr/colorSecondary" />
             <size
                 android:width="40dp"
                 android:height="40dp" />
@@ -10,7 +10,7 @@
     </item>
 
     <item
-        android:drawable="@drawable/ic_baseline_edit_white_24"
+        android:drawable="@drawable/ic_baseline_edit_24_layer"
         android:gravity="center" />
 
 </layer-list>

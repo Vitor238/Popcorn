@@ -3,7 +3,6 @@ package com.vitor238.popcorn.ui.preferences.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +16,6 @@ import com.vitor238.popcorn.ui.preferences.profile.EditProfileActivity
 import com.vitor238.popcorn.ui.viewmodel.LoggedInViewModel
 import com.vitor238.popcorn.ui.viewmodel.LoggedInViewModelFactory
 import com.vitor238.popcorn.ui.welcome.WelcomeActivity
-import com.vitor238.popcorn.utils.PreferencesUtils
 
 class MainPreferences : PreferenceFragmentCompat() {
 
@@ -26,17 +24,6 @@ class MainPreferences : PreferenceFragmentCompat() {
     private val prefAbout by lazy { findPreference<Preference>("pref_about") }
     private val prefNightMode by lazy { findPreference<SwitchPreference>("pref_night_mode") }
     private lateinit var loggedInViewModel: LoggedInViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
-        PreferencesUtils.setupBackgroundColor(view)
-
-        return view
-    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)

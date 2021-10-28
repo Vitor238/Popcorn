@@ -7,7 +7,7 @@ import androidx.annotation.StringRes
 import androidx.core.text.bold
 
 
-fun TextView.setDetails(@StringRes stringResId: Int, data: String?) {
+fun TextView.setTextOrHide(@StringRes stringResId: Int, data: String?) {
     if (data.isNullOrBlank()) {
         this.visibility = View.GONE
     } else {
@@ -20,7 +20,7 @@ fun TextView.setDetails(@StringRes stringResId: Int, data: String?) {
     }
 }
 
-fun TextView.setDetails(@StringRes stringResId: Int, data: Int?) {
+fun TextView.setTextOrHide(@StringRes stringResId: Int, data: Int?) {
     if (data == null) {
         this.visibility = View.GONE
     } else {
@@ -30,5 +30,13 @@ fun TextView.setDetails(@StringRes stringResId: Int, data: Int?) {
             .bold { append(text.substringBefore(delimiter) + delimiter) }
             .append(text.substringAfter(delimiter))
         this.text = string
+    }
+}
+
+fun TextView.setTextOrHide(text: CharSequence?) {
+    if (text.isNullOrBlank()) {
+        this.visibility = View.GONE
+    } else {
+        this.text = text
     }
 }

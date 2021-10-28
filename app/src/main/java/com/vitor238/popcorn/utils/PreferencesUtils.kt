@@ -13,7 +13,7 @@ object PreferencesUtils {
                     R.color.black
                 }
                 else -> {
-                    R.color.white_variant
+                    R.color.light_gray
                 }
             }
         view?.setBackgroundColor(ContextCompat.getColor(view.context, backgroundColor))

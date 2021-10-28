@@ -9,7 +9,7 @@ import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.serie.Serie
 import com.vitor238.popcorn.databinding.FragmentSerieDetailsBinding
 import com.vitor238.popcorn.utils.LocaleUtils
-import com.vitor238.popcorn.utils.setDetails
+import com.vitor238.popcorn.utils.setTextOrHide
 
 private const val SERIE = "serie"
 
@@ -34,27 +34,30 @@ class SerieDetailsFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentSerieDetailsBinding.inflate(layoutInflater)
 
-        binding.textOverview.setDetails(R.string.overview, serie?.overview)
-        binding.textOriginalName.setDetails(R.string.original_name, serie?.originalName)
-        binding.textGenres.setDetails(R.string.genres, getGenresList())
-        binding.textCreatedBy.setDetails(R.string.created_by, getAuthors())
-        binding.textInProduction.setDetails(R.string.in_production, getInProduction())
-        binding.textFirstAirDate.setDetails(
+        binding.textOverview.setTextOrHide(R.string.overview, serie?.overview)
+        binding.textOriginalName.setTextOrHide(R.string.original_name, serie?.originalName)
+        binding.textGenres.setTextOrHide(R.string.genres, getGenresList())
+        binding.textCreatedBy.setTextOrHide(R.string.created_by, getAuthors())
+        binding.textInProduction.setTextOrHide(R.string.in_production, getInProduction())
+        binding.textFirstAirDate.setTextOrHide(
             R.string.first_air_date,
             LocaleUtils.parseDate(serie?.firstAirDate)
         )
-        binding.textLastAirDate.setDetails(
+        binding.textLastAirDate.setTextOrHide(
             R.string.last_air_date,
             LocaleUtils.parseDate(serie?.lastAirDate)
         )
-        binding.textNetworks.setDetails(R.string.networks, getNetworks())
-        binding.textNumberOfEpisodes.setDetails(
+        binding.textNetworks.setTextOrHide(R.string.networks, getNetworks())
+        binding.textNumberOfEpisodes.setTextOrHide(
             R.string.number_of_episodes,
             serie?.numberOfEpisodes
         )
-        binding.textNumberOfSeasons.setDetails(R.string.number_of_seasons, serie?.numberOfSeasons)
-        binding.textOriginCountry.setDetails(R.string.origin_country, getOriginCountries())
-        binding.textProductionCompanies.setDetails(
+        binding.textNumberOfSeasons.setTextOrHide(
+            R.string.number_of_seasons,
+            serie?.numberOfSeasons
+        )
+        binding.textOriginCountry.setTextOrHide(R.string.origin_country, getOriginCountries())
+        binding.textProductionCompanies.setTextOrHide(
             R.string.production_companies,
             getProductionCompanies()
         )

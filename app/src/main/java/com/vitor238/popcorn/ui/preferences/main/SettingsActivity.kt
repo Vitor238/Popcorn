@@ -8,6 +8,7 @@ import com.vitor238.popcorn.R
 import com.vitor238.popcorn.databinding.ActivitySettingsBinding
 import com.vitor238.popcorn.ui.base.BaseActivity
 import com.vitor238.popcorn.ui.viewmodel.ProfileViewModel
+import com.vitor238.popcorn.utils.setTextOrHide
 
 class SettingsActivity : BaseActivity() {
 
@@ -31,12 +32,7 @@ class SettingsActivity : BaseActivity() {
         val profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         profileViewModel.getFirestoreUser()
         profileViewModel.firestoreUserLiveData.observe(this) { user ->
-            if (user != null) {
-                supportActionBar?.title = user.name
-            } else {
-                supportActionBar?.title = getString(R.string.settings)
-            }
-
+            binding.textViewName.setTextOrHide(user?.name)
             Glide.with(this)
                 .load(user?.photoUrl)
                 .circleCrop()

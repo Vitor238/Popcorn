@@ -20,6 +20,7 @@ import com.vitor238.popcorn.ui.home.MainActivity
 import com.vitor238.popcorn.ui.viewmodel.AuthViewModel
 import com.vitor238.popcorn.ui.viewmodel.AuthViewModelFactory
 import com.vitor238.popcorn.ui.viewmodel.ProfileViewModel
+import com.vitor238.popcorn.utils.text
 
 class LoginActivity : BaseActivity() {
 
@@ -33,7 +34,7 @@ class LoginActivity : BaseActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupToolbar(toolbar = binding.toolbar.toolbarLogo, showBackButton = true)
+        setupToolbar(toolbar = binding.toolbar, R.string.login, showBackButton = true)
         initGoogleSignInClient()
         setupGoogleSignInIntent()
         setupViews()
@@ -74,8 +75,8 @@ class LoginActivity : BaseActivity() {
 
     private fun setupViews() {
         binding.buttonLogin.setOnClickListener {
-            val email = binding.editTextEmail.text.toString()
-            val password = binding.editTextPassword.text.toString()
+            val email = binding.textInputEmail.text()
+            val password = binding.textInputPassword.text()
             if (email.isNotBlank()) {
                 if (password.isNotBlank()) {
                     authViewModel.login(email, password)
@@ -87,7 +88,7 @@ class LoginActivity : BaseActivity() {
             }
         }
 
-        binding.buttonSignInWithGoogle.setOnClickListener {
+        binding.buttonLoginWithGoogle.setOnClickListener {
             startForResult.launch(googleSignInClient.signInIntent)
         }
     }

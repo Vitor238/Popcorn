@@ -73,7 +73,7 @@ class MovieInfoActivity : BaseActivity() {
 
             Glide.with(this).load(BaseUrls.BASE_TMDB_IMG_URL_200 + movie.posterPath)
                 .apply(RequestOptions.bitmapTransform(BlurTransformation(20, 3)))
-                .placeholder(R.color.gray)
+                .placeholder(R.color.placeholder_bg_color)
                 .into(binding.content.appBarImage)
 
             newFavorite = Favorite(
