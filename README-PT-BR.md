@@ -31,9 +31,9 @@ width="180">
 
 ## :information_source: Sobre
 
-Este aplicativo foi criado com o objetivo de estudar mais sobre a arquitetura MVVM, Retrofit, Coroutines, Firebase Auth e Firebase Cloud Firestore.
+Este aplicativo foi criado com o objetivo de estudar mais sobre a arquitetura MVVM, Retrofit, Coroutines, Firebase e Material Design.
 
-Com este aplicativo você pode pesquisar sobre filmes e séries,ver quais estão em alta, e salvar na sua lista de favoritos. É possível também ver quais filmes estão em cartaz no seu pais. O aplicativo está disponível em Português e Inglês e seu conteúdo está disponível nos [idiomas suportados](https://developers.themoviedb.org/3/configuration/get-languages) pela API do TMDB.
+Com este aplicativo você pode pesquisar sobre filmes e séries, ver quais estão em alta, e salvar na sua lista de favoritos. É possível também ver quais filmes estão em cartaz no seu pais. O aplicativo está disponível em Português e Inglês e seu conteúdo está disponível nos [idiomas suportados](https://developers.themoviedb.org/3/configuration/get-languages) pela API do TMDB.
 
 O aplicativo também conta com um tema claro e escuro que pode ser alterado nas configurações.
 
