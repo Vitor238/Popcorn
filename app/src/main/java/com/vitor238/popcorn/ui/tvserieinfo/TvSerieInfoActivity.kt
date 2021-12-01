@@ -1,43 +1,47 @@
-package com.vitor238.popcorn.ui.serieinfo
+package com.vitor238.popcorn.ui.tvserieinfo
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.tabs.TabLayoutMediator
 import com.vitor238.popcorn.R
+import com.vitor238.popcorn.data.NetworkResult
 import com.vitor238.popcorn.data.model.Favorite
-import com.vitor238.popcorn.data.model.serie.Serie
-import com.vitor238.popcorn.databinding.ActivitySerieInfoBinding
+import com.vitor238.popcorn.data.model.tvserie.TvSerie
+import com.vitor238.popcorn.databinding.ActivityTvSerieInfoBinding
 import com.vitor238.popcorn.ui.base.BaseActivity
 import com.vitor238.popcorn.ui.viewmodel.FavoritesViewModel
 import com.vitor238.popcorn.ui.viewmodel.FavoritesViewModelFactory
 import com.vitor238.popcorn.ui.viewmodel.LoggedInViewModel
 import com.vitor238.popcorn.ui.viewmodel.LoggedInViewModelFactory
-import com.vitor238.popcorn.utils.ApiStatus
-import com.vitor238.popcorn.utils.BaseUrls
-import com.vitor238.popcorn.utils.MediaTypes
+import com.vitor238.popcorn.utils.Constants
+import com.vitor238.popcorn.utils.Constants.MEDIA_TYPE_TV
+import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.glide.transformations.BlurTransformation
 
-class SerieInfoActivity : BaseActivity() {
+@AndroidEntryPoint
+class TvSerieInfoActivity : BaseActivity() {
 
-    private lateinit var binding: ActivitySerieInfoBinding
+    private lateinit var binding: ActivityTvSerieInfoBinding
     private var serieId: Int? = null
     private lateinit var newFavorite: Favorite
     private lateinit var favoritesViewModel: FavoritesViewModel
+    private val seriesViewModel by viewModels<TvSerieViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySerieInfoBinding.inflate(layoutInflater)
+        binding = ActivityTvSerieInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         serieId = intent.extras?.getInt(SERIE_ID)
 
-        getSerieInfo()
+        observeViewModel()
 
         binding.toolbar.setNavigationOnClickListener {
             onBackPressed()
@@ -45,48 +49,52 @@ class SerieInfoActivity : BaseActivity() {
         binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_white)
     }
 
-    private fun getSerieInfo() {
-        val seriesViewModel = ViewModelProvider(this).get(SerieViewModel::class.java)
+    private fun observeViewModel() {
+        binding.viewFlipper.displayedChild = 0
         seriesViewModel.getSerieInfo(serieId!!)
-        seriesViewModel.status.observe(this) { status ->
-            status?.let {
-                when (it) {
-                    ApiStatus.LOADING -> binding.viewFlipper.displayedChild = 0
-                    ApiStatus.DONE -> binding.viewFlipper.displayedChild = 1
-                    ApiStatus.ERROR -> binding.viewFlipper.displayedChild = 2
+
+        seriesViewModel.serieInfo.observe(this) { networkResult ->
+            when (networkResult) {
+                is NetworkResult.Success -> {
+                    binding.viewFlipper.displayedChild = 1
+                    val serie = networkResult.value
+                    showDetails(serie)
+                }
+                is NetworkResult.Error -> {
+                    binding.viewFlipper.displayedChild = 2
                 }
             }
         }
-
-        seriesViewModel.serieInfo.observe(this) { serie ->
-
-            setupTabLayout(serie)
-
-            binding.toolbar.title = serie.name
-
-            Glide.with(this).load(BaseUrls.BASE_TMDB_IMG_URL_200 + serie.posterPath)
-                .placeholder(R.drawable.ic_movie_placeholder)
-                .apply(RequestOptions.bitmapTransform(RoundedCorners(8)))
-                .into(binding.imageCover)
-
-            Glide.with(this).load(BaseUrls.BASE_TMDB_IMG_URL_200 + serie.posterPath)
-                .apply(RequestOptions.bitmapTransform(BlurTransformation(20, 3)))
-                .placeholder(R.color.placeholder_bg_color)
-                .into(binding.appBarImage)
-
-            newFavorite = Favorite(
-                mediaType = MediaTypes.TV,
-                mediaId = serie.id,
-                title = serie.name ?: serie.originalName,
-                posterPath = serie.posterPath
-            )
-            verifyLogin()
-        }
     }
 
-    private fun setupTabLayout(serie: Serie) {
 
-        binding.viewPager.adapter = SeriesPagerAdapter(this, serie)
+    private fun showDetails(serie: TvSerie) {
+        setupTabLayout(serie)
+
+        binding.toolbar.title = serie.name
+
+        Glide.with(this).load(Constants.BASE_TMDB_IMG_URL_200 + serie.posterPath)
+            .placeholder(R.drawable.ic_movie_placeholder)
+            .apply(RequestOptions.bitmapTransform(RoundedCorners(8)))
+            .into(binding.imageCover)
+
+        Glide.with(this).load(Constants.BASE_TMDB_IMG_URL_200 + serie.posterPath)
+            .apply(RequestOptions.bitmapTransform(BlurTransformation(20, 3)))
+            .placeholder(R.color.placeholder_bg_color)
+            .into(binding.appBarImage)
+
+        newFavorite = Favorite(
+            mediaType = MEDIA_TYPE_TV,
+            mediaId = serie.id,
+            title = serie.name ?: serie.originalName,
+            posterPath = serie.posterPath
+        )
+        verifyLogin()
+    }
+
+    private fun setupTabLayout(serie: TvSerie) {
+
+        binding.viewPager.adapter = TvSeriesPagerAdapter(this, serie)
 
         TabLayoutMediator(
             binding.tabLayout,
@@ -152,10 +160,10 @@ class SerieInfoActivity : BaseActivity() {
     }
 
     companion object {
-        private val TAG = SerieInfoActivity::class.simpleName
+        private val TAG = TvSerieInfoActivity::class.simpleName
         private const val SERIE_ID = "serieId"
         fun getStartIntent(context: Context, serieId: Int): Intent {
-            return Intent(context, SerieInfoActivity::class.java).apply {
+            return Intent(context, TvSerieInfoActivity::class.java).apply {
                 putExtra(SERIE_ID, serieId)
             }
         }

@@ -1,4 +1,4 @@
-package com.vitor238.popcorn.data.model.serie
+package com.vitor238.popcorn.data.model.tvserie
 
 import android.os.Parcelable
 import com.squareup.moshi.Json
@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @JsonClass(generateAdapter = true)
-data class Serie(
+data class TvSerie(
     @Json(name = "original_name")
     val originalName: String?,
     @Json(name = "backdrop_path")

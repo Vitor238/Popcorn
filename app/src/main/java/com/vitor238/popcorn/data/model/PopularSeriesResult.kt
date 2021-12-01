@@ -10,5 +10,5 @@ data class PopularSeriesResult(
     val page: Int,
     @Json(name = "total_pages")
     val totalPages: Int,
-    val results: List<PopularSerie>
+    val results: List<PopularTvSerie>
 )

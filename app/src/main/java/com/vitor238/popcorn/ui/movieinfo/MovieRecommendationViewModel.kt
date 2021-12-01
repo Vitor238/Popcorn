@@ -4,32 +4,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vitor238.popcorn.data.NetworkResult
 import com.vitor238.popcorn.data.model.MovieRecommendation
 import com.vitor238.popcorn.data.repository.TMDBRepository
-import com.vitor238.popcorn.utils.ApiStatus
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MovieRecommendationViewModel : ViewModel() {
-    private val tmdbRepository = TMDBRepository()
+@HiltViewModel
+class MovieRecommendationViewModel
+@Inject
+constructor(private val tmdbRepository: TMDBRepository) : ViewModel() {
 
-    private var _status = MutableLiveData<ApiStatus>()
-    val status: LiveData<ApiStatus>
-        get() = _status
-
-    private var _movieRecommendations = MutableLiveData<List<MovieRecommendation>>()
-    val movieRecommendation: LiveData<List<MovieRecommendation>>
+    private var _movieRecommendations = MutableLiveData<NetworkResult<List<MovieRecommendation>>>()
+    val movieRecommendation: LiveData<NetworkResult<List<MovieRecommendation>>>
         get() = _movieRecommendations
 
-    fun getRecommendations(movieId: Int) {
-        viewModelScope.launch {
-            val result = kotlin.runCatching { tmdbRepository.getMovieRecommendations(movieId) }
-            _status.value = ApiStatus.LOADING
-            result.onSuccess {
-                _status.value = ApiStatus.DONE
-                _movieRecommendations.value = it
-            }.onFailure {
-                _status.value = ApiStatus.ERROR
-            }
-        }
+    fun getRecommendations(movieId: Int) = viewModelScope.launch {
+        _movieRecommendations.postValue(tmdbRepository.getMovieRecommendations(movieId))
     }
 }

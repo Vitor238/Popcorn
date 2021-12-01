@@ -1,4 +1,4 @@
-package com.vitor238.popcorn.data.model.serie
+package com.vitor238.popcorn.data.model.tvserie
 
 import android.os.Parcelable
 import com.squareup.moshi.Json
@@ -7,9 +7,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @JsonClass(generateAdapter = true)
-class ProductionCompanies(
+data class Networks(
     val name: String,
     val id: Int,
     @Json(name = "logo_path")
-    val logoPath: String?
+    val logoPath: String
 ) : Parcelable

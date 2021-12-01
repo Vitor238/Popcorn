@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class PopularSerie(
+data class PopularTvSerie(
     val popularity: Double?,
     val id: Int?,
     val name: String?,

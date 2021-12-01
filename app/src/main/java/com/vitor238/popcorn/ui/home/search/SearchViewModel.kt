@@ -4,38 +4,24 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vitor238.popcorn.data.Search
 import com.vitor238.popcorn.data.model.MediaSearch
 import com.vitor238.popcorn.data.repository.TMDBRepository
-import com.vitor238.popcorn.utils.SearchStatus
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchViewModel : ViewModel() {
-    private val tmdbRepository = TMDBRepository()
-    private val _status = MutableLiveData<SearchStatus>()
-    val status: LiveData<SearchStatus>
-        get() = _status
+@HiltViewModel
+class SearchViewModel
+@Inject
+constructor(private val tmdbRepository: TMDBRepository) : ViewModel() {
 
-    private var _searchList = MutableLiveData<List<MediaSearch>>()
-    val searchList: LiveData<List<MediaSearch>>
+    private var _searchList = MutableLiveData<Search<List<MediaSearch>>>()
+    val searchList: LiveData<Search<List<MediaSearch>>>
         get() = _searchList
 
 
-    fun searchMovieOrSeries(query: String) {
-        _status.value = SearchStatus.EMPTY
-        viewModelScope.launch {
-            val result = kotlin.runCatching { tmdbRepository.searchMoviesOrSeries(query) }
-            result.onSuccess { list ->
-
-                _searchList.value = list.filterNot { it.mediaType == "person" }
-                if (list.isEmpty()) {
-                    _status.value = SearchStatus.NO_RESULTS
-                } else {
-                    _status.value = SearchStatus.DONE
-                }
-            }.onFailure {
-                _status.value = SearchStatus.ERROR
-            }
-        }
+    fun searchMovieOrSeries(query: String, includeAdult: Boolean) = viewModelScope.launch {
+        _searchList.postValue(tmdbRepository.searchMoviesOrTvSeries(query, includeAdult))
     }
-
 }

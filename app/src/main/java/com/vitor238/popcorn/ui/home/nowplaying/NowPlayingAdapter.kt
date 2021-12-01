@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.NowPlaying
 import com.vitor238.popcorn.databinding.ItemMovieBinding
-import com.vitor238.popcorn.utils.BaseUrls
+import com.vitor238.popcorn.utils.Constants
 
 class NowPlayingAdapter(private val clickListener: (movie: NowPlaying) -> Unit) :
     ListAdapter<NowPlaying, NowPlayingAdapter.ViewHolder>(NowPlayingDiffUtils()) {
@@ -32,7 +32,7 @@ class NowPlayingAdapter(private val clickListener: (movie: NowPlaying) -> Unit) 
         fun bind(movie: NowPlaying, clickListener: (movie: NowPlaying) -> Unit) {
             textTitle.text = movie.title
             Glide.with(imagePoster.context)
-                .load(BaseUrls.BASE_TMDB_IMG_URL_200 + movie.posterPath)
+                .load(Constants.BASE_TMDB_IMG_URL_200 + movie.posterPath)
                 .placeholder(R.drawable.ic_movie_placeholder)
                 .into(imagePoster)
 

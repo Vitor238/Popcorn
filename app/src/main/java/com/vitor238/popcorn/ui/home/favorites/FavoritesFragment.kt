@@ -9,14 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.vitor238.popcorn.databinding.FragmentFavoritesBinding
 import com.vitor238.popcorn.ui.movieinfo.MovieInfoActivity
-import com.vitor238.popcorn.ui.serieinfo.SerieInfoActivity
+import com.vitor238.popcorn.ui.tvserieinfo.TvSerieInfoActivity
 import com.vitor238.popcorn.ui.viewmodel.FavoritesViewModel
 import com.vitor238.popcorn.ui.viewmodel.FavoritesViewModelFactory
 import com.vitor238.popcorn.ui.viewmodel.LoggedInViewModel
 import com.vitor238.popcorn.ui.viewmodel.LoggedInViewModelFactory
 import com.vitor238.popcorn.ui.welcome.WelcomeActivity
 import com.vitor238.popcorn.utils.ApiStatus
-import com.vitor238.popcorn.utils.MediaTypes
+import com.vitor238.popcorn.utils.Constants.MEDIA_TYPE_TV
 
 class FavoritesFragment : Fragment() {
     private var _binding: FragmentFavoritesBinding? = null
@@ -32,8 +32,8 @@ class FavoritesFragment : Fragment() {
         _binding = FragmentFavoritesBinding.inflate(layoutInflater, container, false)
 
         favoritesAdapter = FavoritesAdapter {
-            if (it.mediaType == MediaTypes.TV) {
-                val intent = SerieInfoActivity.getStartIntent(requireContext(), it.mediaId)
+            if (it.mediaType == MEDIA_TYPE_TV) {
+                val intent = TvSerieInfoActivity.getStartIntent(requireContext(), it.mediaId)
                 startActivity(intent)
             } else {
                 val intent = MovieInfoActivity.getStartIntent(requireContext(), it.mediaId)

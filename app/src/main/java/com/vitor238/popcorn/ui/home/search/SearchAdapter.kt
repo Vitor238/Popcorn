@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.MediaSearch
 import com.vitor238.popcorn.databinding.ItemSearchBinding
-import com.vitor238.popcorn.utils.BaseUrls
+import com.vitor238.popcorn.utils.Constants
 
 class SearchAdapter(private val clickListener: (mediaSearch: MediaSearch) -> Unit) :
     ListAdapter<MediaSearch, SearchAdapter.ViewHolder>(SearchDiffUtils()) {
@@ -33,7 +33,7 @@ class SearchAdapter(private val clickListener: (mediaSearch: MediaSearch) -> Uni
             description.text = mediaSearch.overview
 
             Glide.with(imagePoster.context)
-                .load(BaseUrls.BASE_TMDB_IMG_URL_200 + mediaSearch.posterPath)
+                .load(Constants.BASE_TMDB_IMG_URL_200 + mediaSearch.posterPath)
                 .placeholder(R.drawable.ic_movie_placeholder)
                 .into(imagePoster)
 

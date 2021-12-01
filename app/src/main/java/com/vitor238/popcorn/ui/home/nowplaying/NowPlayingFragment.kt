@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import com.vitor238.popcorn.data.NetworkResult
 import com.vitor238.popcorn.databinding.FragmentNowPlayingBinding
 import com.vitor238.popcorn.ui.movieinfo.MovieInfoActivity
-import com.vitor238.popcorn.utils.ApiStatus
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint()
 class NowPlayingFragment : Fragment() {
 
     private var _binding: FragmentNowPlayingBinding? = null
     private val binding: FragmentNowPlayingBinding
         get() = _binding!!
+    private val nowPlayingViewModel by viewModels<NowPlayingViewModel>()
     private lateinit var nowPlayingAdapter: NowPlayingAdapter
 
     override fun onCreateView(
@@ -32,29 +35,28 @@ class NowPlayingFragment : Fragment() {
         binding.recyclerNowPlaying.setHasFixedSize(true)
         binding.recyclerNowPlaying.adapter = nowPlayingAdapter
 
+        observeViewModels()
+
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    private fun observeViewModels() {
+        nowPlayingViewModel.getMoviesInTheaters()
+        binding.viewFlipper.displayedChild = 0
 
-        val nowPlayingViewModel = ViewModelProvider(this).get(NowPlayingViewModel::class.java)
-        nowPlayingViewModel.moviesInTheaters.observe(viewLifecycleOwner) {
-            nowPlayingAdapter.submitList(it)
-        }
-
-        nowPlayingViewModel.status.observe(viewLifecycleOwner) { status ->
-            status?.let {
-                when (it) {
-                    ApiStatus.LOADING -> binding.viewFlipper.displayedChild = 0
-                    ApiStatus.DONE -> binding.viewFlipper.displayedChild = 1
-                    ApiStatus.ERROR -> binding.viewFlipper.displayedChild = 2
+        nowPlayingViewModel.moviesInTheaters.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is NetworkResult.Success -> {
+                    binding.viewFlipper.displayedChild = 1
+                    nowPlayingAdapter.submitList(result.value)
+                }
+                is NetworkResult.Error -> {
+                    binding.viewFlipper.displayedChild = 2
                 }
             }
 
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

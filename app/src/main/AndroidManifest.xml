@@ -26,7 +26,7 @@
             android:name=".ui.movieinfo.MovieInfoActivity"
             android:theme="@style/Theme.Popcorn.TranslucentStatus" />
         <activity
-            android:name=".ui.serieinfo.SerieInfoActivity"
+            android:name=".ui.tvserieinfo.TvSerieInfoActivity"
             android:theme="@style/Theme.Popcorn.TranslucentStatus" />
         <activity android:name=".ui.preferences.about.AboutActivity" />
         <activity android:name=".ui.preferences.profile.EditProfileActivity" />

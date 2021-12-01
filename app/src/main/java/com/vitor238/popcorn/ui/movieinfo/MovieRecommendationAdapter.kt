@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.vitor238.popcorn.data.model.MovieRecommendation
 import com.vitor238.popcorn.databinding.ItemMovieBinding
-import com.vitor238.popcorn.utils.BaseUrls
+import com.vitor238.popcorn.utils.Constants
 
 class MovieRecommendationAdapter(private val clickListener: (movie: MovieRecommendation) -> Unit) :
     ListAdapter<MovieRecommendation, MovieRecommendationAdapter.ViewHolder>(RecommendationDiffUtils()) {
@@ -31,7 +31,7 @@ class MovieRecommendationAdapter(private val clickListener: (movie: MovieRecomme
         fun bind(movie: MovieRecommendation, clickListener: (movie: MovieRecommendation) -> Unit) {
             textTitle.text = movie.title
             Glide.with(imagePoster.context)
-                .load(BaseUrls.BASE_TMDB_IMG_URL_200 + movie.posterPath)
+                .load(Constants.BASE_TMDB_IMG_URL_200 + movie.posterPath)
                 .into(imagePoster)
 
             binding.root.setOnClickListener {

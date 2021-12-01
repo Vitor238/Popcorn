@@ -15,7 +15,9 @@ import com.vitor238.popcorn.R
 import com.vitor238.popcorn.databinding.ActivityEditProfileBinding
 import com.vitor238.popcorn.ui.base.BaseActivity
 import com.vitor238.popcorn.ui.viewmodel.ProfileViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EditProfileActivity : BaseActivity() {
 
     private lateinit var profileViewModel: ProfileViewModel

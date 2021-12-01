@@ -1,34 +1,38 @@
 package com.vitor238.popcorn.ui.home.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import com.vitor238.popcorn.data.NetworkResult
 import com.vitor238.popcorn.databinding.FragmentHomeBinding
 import com.vitor238.popcorn.ui.home.home.movies.PopularMoviesAdapter
 import com.vitor238.popcorn.ui.home.home.movies.PopularMoviesViewModel
-import com.vitor238.popcorn.ui.home.home.series.PopularSeriesAdapter
-import com.vitor238.popcorn.ui.home.home.series.PopularSeriesViewModel
+import com.vitor238.popcorn.ui.home.home.series.PopularTvSeriesAdapter
+import com.vitor238.popcorn.ui.home.home.series.PopularTvSeriesViewModel
 import com.vitor238.popcorn.ui.home.home.trends.TrendsAdapter
 import com.vitor238.popcorn.ui.home.home.trends.TrendsViewModel
 import com.vitor238.popcorn.ui.movieinfo.MovieInfoActivity
-import com.vitor238.popcorn.ui.serieinfo.SerieInfoActivity
-import com.vitor238.popcorn.utils.ApiStatus
-import com.vitor238.popcorn.utils.MediaTypes
+import com.vitor238.popcorn.ui.tvserieinfo.TvSerieInfoActivity
+import com.vitor238.popcorn.utils.Constants.MEDIA_TYPE_ALL
+import com.vitor238.popcorn.utils.Constants.MEDIA_TYPE_MOVIE
+import com.vitor238.popcorn.utils.Constants.MEDIA_TYPE_TV
+import com.vitor238.popcorn.utils.Constants.TIME_WINDOW_WEEK
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint()
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var trendsAdapter: TrendsAdapter
-    private lateinit var trendsViewModel: TrendsViewModel
-    private lateinit var popularSeriesViewModel: PopularSeriesViewModel
-    private lateinit var popularSeriesAdapter: PopularSeriesAdapter
-    private lateinit var popularMovieViewModel: PopularMoviesViewModel
+    private val popularTvSeriesViewModel by viewModels<PopularTvSeriesViewModel>()
+    private val popularMovieViewModel by viewModels<PopularMoviesViewModel>()
+    private val trendsViewModel by viewModels<TrendsViewModel>()
+    private lateinit var popularTvSeriesAdapter: PopularTvSeriesAdapter
     private lateinit var popularMoviesAdapter: PopularMoviesAdapter
+    private lateinit var trendsAdapter: TrendsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,24 +40,83 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        setTrendsRecyclerView()
+        setPopularTvSeriesRecyclerView()
+        observeViewModels()
+        setPopularMoviesRecyclerView()
+        return binding.root
+    }
+
+    private fun observeViewModels() {
+        binding.viewFlipperTrends.displayedChild = 0
+        trendsViewModel.getTrends(MEDIA_TYPE_ALL, TIME_WINDOW_WEEK)
+
+        trendsViewModel.trends.observe(viewLifecycleOwner) { trends ->
+            when (trends) {
+                is NetworkResult.Success -> {
+                    binding.viewFlipperTrends.displayedChild = 1
+                    trendsAdapter.submitList(trends.value)
+                }
+                is NetworkResult.Error -> {
+                    binding.viewFlipperTrends.displayedChild = 2
+                }
+            }
+        }
+
+        binding.viewFlipperTvSeries.displayedChild = 0
+        popularTvSeriesViewModel.getPopularTVSeries()
+
+        popularTvSeriesViewModel.popularTvSeries.observe(viewLifecycleOwner) { popularSeries ->
+            when (popularSeries) {
+                is NetworkResult.Success -> {
+                    popularTvSeriesAdapter.submitList(popularSeries.value)
+                    binding.viewFlipperTvSeries.displayedChild = 1
+                }
+                is NetworkResult.Error -> {
+                    binding.viewFlipperTvSeries.displayedChild = 2
+                }
+            }
+        }
+
+        binding.viewFlipperMovies.displayedChild = 0
+        popularMovieViewModel.getPopularMovies()
+
+        popularMovieViewModel.popularMovies.observe(viewLifecycleOwner) { popularMovies ->
+            when (popularMovies) {
+                is NetworkResult.Success -> {
+                    binding.viewFlipperMovies.displayedChild = 1
+                    popularMoviesAdapter.submitList(popularMovies.value)
+                }
+                is NetworkResult.Error -> {
+                    binding.viewFlipperMovies.displayedChild = 2
+                }
+            }
+        }
+    }
+
+    private fun setTrendsRecyclerView() {
         trendsAdapter = TrendsAdapter { trend ->
-            if (trend.mediaType == MediaTypes.TV) {
+            if (trend.mediaType == MEDIA_TYPE_TV) {
                 openSeriesInfo(trend.id)
-            } else if (trend.mediaType == MediaTypes.MOVIE) {
+            } else if (trend.mediaType == MEDIA_TYPE_MOVIE) {
                 openMovieInfo(trend.id)
             }
         }
         binding.recyclerTrends.setHasFixedSize(true)
         binding.recyclerTrends.adapter = trendsAdapter
+    }
 
-        popularSeriesAdapter = PopularSeriesAdapter { serie ->
+    private fun setPopularTvSeriesRecyclerView() {
+        popularTvSeriesAdapter = PopularTvSeriesAdapter { serie ->
             serie.id?.let {
                 openSeriesInfo(it)
             }
         }
         binding.recyclerTvSeries.setHasFixedSize(true)
-        binding.recyclerTvSeries.adapter = popularSeriesAdapter
+        binding.recyclerTvSeries.adapter = popularTvSeriesAdapter
+    }
 
+    private fun setPopularMoviesRecyclerView() {
         popularMoviesAdapter = PopularMoviesAdapter { movie ->
             movie.id?.let {
                 openMovieInfo(it)
@@ -62,58 +125,10 @@ class HomeFragment : Fragment() {
         }
         binding.recyclerMovies.setHasFixedSize(true)
         binding.recyclerMovies.adapter = popularMoviesAdapter
-        setupViewModels()
-        return binding.root
-    }
-
-    private fun setupViewModels() {
-        trendsViewModel = ViewModelProvider(this).get(TrendsViewModel::class.java)
-        trendsViewModel.trends.observe(viewLifecycleOwner) { trends ->
-            trendsAdapter.submitList(trends)
-        }
-        trendsViewModel.status.observe(viewLifecycleOwner) { status ->
-            status?.let {
-                when (it) {
-                    ApiStatus.LOADING -> binding.viewFlipperTrends.displayedChild = 0
-                    ApiStatus.DONE -> binding.viewFlipperTrends.displayedChild = 1
-                    ApiStatus.ERROR -> binding.viewFlipperTrends.displayedChild = 2
-                }
-            }
-        }
-
-        popularSeriesViewModel = ViewModelProvider(this).get(PopularSeriesViewModel::class.java)
-        popularSeriesViewModel.popularTVSeries.observe(viewLifecycleOwner) { popularSeries ->
-            popularSeriesAdapter.submitList(popularSeries)
-        }
-        popularSeriesViewModel.status.observe(viewLifecycleOwner) { status ->
-            status?.let {
-                when (it) {
-                    ApiStatus.LOADING -> binding.viewFlipperSeries.displayedChild = 0
-                    ApiStatus.DONE -> binding.viewFlipperSeries.displayedChild = 1
-                    ApiStatus.ERROR -> binding.viewFlipperSeries.displayedChild = 2
-                }
-            }
-        }
-
-        popularMovieViewModel = ViewModelProvider(this).get(PopularMoviesViewModel::class.java)
-        popularMovieViewModel.popularMovies.observe(viewLifecycleOwner) { popularMovies ->
-            popularMoviesAdapter.submitList(popularMovies)
-            Log.i(TAG, "onActivityCreated: $popularMovies")
-        }
-
-        popularMovieViewModel.status.observe(viewLifecycleOwner) { status ->
-            status?.let {
-                when (it) {
-                    ApiStatus.LOADING -> binding.viewFlipperMovies.displayedChild = 0
-                    ApiStatus.DONE -> binding.viewFlipperMovies.displayedChild = 1
-                    ApiStatus.ERROR -> binding.viewFlipperMovies.displayedChild = 2
-                }
-            }
-        }
     }
 
     private fun openSeriesInfo(id: Int) {
-        val intent = SerieInfoActivity.getStartIntent(requireActivity(), id)
+        val intent = TvSerieInfoActivity.getStartIntent(requireActivity(), id)
         startActivity(intent)
     }
 
@@ -129,6 +144,5 @@ class HomeFragment : Fragment() {
 
     companion object {
         fun newInstance() = HomeFragment()
-        private val TAG = HomeFragment::class.simpleName
     }
 }

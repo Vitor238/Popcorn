@@ -1,16 +1,16 @@
 package com.vitor238.popcorn.data.api
 
-import com.vitor238.popcorn.data.model.movie.Movie
+import com.vitor238.popcorn.data.model.tvserie.TvSerie
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface MovieService {
+interface TvSeriesService {
 
-    @GET("movie/{movie_id}")
-    suspend fun getMovieInfo(
-        @Path("movie_id") movieId: Int,
+    @GET("tv/{tv_id}")
+    suspend fun getTvSerieInfo(
+        @Path("tv_id") tvId: Int,
         @Query("api_key") apiKey: String,
         @Query("language") language: String
-    ): Movie
+    ): TvSerie
 }

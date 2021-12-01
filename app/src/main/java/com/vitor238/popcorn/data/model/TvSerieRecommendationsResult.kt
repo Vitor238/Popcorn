@@ -4,9 +4,9 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class SerieRecommendationsResult(
+data class TvSerieRecommendationsResult(
     val page: Int,
-    val results: List<SerieRecommendation>,
+    val results: List<TvSerieRecommendation>,
     @Json(name = "total_pages")
     val totalPages: Int,
 )

@@ -12,7 +12,7 @@ import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.Favorite
 import com.vitor238.popcorn.databinding.ItemMovieBinding
 import com.vitor238.popcorn.ui.home.home.trends.TrendsAdapter
-import com.vitor238.popcorn.utils.BaseUrls
+import com.vitor238.popcorn.utils.Constants
 
 class FavoritesAdapter(private val clickListener: (favorite: Favorite) -> Unit) :
     ListAdapter<Favorite, FavoritesAdapter.ViewHolder>(FavoritesDiffUtils()) {
@@ -36,7 +36,7 @@ class FavoritesAdapter(private val clickListener: (favorite: Favorite) -> Unit) 
             textTitle.text = favorite.title
 
             Glide.with(imagePoster.context)
-                .load(BaseUrls.BASE_TMDB_IMG_URL_200 + favorite.posterPath)
+                .load(Constants.BASE_TMDB_IMG_URL_200 + favorite.posterPath)
                 .placeholder(R.drawable.ic_movie_placeholder)
                 .into(imagePoster)
 

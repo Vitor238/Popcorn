@@ -10,11 +10,13 @@ import androidx.fragment.app.Fragment
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.movie.Movie
 import com.vitor238.popcorn.databinding.FragmentMovieDetailsBinding
-import com.vitor238.popcorn.utils.LocaleUtils
+import com.vitor238.popcorn.utils.DateUtils
 import com.vitor238.popcorn.utils.setTextOrHide
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val MOVIE = "movie"
 
+@AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {
     private var movie: Movie? = null
     private var _binding: FragmentMovieDetailsBinding? = null
@@ -50,7 +52,7 @@ class MovieDetailsFragment : Fragment() {
         )
         binding.textReleaseDate.setTextOrHide(
             R.string.release_date,
-            LocaleUtils.parseDate(movie?.releaseDate)
+            DateUtils.parseDate(movie?.releaseDate)
         )
 
         binding.textHomepage.setOnClickListener {

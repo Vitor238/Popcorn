@@ -16,7 +16,9 @@ import com.vitor238.popcorn.ui.preferences.profile.EditProfileActivity
 import com.vitor238.popcorn.ui.viewmodel.LoggedInViewModel
 import com.vitor238.popcorn.ui.viewmodel.LoggedInViewModelFactory
 import com.vitor238.popcorn.ui.welcome.WelcomeActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainPreferences : PreferenceFragmentCompat() {
 
     private val prefLogout by lazy { findPreference<Preference>("pref_logout") }

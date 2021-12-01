@@ -1,4 +1,4 @@
-package com.vitor238.popcorn.ui.serieinfo
+package com.vitor238.popcorn.ui.tvserieinfo
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,18 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.vitor238.popcorn.R
-import com.vitor238.popcorn.data.model.serie.Serie
-import com.vitor238.popcorn.databinding.FragmentSerieDetailsBinding
-import com.vitor238.popcorn.utils.LocaleUtils
+import com.vitor238.popcorn.data.model.tvserie.TvSerie
+import com.vitor238.popcorn.databinding.FragmentTvSerieDetailsBinding
+import com.vitor238.popcorn.utils.DateUtils
 import com.vitor238.popcorn.utils.setTextOrHide
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val SERIE = "serie"
 
-class SerieDetailsFragment : Fragment() {
+@AndroidEntryPoint
+class TvSerieDetailsFragment : Fragment() {
 
-    private var serie: Serie? = null
-    private var _binding: FragmentSerieDetailsBinding? = null
-    private val binding: FragmentSerieDetailsBinding
+    private var serie: TvSerie? = null
+    private var _binding: FragmentTvSerieDetailsBinding? = null
+    private val binding: FragmentTvSerieDetailsBinding
         get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +34,7 @@ class SerieDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentSerieDetailsBinding.inflate(layoutInflater)
+        _binding = FragmentTvSerieDetailsBinding.inflate(layoutInflater)
 
         binding.textOverview.setTextOrHide(R.string.overview, serie?.overview)
         binding.textOriginalName.setTextOrHide(R.string.original_name, serie?.originalName)
@@ -41,11 +43,11 @@ class SerieDetailsFragment : Fragment() {
         binding.textInProduction.setTextOrHide(R.string.in_production, getInProduction())
         binding.textFirstAirDate.setTextOrHide(
             R.string.first_air_date,
-            LocaleUtils.parseDate(serie?.firstAirDate)
+            DateUtils.parseDate(serie?.firstAirDate)
         )
         binding.textLastAirDate.setTextOrHide(
             R.string.last_air_date,
-            LocaleUtils.parseDate(serie?.lastAirDate)
+            DateUtils.parseDate(serie?.lastAirDate)
         )
         binding.textNetworks.setTextOrHide(R.string.networks, getNetworks())
         binding.textNumberOfEpisodes.setTextOrHide(
@@ -140,8 +142,8 @@ class SerieDetailsFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(serie: Serie) =
-            SerieDetailsFragment().apply {
+        fun newInstance(serie: TvSerie) =
+            TvSerieDetailsFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(SERIE, serie)
                 }

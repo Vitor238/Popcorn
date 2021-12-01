@@ -9,7 +9,9 @@ import com.vitor238.popcorn.databinding.ActivitySettingsBinding
 import com.vitor238.popcorn.ui.base.BaseActivity
 import com.vitor238.popcorn.ui.viewmodel.ProfileViewModel
 import com.vitor238.popcorn.utils.setTextOrHide
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint()
 class SettingsActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySettingsBinding

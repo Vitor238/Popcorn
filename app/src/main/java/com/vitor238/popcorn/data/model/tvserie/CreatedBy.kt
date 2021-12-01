@@ -1,4 +1,4 @@
-package com.vitor238.popcorn.data.model.serie
+package com.vitor238.popcorn.data.model.tvserie
 
 import android.os.Parcelable
 import com.squareup.moshi.JsonClass

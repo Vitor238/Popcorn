@@ -4,14 +4,7 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-object LocaleUtils {
-    fun getLanguage(): String {
-        return Locale.getDefault().toLanguageTag()
-    }
-
-    fun getCountry(): String {
-        return Locale.getDefault().country
-    }
+object DateUtils {
 
     fun parseDate(date: String?): String {
         val tmdbPattern = "yyyy-MM-dd"

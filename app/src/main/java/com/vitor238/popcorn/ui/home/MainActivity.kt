@@ -17,8 +17,11 @@ import com.vitor238.popcorn.databinding.ActivityMainBinding
 import com.vitor238.popcorn.ui.base.BaseActivity
 import com.vitor238.popcorn.ui.preferences.main.SettingsActivity
 import com.vitor238.popcorn.ui.viewmodel.ProfileViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
+
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +35,7 @@ class MainActivity : BaseActivity() {
         binding.bottomNavigation.setupWithNavController(navController)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
     }

@@ -6,15 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import com.vitor238.popcorn.data.NetworkResult
 import com.vitor238.popcorn.databinding.FragmentMovieRecommendationsBinding
-import com.vitor238.popcorn.utils.ApiStatus
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val MOVIE_ID = "movieId"
 
+@AndroidEntryPoint()
 class MovieRecommendationsFragment : Fragment() {
     private var movieId: Int? = null
     private lateinit var movieRecommendationAdapter: MovieRecommendationAdapter
+    private val movieRecommendationViewModel by viewModels<MovieRecommendationViewModel>()
     private var _binding: FragmentMovieRecommendationsBinding? = null
     private val binding: FragmentMovieRecommendationsBinding
         get() = _binding!!
@@ -41,29 +44,22 @@ class MovieRecommendationsFragment : Fragment() {
 
         binding.content.recyclerRecommendations.setHasFixedSize(true)
         binding.content.recyclerRecommendations.adapter = movieRecommendationAdapter
-
+        observeViewModels()
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        val movieRecommendationViewModel = ViewModelProvider(this)
-            .get(MovieRecommendationViewModel::class.java)
-
+    private fun observeViewModels() {
         movieId?.let { id ->
             movieRecommendationViewModel.getRecommendations(id)
-
-            movieRecommendationViewModel.movieRecommendation.observe(viewLifecycleOwner) { recommendations ->
-                movieRecommendationAdapter.submitList(recommendations)
-            }
-
-            movieRecommendationViewModel.status.observe(viewLifecycleOwner) { status ->
-                status?.let {
-                    when (it) {
-                        ApiStatus.LOADING -> binding.content.viewFlipper.displayedChild = 0
-                        ApiStatus.DONE -> binding.content.viewFlipper.displayedChild = 1
-                        ApiStatus.ERROR -> binding.content.viewFlipper.displayedChild = 2
+            binding.content.viewFlipper.displayedChild = 0
+            movieRecommendationViewModel.movieRecommendation.observe(viewLifecycleOwner) { networkReuslt ->
+                when (networkReuslt) {
+                    is NetworkResult.Success -> {
+                        movieRecommendationAdapter.submitList(networkReuslt.value)
+                        binding.content.viewFlipper.displayedChild = 1
+                    }
+                    is NetworkResult.Error -> {
+                        binding.content.viewFlipper.displayedChild = 2
                     }
                 }
             }

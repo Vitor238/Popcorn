@@ -7,6 +7,6 @@
 
     <include
         android:id="@+id/content"
-        layout="@layout/fragment_serie_recommendations" />
+        layout="@layout/fragment_tv_serie_recommendations" />
 
 </FrameLayout>

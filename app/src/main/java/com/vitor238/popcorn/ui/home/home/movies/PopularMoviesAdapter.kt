@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.PopularMovie
 import com.vitor238.popcorn.databinding.ItemMovieBinding
-import com.vitor238.popcorn.utils.BaseUrls
+import com.vitor238.popcorn.utils.Constants
 
 class PopularMoviesAdapter(private val clickListener: (popularMovie: PopularMovie) -> Unit) :
     ListAdapter<PopularMovie, PopularMoviesAdapter.ViewHolder>(PopularMovieDiffUtils()) {
@@ -32,7 +32,7 @@ class PopularMoviesAdapter(private val clickListener: (popularMovie: PopularMovi
         fun bind(popularMovie: PopularMovie, clickListener: (popularMovie: PopularMovie) -> Unit) {
             textTitle.text = popularMovie.title
             Glide.with(imagePoster.context)
-                .load(BaseUrls.BASE_TMDB_IMG_URL_200 + popularMovie.posterPath)
+                .load(Constants.BASE_TMDB_IMG_URL_200 + popularMovie.posterPath)
                 .placeholder(R.drawable.ic_movie_placeholder)
                 .into(imagePoster)
             binding.root.setOnClickListener {

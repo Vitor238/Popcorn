@@ -1,4 +1,4 @@
-package com.vitor238.popcorn.ui.serieinfo
+package com.vitor238.popcorn.ui.home.home.series
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.vitor238.popcorn.data.model.SerieRecommendation
+import com.vitor238.popcorn.R
+import com.vitor238.popcorn.data.model.PopularTvSerie
 import com.vitor238.popcorn.databinding.ItemMovieBinding
-import com.vitor238.popcorn.utils.BaseUrls
+import com.vitor238.popcorn.utils.Constants
 
-class SerieRecommendationAdapter(private val clickListener: (serie: SerieRecommendation) -> Unit) :
-    ListAdapter<SerieRecommendation, SerieRecommendationAdapter.ViewHolder>(RecommendationDiffUtils()) {
+class PopularTvSeriesAdapter(private val clickListener: (popularTvSerie: PopularTvSerie) -> Unit) :
+    ListAdapter<PopularTvSerie, PopularTvSeriesAdapter.ViewHolder>(PopularSeriesDiffUtils()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -24,18 +25,21 @@ class SerieRecommendationAdapter(private val clickListener: (serie: SerieRecomme
     }
 
     class ViewHolder(val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
-
         private val imagePoster: ImageView = binding.imageMoviePoster
         private val textTitle: TextView = binding.textMovieTitle
 
-        fun bind(serie: SerieRecommendation, clickListener: (serie: SerieRecommendation) -> Unit) {
-            textTitle.text = serie.name
+        fun bind(
+            popularTvSerie: PopularTvSerie,
+            clickListener: (popularTvSerie: PopularTvSerie) -> Unit
+        ) {
+            textTitle.text = popularTvSerie.name
             Glide.with(imagePoster.context)
-                .load(BaseUrls.BASE_TMDB_IMG_URL_200 + serie.posterPath)
+                .load(Constants.BASE_TMDB_IMG_URL_200 + popularTvSerie.posterPath)
+                .placeholder(R.drawable.ic_movie_placeholder)
                 .into(imagePoster)
 
             binding.root.setOnClickListener {
-                clickListener.invoke(serie)
+                clickListener.invoke(popularTvSerie)
             }
         }
 
@@ -48,24 +52,15 @@ class SerieRecommendationAdapter(private val clickListener: (serie: SerieRecomme
                 return ViewHolder(binding)
             }
         }
-
     }
 
-    class RecommendationDiffUtils : DiffUtil.ItemCallback<SerieRecommendation>() {
-        override fun areItemsTheSame(
-            oldItem: SerieRecommendation,
-            newItem: SerieRecommendation
-        ): Boolean {
+    class PopularSeriesDiffUtils : DiffUtil.ItemCallback<PopularTvSerie>() {
+        override fun areItemsTheSame(oldItem: PopularTvSerie, newItem: PopularTvSerie): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(
-            oldItem: SerieRecommendation,
-            newItem: SerieRecommendation
-        ): Boolean {
+        override fun areContentsTheSame(oldItem: PopularTvSerie, newItem: PopularTvSerie): Boolean {
             return oldItem == newItem
         }
-
     }
-
 }

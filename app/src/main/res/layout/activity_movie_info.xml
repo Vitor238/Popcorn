@@ -5,6 +5,6 @@
 
     <include
         android:id="@+id/content"
-        layout="@layout/activity_serie_info" />
+        layout="@layout/activity_tv_serie_info" />
 
 </FrameLayout>

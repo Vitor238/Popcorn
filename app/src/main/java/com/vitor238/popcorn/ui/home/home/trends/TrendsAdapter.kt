@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.vitor238.popcorn.R
 import com.vitor238.popcorn.data.model.Trend
 import com.vitor238.popcorn.databinding.ItemMovieBinding
-import com.vitor238.popcorn.utils.BaseUrls.BASE_TMDB_IMG_URL_200
+import com.vitor238.popcorn.utils.Constants.BASE_TMDB_IMG_URL_200
 
 class TrendsAdapter(private val clickListener: (trend: Trend) -> Unit) :
     ListAdapter<Trend, TrendsAdapter.ViewHolder>(TrendsDiffUtils()) {
@@ -61,9 +61,5 @@ class TrendsAdapter(private val clickListener: (trend: Trend) -> Unit) :
         override fun areContentsTheSame(oldItem: Trend, newItem: Trend): Boolean {
             return oldItem == newItem
         }
-    }
-
-    companion object {
-        val TAG = TrendsAdapter::class.simpleName
     }
 }

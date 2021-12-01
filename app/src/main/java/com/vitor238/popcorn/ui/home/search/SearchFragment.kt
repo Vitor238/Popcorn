@@ -7,20 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import com.vitor238.popcorn.data.Search
 import com.vitor238.popcorn.databinding.FragmentSearchBinding
 import com.vitor238.popcorn.ui.home.MainActivity
 import com.vitor238.popcorn.ui.movieinfo.MovieInfoActivity
-import com.vitor238.popcorn.ui.serieinfo.SerieInfoActivity
-import com.vitor238.popcorn.utils.MediaTypes
-import com.vitor238.popcorn.utils.SearchStatus
+import com.vitor238.popcorn.ui.tvserieinfo.TvSerieInfoActivity
+import com.vitor238.popcorn.utils.Constants.MEDIA_TYPE_MOVIE
+import com.vitor238.popcorn.utils.Constants.MEDIA_TYPE_TV
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint()
 class SearchFragment : Fragment() {
+
     private var _binding: FragmentSearchBinding? = null
     private val binding: FragmentSearchBinding
         get() = _binding!!
     private lateinit var searchAdapter: SearchAdapter
-    private val searchViewModel by lazy { ViewModelProvider(this).get(SearchViewModel::class.java) }
+    private val searchViewModel by viewModels<SearchViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,10 +34,10 @@ class SearchFragment : Fragment() {
         _binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
 
         searchAdapter = SearchAdapter {
-            if (it.mediaType == MediaTypes.TV) {
-                val intent = SerieInfoActivity.getStartIntent(requireActivity(), it.id)
+            if (it.mediaType == MEDIA_TYPE_TV) {
+                val intent = TvSerieInfoActivity.getStartIntent(requireActivity(), it.id)
                 startActivity(intent)
-            } else if (it.mediaType == MediaTypes.MOVIE) {
+            } else if (it.mediaType == MEDIA_TYPE_MOVIE) {
                 val intent = MovieInfoActivity.getStartIntent(requireActivity(), it.id)
                 startActivity(intent)
             }
@@ -41,11 +45,13 @@ class SearchFragment : Fragment() {
 
         binding.recyclerSearch.setHasFixedSize(true)
         binding.recyclerSearch.adapter = searchAdapter
-
+        binding.viewFlipper.displayedChild = 0
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let {
-                    searchViewModel.searchMovieOrSeries(it)
+                if (query.isNullOrBlank()) {
+                    binding.viewFlipper.displayedChild = 0
+                } else {
+                    searchViewModel.searchMovieOrSeries(query, false)
                 }
                 binding.searchView.clearFocus()
                 return true
@@ -56,29 +62,27 @@ class SearchFragment : Fragment() {
             }
         })
 
+        observeViewModel()
+
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        searchViewModel.status.observe(viewLifecycleOwner) { status ->
-
-            if (status == null || status == SearchStatus.EMPTY) {
-                binding.viewFlipper.displayedChild = 0
-            } else if (status == SearchStatus.NO_RESULTS) {
-                binding.viewFlipper.displayedChild = 1
-            } else if (status == SearchStatus.DONE) {
-                binding.viewFlipper.displayedChild = 2
-            } else if (status == SearchStatus.ERROR) {
-                binding.viewFlipper.displayedChild = 3
+    private fun observeViewModel() {
+        searchViewModel.searchList.observe(viewLifecycleOwner) { search ->
+            when (search) {
+                is Search.NoResults -> {
+                    binding.viewFlipper.displayedChild = 1
+                    searchAdapter.submitList(null)
+                }
+                is Search.Success -> {
+                    binding.viewFlipper.displayedChild = 2
+                    searchAdapter.submitList(search.value)
+                }
+                is Search.Error -> {
+                    binding.viewFlipper.displayedChild = 3
+                }
             }
         }
-
-        searchViewModel.searchList.observe(viewLifecycleOwner) {
-            searchAdapter.submitList(it)
-        }
-
     }
 
     override fun onResume() {
