@@ -107,4 +107,9 @@ dependencies {
     //Hilt
     implementation "com.google.dagger:hilt-android:2.38.1"
     kapt "com.google.dagger:hilt-compiler:2.38.1"
+
+    // Actvity and Fragment KTX
+    def ktx_version = "1.4.0"
+    implementation "androidx.activity:activity-ktx:$ktx_version"
+    implementation "androidx.fragment:fragment-ktx:$ktx_version"
 }
