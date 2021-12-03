@@ -10,4 +10,9 @@ object Constants {
     const val API_DI = "api"
     const val LANGUAGE_DI = "language"
     const val COUNTRY_DI = "country"
+    const val USER_UID_DI = "country"
+    const val COLLECTION_PATH_USERS = "users"
+    const val COLLECTION_PATH_FAVORITES = "favorites"
+    const val STORAGE_PATH_USERS = "users"
+    const val STORAGE_PATH_PROFILE = "profile"
 }

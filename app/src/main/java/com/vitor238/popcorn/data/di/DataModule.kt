@@ -1,9 +1,19 @@
 package com.vitor238.popcorn.data.di
 
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.vitor238.popcorn.BuildConfig
 import com.vitor238.popcorn.data.api.*
 import com.vitor238.popcorn.utils.Constants
 import com.vitor238.popcorn.utils.Constants.BASE_TMDB_URL
+import com.vitor238.popcorn.utils.Constants.COLLECTION_PATH_FAVORITES
+import com.vitor238.popcorn.utils.Constants.COLLECTION_PATH_USERS
+import com.vitor238.popcorn.utils.Constants.STORAGE_PATH_PROFILE
+import com.vitor238.popcorn.utils.Constants.STORAGE_PATH_USERS
+import com.vitor238.popcorn.utils.Constants.USER_UID_DI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -96,8 +106,42 @@ object DataModule {
 
     @Named(Constants.COUNTRY_DI)
     @Provides
-
     fun provideCountry(): String {
         return Locale.getDefault().country
     }
+
+    @Provides
+    @Singleton
+    fun provideFirebaseFirestore() = FirebaseFirestore.getInstance()
+
+    @Provides
+    @Singleton
+    fun provideFirebaseStorage() = FirebaseStorage.getInstance().reference
+
+    @Provides
+    @Singleton
+    fun provideFirebaseAuth() = FirebaseAuth.getInstance()
+
+    @Provides
+    fun provideCurrentFirebaseUser(firebaseAuth: FirebaseAuth) = firebaseAuth.currentUser
+
+    @Provides
+    @Named(USER_UID_DI)
+    fun provideCurrentFirebaseUserUid(firebaseUser: FirebaseUser): String = firebaseUser.uid
+
+    @Provides
+    fun provideFirestoreUserRef(currentUserUid: String, firebaseFirestore: FirebaseFirestore) =
+        firebaseFirestore.collection(COLLECTION_PATH_USERS)
+            .document(currentUserUid)
+
+    @Provides
+    fun provideFavoritesRef(currentUserUid: String, firebaseFirestore: FirebaseFirestore) =
+        firebaseFirestore.collection(COLLECTION_PATH_USERS)
+            .document(currentUserUid).collection(COLLECTION_PATH_FAVORITES)
+
+    @Provides
+    fun provideProfileStorageRef(currentUserUid: String, storageReference: StorageReference) =
+        storageReference.child(STORAGE_PATH_USERS)
+            .child(currentUserUid)
+            .child(STORAGE_PATH_PROFILE)
 }
